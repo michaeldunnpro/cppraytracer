@@ -4,7 +4,6 @@
 class Point { // Point definition
     public:
         Point();
-    private: 
         int const x;
         int const y; 
         int const z;
@@ -14,7 +13,6 @@ class Point { // Point definition
 class Vector : public Point {
     public:
         Vector();
-    private:
         int const x;
         int const y;
         int const z;
