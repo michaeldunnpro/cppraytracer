@@ -3,19 +3,17 @@
 
 class Point { // Point definition
     public:
-        Point();
-        int const x;
-        int const y; 
-        int const z;
-
+        Point(float const x, float const y, float const z);
+        float const x;
+        float const y; 
+        float const z;
 };
 
-class Vector : public Point {
+class Vector { // Vector definition
     public:
-        Vector();
-        int const x;
-        int const y;
-        int const z;
-        
+        Vector(float const x, float const y, float const z);
+        float const x;
+        float const y;
+        float const z;
 };
 
