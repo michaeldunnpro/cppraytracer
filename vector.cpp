@@ -120,6 +120,11 @@ Point operator+(const Point& point, const Vector& vec) {
     return Point(point.x + vec.x, point.y + vec.y, point.z + vec.z);
 }
 
+Point operator+(const Vector& vec, const Point& point) {
+    // Define point translation by a vector (commutative)
+    return Point(point.x + vec.x, point.y + vec.y, point.z + vec.z);
+}
+
 Point operator-(const Point& point, const Vector& vec) {
     // Define point translation by negative vector
     return Point(point.x - vec.x, point.y - vec.y, point.z - vec.z);
