@@ -131,8 +131,8 @@ bool operator==(const Point& lhs, const Point& rhs) {
 }
 
 #ifdef debug_vector_cpp
-#include <iostream>
 #include <cassert>
+#include <iostream>
 int main() {
     // Simple test cases can be added here if needed
     Vector v1 = Vector(1.0f, 2.0f, 3.0f);
