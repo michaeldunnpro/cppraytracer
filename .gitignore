@@ -46,3 +46,7 @@
 
 # VSCode
 .vscode/*
+
+# Packaging files
+*.dSYM.zip
+*.dSYM

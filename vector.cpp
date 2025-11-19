@@ -128,3 +128,36 @@ bool operator==(const Point& lhs, const Point& rhs) {
     // Define equality check between two points
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
+
+#ifdef debug_vector_cpp
+#include <iostream>
+#include <cassert>
+int main() {
+    // Simple test cases can be added here if needed
+    Vector v1 = Vector(1.0f, 2.0f, 3.0f);
+    Vector v2 = Vector(4.0f, 5.0f, 6.0f);
+    Vector v3 = v1 + v2;
+    assert(v3 == Vector(5.0f, 7.0f, 9.0f)); 
+    Vector v4 = v2 - v1;
+    assert(v4 == Vector(3.0f, 3.0f, 3.0f));
+    Vector v5 = v1 * 2.0f;
+    assert(v5 == Vector(2.0f, 4.0f, 6.0f));
+    Vector v6 = 2.0f * v1;
+    assert(v6 == Vector(2.0f, 4.0f, 6.0f));
+    Vector v7 = v2 / 2.0f;
+    assert(v7 == Vector(2.0f, 2.5f, 3.0f));
+    Vector v8 = v1 ^ v2;
+    assert(v8 == Vector(-3.0f, 6.0f, -3.0f));
+    float dot = v1 * v2;
+    assert(dot == 32.0f);
+    float mag = ~v1;
+    assert(std::abs(mag - 3.74166f) < 0.0001f);
+    Vector v9 = -v1;
+    assert(v9 == Vector(-1.0f, -2.0f, -3.0f));
+    Vector v10 = !v1;
+    mag = ~v10;
+    assert(std::abs(mag - 1.0f) < 0.0001f);
+    std::cout << "Vector and Point classes compiled successfully." << std::endl;
+    return 0;
+}
+#endif
