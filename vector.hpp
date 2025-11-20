@@ -28,6 +28,11 @@ Vector operator-(const Vector& vec);                      // Negation
 Vector operator!(const Vector& vec);                      // Normalization
 bool operator==(const Vector& lhs, const Vector& rhs);    // Equality
 
+// Scalar actions on Vectors
+Vector operator*(const Vector& vec, float scalar); // Scalar right-multiplication
+Vector operator*(float scalar, const Vector& vec); // Scalar left-multiplication
+Vector operator/(const Vector& vec, float scalar);  // Scalar division
+
 // Point Operations
 Point operator+(const Point& point, const Vector& vec); // Point translation by vector
 Point operator+(const Vector& vec, const Point& point);
