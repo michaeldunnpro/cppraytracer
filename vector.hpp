@@ -17,3 +17,20 @@ class Vector { // Vector definition
         float const z;
 };
 
+// Vector Operations 
+
+Vector operator+(const Vector& lhs, const Vector& rhs); // Vector addition
+Vector operator-(const Vector& lhs, const Vector& rhs); // Vector subtraction
+Vector operator^(const Vector& lhs, const Vector& rhs); // Cross product
+float operator*(const Vector& lhs, const Vector& rhs);   // Dot product
+float operator~(const Vector& vec);                       // Magnitude
+Vector operator-(const Vector& vec);                      // Negation
+Vector operator!(const Vector& vec);                      // Normalization
+bool operator==(const Vector& lhs, const Vector& rhs);    // Equality
+
+// Point Operations
+Point operator+(const Point& point, const Vector& vec); // Point translation by vector
+Point operator+(const Vector& vec, const Point& point);
+Point operator-(const Point& point, const Vector& vec); // Point translation by negative vector
+bool operator==(const Point& lhs, const Point& rhs);    // Equality
+
