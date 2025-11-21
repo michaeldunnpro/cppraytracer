@@ -9,7 +9,7 @@
  */
 class Material {
 public:
-    virtual ~Material() { };
+    virtual ~Material() = default;
     /**
      * @param normal the unit vector pointing out of the surface
      */
@@ -29,6 +29,7 @@ private:
     double const refl;
 
 public:
+    BasicMaterial(Color, double);
     Color get_color(
         Vector const& incoming, Point const& point,
         Vector const& normal, Scene const* scene) const override;

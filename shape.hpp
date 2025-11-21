@@ -56,7 +56,6 @@ private:
 
 public:
     BasicSphere(Point center, double radius, T material);
-    ~BasicSphere();
     std::optional<double> intersect_first(Ray const&) const override;
     Vector normal_at(Point const&) const override;
     std::unique_ptr<Material> material_at(Point const&) const override;
