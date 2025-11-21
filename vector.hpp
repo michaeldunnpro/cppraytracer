@@ -33,6 +33,10 @@ Vector operator*(const Vector& vec, float scalar); // Scalar right-multiplicatio
 Vector operator*(float scalar, const Vector& vec); // Scalar left-multiplication
 Vector operator/(const Vector& vec, float scalar);  // Scalar division
 
+// Projection operators
+Vector operator>>(const Vector& vec, const Vector& onto); // Projection of vec onto
+Vector operator<<(const Vector& onto, const Vector& vec); // Left-projection of vec onto
+
 // Point Operations
 Point operator+(const Point& point, const Vector& vec); // Point translation by vector
 Point operator+(const Vector& vec, const Point& point);

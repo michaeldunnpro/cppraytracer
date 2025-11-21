@@ -108,6 +108,24 @@ bool operator==(const Vector& lhs, const Vector& rhs) {
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
+// Vector projection operator
+
+Vector operator>>(const Vector& vec, const Vector& onto) {
+    // Define projection of vec onto
+    float onto_mag_sq = onto * onto;
+    if (onto_mag_sq == 0.0f) {
+        return Vector(0.0f, 0.0f, 0.0f); // Avoid division by zero
+    }
+    float scalar = (vec * onto) / onto_mag_sq;
+    return scalar * onto;
+}
+
+Vector operator<<(const Vector& onto, const Vector& vec) {
+    // Define projection of vec onto onto (left-projection)
+    Vector projection = vec >> onto;
+    return projection;
+}
+
 
 // Point Class Implementation
 Point::Point(float const xs, float const ys, float const zs) 
@@ -133,6 +151,13 @@ Point operator-(const Point& point, const Vector& vec) {
 bool operator==(const Point& lhs, const Point& rhs) {
     // Define equality check between two points
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
+}
+
+// Create vectors from point difference
+
+Vector operator-(const Point& lhs, const Point& rhs) {
+    // Define vector from point difference
+    return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
 
 #ifdef debug_vector_cpp
