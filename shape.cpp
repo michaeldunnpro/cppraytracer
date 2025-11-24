@@ -1,7 +1,7 @@
 #include "shape.hpp"
 
 template <typename T>
-inline BasicSphere<T>::BasicSphere(Point center, double radius, T material)
+inline BasicSphere<T>::BasicSphere(Point center, float radius, T material)
     : center(center)
     , radius(radius)
     , material(material)
@@ -9,7 +9,7 @@ inline BasicSphere<T>::BasicSphere(Point center, double radius, T material)
 }
 
 template <typename T>
-std::optional<double> BasicSphere<T>::intersect_first(Ray const& ray) const
+std::optional<float> BasicSphere<T>::intersect_first(Ray const& ray) const
 {
     float a = ray.direction * ray.direction;
     float b = 2 * ray.direction * (ray.origin - this->center);

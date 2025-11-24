@@ -8,5 +8,5 @@ public:
     Vector direction;
     Ray(Point, Vector);
     // Computes origin + t * direction
-    Point at(double t) const;
+    Point at(float t) const;
 };

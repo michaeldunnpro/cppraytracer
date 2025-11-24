@@ -6,7 +6,7 @@
 Color BasicMaterial::get_color(
     Vector const& incoming, Point const& point, Vector const& normal, Scene const* scene) const
 {
-    double a = scene->get_ambient() * (1 - this->refl);
+    float a = scene->get_ambient() * (1 - this->refl);
     Color l_ambient = this->color * a;
     Color color = l_ambient;
 
@@ -20,7 +20,7 @@ Color BasicMaterial::get_color(
         color = color + l_diffuse + l_specular;
     }
 
-    Vector reflected = incoming - 2.f * incoming.project(normal);
+    Vector reflected = incoming - 2.f * (incoming >> normal);
     Color l_reflected = scene->trace(Ray(point, reflected));
     color = color + l_reflected;
 

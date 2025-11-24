@@ -23,7 +23,7 @@ public:
      * @note Using `t` instead of the intersection point makes it easier
      * to compare which intersection points are first hit among all shapes.
      */
-    virtual std::optional<double> intersect_first(Ray const&) const = 0;
+    virtual std::optional<float> intersect_first(Ray const&) const = 0;
 
     /**
      * @return A unit normal vector at the given point on the surface.
@@ -51,12 +51,12 @@ template <typename T = BasicMaterial>
 class BasicSphere : Shape {
 private:
     Point center;
-    double radius;
+    float radius;
     T material;
 
 public:
-    BasicSphere(Point center, double radius, T material);
-    std::optional<double> intersect_first(Ray const&) const override;
+    BasicSphere(Point center, float radius, T material);
+    std::optional<float> intersect_first(Ray const&) const override;
     Vector normal_at(Point const&) const override;
     std::unique_ptr<Material> material_at(Point const&) const override;
 };

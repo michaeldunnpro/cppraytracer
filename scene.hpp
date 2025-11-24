@@ -7,9 +7,9 @@
 
 class Scene {
 public:
-    double get_ambient() const;
-    double get_specular() const;
-    double get_sp() const;
+    float get_ambient() const;
+    float get_specular() const;
+    float get_sp() const;
 
     std::vector<Point> const& get_point_lights() const;
     Color trace(Ray const&) const;

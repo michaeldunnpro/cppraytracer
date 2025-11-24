@@ -41,5 +41,6 @@ Vector operator<<(const Vector& onto, const Vector& vec); // Left-projection of 
 Point operator+(const Point& point, const Vector& vec); // Point translation by vector
 Point operator+(const Vector& vec, const Point& point);
 Point operator-(const Point& point, const Vector& vec); // Point translation by negative vector
+Vector operator-(const Point& lhs, const Point& rhs); // Vector from point difference
 bool operator==(const Point& lhs, const Point& rhs);    // Equality
 

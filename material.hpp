@@ -26,10 +26,10 @@ public:
 class BasicMaterial : Material {
 private:
     Color const color;
-    double const refl;
+    float const refl;
 
 public:
-    BasicMaterial(Color, double);
+    BasicMaterial(Color, float);
     Color get_color(
         Vector const& incoming, Point const& point,
         Vector const& normal, Scene const* scene) const override;
