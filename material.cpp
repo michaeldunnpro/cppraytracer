@@ -10,7 +10,8 @@ BasicMaterial::BasicMaterial(Color color, float refl)
 }
 
 Color BasicMaterial::get_color(
-    Vector const& incoming, Point const& point, Vector const& normal, Scene const* scene) const
+    Vector const& incoming, Point const& point, Vector const& normal,
+    Scene const* scene, int recursion_depth) const
 {
     // ambient light
     float a = scene->get_ambient() * (1 - this->refl);
@@ -31,9 +32,11 @@ Color BasicMaterial::get_color(
     }
 
     // reflection
-    Vector reflected = incoming - 2.f * (incoming >> normal); // direction of reflected ray
-    Color l_reflected = scene->trace(Ray(point, reflected));
-    color = color + l_reflected;
+    if (recursion_depth > 0) {
+        Vector reflected = incoming - 2.f * (incoming >> normal); // direction of reflected ray
+        Color l_reflected = scene->trace(Ray(point, reflected), recursion_depth - 1);
+        color = color + l_reflected;
+    }
 
     return color;
 }

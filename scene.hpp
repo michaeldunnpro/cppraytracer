@@ -12,5 +12,8 @@ public:
     float get_sp() const;
 
     std::vector<Point> const& get_point_lights() const;
-    Color trace(Ray const&) const;
+    /**
+     * @param recursion_depth maximum recursion depth allowed; 0 for no recursion
+     */
+    Color trace(Ray const& ray, int recursion_depth) const;
 };

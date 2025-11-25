@@ -18,10 +18,11 @@ public:
      * @param normal the orientation of the material, i.e.,
      * the unit vector pointing out of the surface
      * @param scene the scene (required for light sources and tracing reflections)
+     * @param recursion_depth maximum recursion depth allowed; 0 for no recursion
      */
     virtual Color get_color(
-        Vector const& incoming, Point const& point,
-        Vector const& normal, Scene const* scene) const
+        Vector const& incoming, Point const& point, Vector const& normal,
+        Scene const* scene, int recursion_depth) const
         = 0;
 };
 
@@ -37,6 +38,6 @@ private:
 public:
     BasicMaterial(Color, float);
     Color get_color(
-        Vector const& incoming, Point const& point,
-        Vector const& normal, Scene const* scene) const override;
+        Vector const& incoming, Point const& point, Vector const& normal,
+        Scene const* scene, int depth) const override;
 };
