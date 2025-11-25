@@ -9,12 +9,24 @@ void Color::white() {
 }
 
 void Color::clamp() {
-    if (this->r < 0.0f) this->r = 0.0f;
-    if (this->r > 255.0f) this->r = 255.0f;
-    if (this->g < 0.0f) this->g = 0.0f;
-    if (this->g > 255.0f) this->g = 255.0f;
-    if (this->b < 0.0f) this->b = 0.0f;
-    if (this->b > 255.0f) this->b = 255.0f;
+    if (this->r < 0.0f) {
+        this->r = 0.0f;
+    }
+    if (this->r > 255.0f) {
+        this->r = 255.0f;
+    }
+    if (this->g < 0.0f) {
+        this->g = 0.0f;
+    }
+    if (this->g > 255.0f) {
+        this->g = 255.0f;
+    }
+    if (this->b < 0.0f) {
+        this->b = 0.0f;
+    }
+    if (this->b > 255.0f) {
+        this->b = 255.0f;
+    }
 }
 
 Color operator+(Color const& lhs, Color const& rhs) {
