@@ -9,7 +9,7 @@ void Color::white() {
 }
 
 void Color::clamp() {
-    if (this->r < 0.0f) {
+    if (this->r < 0.0f) {   
         this->r = 0.0f;
     }
     if (this->r > 255.0f) {

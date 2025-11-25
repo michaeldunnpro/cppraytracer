@@ -40,13 +40,13 @@ Vector::Vector(float const xs, float const ys, float const zs)
 : x(xs), y(ys), z(zs) {
     // Constructor body (empty)
 }
-
-Vector operator+(const Vector& lhs, const Vector& rhs) {
+    
+Vector operator+(Vector const& lhs, Vector const& rhs) {
     // Define vector addition
     return Vector(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
 }
 
-Vector operator-(const Vector& lhs, const Vector& rhs) {
+Vector operator-(Vector const& lhs, Vector const& rhs) {
     // Define vector subtraction
     return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
@@ -55,22 +55,22 @@ Vector operator-(const Vector& lhs, const Vector& rhs) {
 // Actions on Vectors
 // Note multiple overloads to simulate commutativity where applicable
 
-Vector operator*(const Vector& vec, float scalar) {
+Vector operator*(Vector const& vec, float scalar) {
     // Define scalar right-multiplication
     return Vector(vec.x * scalar, vec.y * scalar, vec.z * scalar);
 }
 
-Vector operator*(float scalar, const Vector& vec) {
+Vector operator*(float scalar, Vector const& vec) {
     // Define scalar left-multiplication (commutative)
     return Vector(vec.x * scalar, vec.y * scalar, vec.z * scalar);
 }
 
-Vector operator/(const Vector& vec, float scalar) {
+Vector operator/(Vector const& vec, float scalar) {
     // Define scalar division
     return Vector(vec.x / scalar, vec.y / scalar, vec.z / scalar);
 }
 
-Vector operator^(const Vector& lhs, const Vector& rhs) {
+Vector operator^(Vector const& lhs, Vector const& rhs) {
     // Define cross product
     return Vector(
         lhs.y * rhs.z - lhs.z * rhs.y,
@@ -80,37 +80,37 @@ Vector operator^(const Vector& lhs, const Vector& rhs) {
 }
 
 
-float operator*(const Vector& lhs, const Vector& rhs) {
+float operator*(Vector const& lhs, Vector const& rhs) {
     // Define dot product
     return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
-float operator~(const Vector& vec) {
+float operator~(Vector const& vec) {
     // Calculate magnitude of the vector
     return std::sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
 // Unary Operations
 
-Vector operator-(const Vector& vec) {
+Vector operator-(Vector const& vec) {
     // Define negation of the vector
     return Vector(-vec.x, -vec.y, -vec.z);
 }
 
-Vector operator!(const Vector& vec) {
+Vector operator!(Vector const& vec) {
     // Define normalization of the vector
     float mag = ~vec;
     return Vector(vec.x / mag, vec.y / mag, vec.z / mag);
 }
 
-bool operator==(const Vector& lhs, const Vector& rhs) {
+bool operator==(Vector const& lhs, Vector const& rhs) {
     // Define equality check between two vectors
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
 // Vector projection operator
 
-Vector operator>>(const Vector& vec, const Vector& onto) {
+Vector operator>>(Vector const& vec, Vector const& onto) {
     // Define projection of vec onto
     float onto_mag_sq = onto * onto;
     if (onto_mag_sq == 0.0f) {
@@ -120,7 +120,7 @@ Vector operator>>(const Vector& vec, const Vector& onto) {
     return scalar * onto;
 }
 
-Vector operator<<(const Vector& onto, const Vector& vec) {
+Vector operator<<(Vector const& onto, Vector const& vec) {
     // Define projection of vec onto onto (left-projection)
     Vector projection = vec >> onto;
     return projection;
@@ -133,29 +133,29 @@ Point::Point(float const xs, float const ys, float const zs)
     // Constructor body (empty)
 }
 
-Point operator+(const Point& point, const Vector& vec) {
+Point operator+(Point const& point, Vector const& vec) {
     // Define point translation by a vector
     return Point(point.x + vec.x, point.y + vec.y, point.z + vec.z);
 }
 
-Point operator+(const Vector& vec, const Point& point) {
+Point operator+(Vector const& vec, Point const& point) {
     // Define point translation by a vector (commutative)
     return Point(point.x + vec.x, point.y + vec.y, point.z + vec.z);
 }
 
-Point operator-(const Point& point, const Vector& vec) {
+Point operator-(Point const& point, Vector const& vec) {
     // Define point translation by negative vector
     return Point(point.x - vec.x, point.y - vec.y, point.z - vec.z);
 }
 
-bool operator==(const Point& lhs, const Point& rhs) {
+bool operator==(Point const& lhs, Point const& rhs) {
     // Define equality check between two points
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
 // Create vectors from point difference
 
-Vector operator-(const Point& lhs, const Point& rhs) {
+Vector operator-(Point const& lhs, Point const& rhs) {
     // Define vector from point difference
     return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
