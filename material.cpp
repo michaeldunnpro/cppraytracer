@@ -3,24 +3,35 @@
 
 #include "material.hpp"
 
+BasicMaterial::BasicMaterial(Color color, float refl)
+    : color(color)
+    , refl(refl)
+{
+}
+
 Color BasicMaterial::get_color(
     Vector const& incoming, Point const& point, Vector const& normal, Scene const* scene) const
 {
+    // ambient light
     float a = scene->get_ambient() * (1 - this->refl);
     Color l_ambient = this->color * a;
-    Color color = l_ambient;
+    Color color = l_ambient; // tracks the total color
 
+    // iterate over the light sources
     for (auto&& light : scene->get_point_lights()) {
-        Vector lt = !(light - point);
+        // diffuse light
+        Vector lt = !(light - point); // unit vector pointing to the light source
         Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.f, normal * lt));
 
-        Vector h = !(lt - !incoming);
+        // specular light
+        Vector h = !(lt - !incoming); // unit vector halfway between `incoming` and `lt`, pointing out
         Color l_specular = scene->get_specular() * std::pow(std::max(0.f, h * normal), scene->get_sp()) * Color::white();
 
         color = color + l_diffuse + l_specular;
     }
 
-    Vector reflected = incoming - 2.f * (incoming >> normal);
+    // reflection
+    Vector reflected = incoming - 2.f * (incoming >> normal); // direction of reflected ray
     Color l_reflected = scene->trace(Ray(point, reflected));
     color = color + l_reflected;
 

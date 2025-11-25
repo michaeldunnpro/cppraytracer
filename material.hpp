@@ -11,7 +11,13 @@ class Material {
 public:
     virtual ~Material() = default;
     /**
-     * @param normal the unit vector pointing out of the surface
+     * @brief Computes the color when an instance of the material is seen.
+     * @param incoming the direction of the incoming ray from which
+     * the material is seen
+     * @param point the location of the material
+     * @param normal the orientation of the material, i.e.,
+     * the unit vector pointing out of the surface
+     * @param scene the scene (required for light sources and tracing reflections)
      */
     virtual Color get_color(
         Vector const& incoming, Point const& point,
@@ -26,7 +32,7 @@ public:
 class BasicMaterial : Material {
 private:
     Color const color;
-    float const refl;
+    float const refl; // reflexivity
 
 public:
     BasicMaterial(Color, float);
