@@ -60,3 +60,20 @@ public:
     Vector normal_at(Point const&) const override;
     std::unique_ptr<Material> material_at(Point const&) const override;
 };
+
+/**
+ * A plane with a single material.
+ */
+template <typename T = BasicMaterial>
+class BasicPlane : Shape {
+private:
+    Point point; // Any point on the plane
+    Vector normal; // A unit normal vector
+    T material;
+
+public:
+    BasicPlane(Point point, Vector normal, T material);
+    std::optional<float> intersect_first(Ray const&) const override;
+    Vector normal_at(Point const&) const override;
+    std::unique_ptr<Material> material_at(Point const&) const override;
+};

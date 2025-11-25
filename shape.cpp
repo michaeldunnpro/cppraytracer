@@ -41,3 +41,33 @@ std::unique_ptr<Material> BasicSphere<T>::material_at(Point const&) const
 {
     return std::unique_ptr<Material>(this->material);
 }
+
+template <typename T>
+inline BasicPlane<T>::BasicPlane(Point point, Vector normal, T material)
+    : point(point)
+    , normal(normal)
+    , material(material)
+{
+}
+
+template <typename T>
+std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const
+{
+    float div = ray.direction * this->normal;
+    if (div < 1e-6) {
+        return {};
+    }
+    return ((ray.origin - this->point) * this->normal) / div;
+}
+
+template <typename T>
+Vector BasicPlane<T>::normal_at(Point const& point) const
+{
+    return normal;
+}
+
+template <typename T>
+std::unique_ptr<Material> BasicPlane<T>::material_at(Point const&) const
+{
+    return std::unique_ptr<Material>(this->material);
+}
