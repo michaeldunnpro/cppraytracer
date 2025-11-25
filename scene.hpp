@@ -11,7 +11,11 @@ public:
     float get_specular() const;
     float get_sp() const;
 
-    std::vector<Point> const& get_point_lights() const;
+    /**
+     * @brief Get the location of all point light sources visible from `point`.
+     */
+    std::vector<Point> const& get_point_lights(Point const& point) const;
+
     /**
      * @param recursion_depth maximum recursion depth allowed; 0 for no recursion
      */
