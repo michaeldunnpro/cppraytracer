@@ -33,7 +33,7 @@ public:
      * from point). However, addressing that would be an overoptimization
      * and would also reduce code readability.
      */
-    virtual Vector normal_at(Point const&) = 0;
+    virtual Vector normal_at(Point const&) const = 0;
 
     // fn (&self, &Point) -> Box<dyn Material>
     /**
