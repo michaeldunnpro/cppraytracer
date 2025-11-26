@@ -2,10 +2,8 @@
 
 Color::Color(float const red, float const green, float const blue) : r(red), g(green), b(blue) {}
 
- void Color::white() {
-    this->r = 255.0f;
-    this->g = 255.0f;
-    this->b = 255.0f;
+Color Color::white() {
+    return Color(255.0f, 255.0f, 255.0f);
 }
 
 float* Color::getRGB() {

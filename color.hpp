@@ -5,8 +5,8 @@
 class Color {
     public:
         Color(float const r, float const g, float const b);
-        void white(); // Convert color to white
-        void clamp(); // Clamp color values to valid range
+        static Color white(); // Create a color representing white
+        void clamp(); // Clamp color values to valid range (in-place)
         float* getRGB(); // Get pointer to RGB values
         friend Color operator+(Color const&, Color const&); // Color addition
         friend Color operator-(Color const&, Color const&); // Color subtraction
