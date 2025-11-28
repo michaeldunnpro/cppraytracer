@@ -57,7 +57,8 @@ std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const
     if (std::abs(div) < 1e-6) {
         return {};
     }
-    return ((ray.origin - this->point) * this->normal) / div;
+    float t = ((ray.origin - this->point) * this->normal) / div;
+    return t > 0 ? t : {};
 }
 
 template <typename T>
