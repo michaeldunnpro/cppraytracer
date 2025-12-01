@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 #include <optional>
 
@@ -5,8 +7,6 @@
 #include "material.hpp"
 #include "ray.hpp"
 #include "vector.hpp"
-
-#pragma once
 
 /**
  * Represents a shape that can be rendered.

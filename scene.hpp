@@ -1,9 +1,9 @@
+#pragma once
+
 #include <vector>
 
 #include "ray.hpp"
 #include "vector.hpp"
-
-#pragma once
 
 class Scene {
 public:

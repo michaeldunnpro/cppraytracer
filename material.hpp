@@ -1,8 +1,8 @@
+#pragma once
+
 #include "color.hpp"
 #include "scene.hpp"
 #include "vector.hpp"
-
-#pragma once
 
 /**
  * Represent the shading behavior at a single point.
