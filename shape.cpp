@@ -4,13 +4,11 @@ template <typename T>
 inline BasicSphere<T>::BasicSphere(Point center, float radius, T material)
     : center(center)
     , radius(radius)
-    , material(material)
-{
+    , material(material){
 }
 
 template <typename T>
-std::optional<float> BasicSphere<T>::intersect_first(Ray const& ray) const
-{
+std::optional<float> BasicSphere<T>::intersect_first(Ray const& ray) const {
     float a = ray.direction * ray.direction;
     float b = 2 * ray.direction * (ray.origin - this->center);
     float c = (ray.origin - this->center) * (ray.origin - this->center) - radius * radius;
@@ -31,14 +29,12 @@ std::optional<float> BasicSphere<T>::intersect_first(Ray const& ray) const
 }
 
 template <typename T>
-Vector BasicSphere<T>::normal_at(Point const& point) const
-{
+Vector BasicSphere<T>::normal_at(Point const& point) const {
     return point - this->center;
 }
 
 template <typename T>
-std::unique_ptr<Material> BasicSphere<T>::material_at(Point const&) const
-{
+std::unique_ptr<Material> BasicSphere<T>::material_at(Point const&) const {
     return std::unique_ptr<Material>(this->material);
 }
 
@@ -46,13 +42,11 @@ template <typename T>
 inline BasicPlane<T>::BasicPlane(Point point, Vector normal, T material)
     : point(point)
     , normal(normal)
-    , material(material)
-{
+    , material(material) {
 }
 
 template <typename T>
-std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const
-{
+std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const {
     float div = ray.direction * this->normal;
     if (std::abs(div) < 1e-6) {
         return {};
@@ -62,13 +56,11 @@ std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const
 }
 
 template <typename T>
-Vector BasicPlane<T>::normal_at(Point const& point) const
-{
+Vector BasicPlane<T>::normal_at(Point const& point) const {
     return normal;
 }
 
 template <typename T>
-std::unique_ptr<Material> BasicPlane<T>::material_at(Point const&) const
-{
+std::unique_ptr<Material> BasicPlane<T>::material_at(Point const&) const {
     return std::unique_ptr<Material>(this->material);
 }
