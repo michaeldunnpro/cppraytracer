@@ -8,6 +8,10 @@
 #include "ray.hpp"
 #include "vector.hpp"
 
+// Forward declaration
+class Material;
+class BasicMaterial;
+
 /**
  * Represents a shape that can be rendered.
  * All shapes are assumed to be double-sided.

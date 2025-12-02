@@ -8,6 +8,9 @@
 #include "shape.hpp"
 #include "vector.hpp"
 
+// Forward declaration
+class Shape;
+
 class Scene {
 private:
     std::vector<Shape> shapes;
