@@ -56,7 +56,7 @@ std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const {
 }
 
 template <typename T>
-Vector BasicPlane<T>::normal_at(Point const& point) const {
+Vector BasicPlane<T>::normal_at(Point const&) const {
     return normal;
 }
 
