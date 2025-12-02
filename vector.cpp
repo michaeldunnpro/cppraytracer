@@ -191,7 +191,9 @@ int main() {
     // Test mutability of Point operations
     Point p1 = Point(1.0f, 2.0f, 3.0f);
     p1 = p1 + v1;
+    assert(p1 == Point(2.0f, 4.0f, 6.0f));
     v1 = Vector(1.0f, 2.0f, 3.0f);
+    assert(v1 == Vector(1.0f, 2.0f, 3.0f));
     std::cout << "Vector and Point classes compiled successfully." << std::endl;
     return 0;
 }
