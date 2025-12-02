@@ -1,6 +1,5 @@
 #pragma once
 
-
 class Point { // Point definition
     public:
         Point(float const x, float const y, float const z);
@@ -18,7 +17,6 @@ class Vector { // Vector definition
 };
 
 // Vector Operations 
-
 Vector operator+(Vector const& lhs, Vector const& rhs); // Vector addition
 Vector operator-(Vector const& lhs, Vector const& rhs); // Vector subtraction
 Vector operator^(Vector const& lhs, Vector const& rhs); // Cross product

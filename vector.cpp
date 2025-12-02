@@ -1,7 +1,6 @@
 #include <cmath>
 #include "vector.hpp"
 
-
 // Overloads for Vector and Point classes
 /*
 Vector Operations:
@@ -34,10 +33,9 @@ Point Operations:
 */
 
 
-
 // Vector Class Implementation
 Vector::Vector(float const xs, float const ys, float const zs) 
-: x(xs), y(ys), z(zs) {
+  : x(xs), y(ys), z(zs) {
     // Constructor body (empty)
 }
     
@@ -52,26 +50,28 @@ Vector operator-(Vector const& lhs, Vector const& rhs) {
 }
 
 
-// Actions on Vectors
-// Note multiple overloads to simulate commutativity where applicable
+/*
+ * Actions on Vectors
+ * Note multiple overloads to simulate commutativity where applicable
+ */
 
+// Define scalar right-multiplication
 Vector operator*(Vector const& vec, float scalar) {
-    // Define scalar right-multiplication
     return Vector(vec.x * scalar, vec.y * scalar, vec.z * scalar);
 }
 
+// Define scalar left-multiplication (commutative)
 Vector operator*(float scalar, Vector const& vec) {
-    // Define scalar left-multiplication (commutative)
     return Vector(vec.x * scalar, vec.y * scalar, vec.z * scalar);
 }
 
+// Define scalar division
 Vector operator/(Vector const& vec, float scalar) {
-    // Define scalar division
     return Vector(vec.x / scalar, vec.y / scalar, vec.z / scalar);
 }
 
+// Define cross product
 Vector operator^(Vector const& lhs, Vector const& rhs) {
-    // Define cross product
     return Vector(
         lhs.y * rhs.z - lhs.z * rhs.y,
         lhs.z * rhs.x - lhs.x * rhs.z,
@@ -79,37 +79,37 @@ Vector operator^(Vector const& lhs, Vector const& rhs) {
     );
 }
 
-
+// Define dot product
 float operator*(Vector const& lhs, Vector const& rhs) {
-    // Define dot product
     return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 }
 
+// Calculate magnitude of the vector
 float operator~(Vector const& vec) {
-    // Calculate magnitude of the vector
     return std::sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-// Unary Operations
+/*
+ * Unary Operations
+ */
 
+// Define negation of the vector
 Vector operator-(Vector const& vec) {
-    // Define negation of the vector
     return Vector(-vec.x, -vec.y, -vec.z);
 }
 
+// Define normalization of the vector
 Vector operator!(Vector const& vec) {
-    // Define normalization of the vector
     float mag = ~vec;
     return Vector(vec.x / mag, vec.y / mag, vec.z / mag);
 }
 
+// Define equality check between two vectors
 bool operator==(Vector const& lhs, Vector const& rhs) {
-    // Define equality check between two vectors
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
 // Vector projection operator
-
 Vector operator>>(Vector const& vec, Vector const& onto) {
     // Define projection of vec onto
     float onto_mag_sq = onto * onto;
@@ -129,36 +129,42 @@ Vector operator<<(Vector const& onto, Vector const& vec) {
 
 // Point Class Implementation
 Point::Point(float const xs, float const ys, float const zs) 
-: x(xs), y(ys), z(zs) {
+  : x(xs), y(ys), z(zs) {
     // Constructor body (empty)
 }
 
+// Define point translation by a vector
 Point operator+(Point const& point, Vector const& vec) {
-    // Define point translation by a vector
     return Point(point.x + vec.x, point.y + vec.y, point.z + vec.z);
 }
 
+// Define point translation by a vector (commutative)
 Point operator+(Vector const& vec, Point const& point) {
-    // Define point translation by a vector (commutative)
     return Point(point.x + vec.x, point.y + vec.y, point.z + vec.z);
 }
 
+// Define point translation by negative vector
 Point operator-(Point const& point, Vector const& vec) {
-    // Define point translation by negative vector
     return Point(point.x - vec.x, point.y - vec.y, point.z - vec.z);
 }
 
+// Define equality check between two points
 bool operator==(Point const& lhs, Point const& rhs) {
-    // Define equality check between two points
     return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
-// Create vectors from point difference
+/*
+ * Create vectors from point difference
+ */
 
+// Define vector from point difference
 Vector operator-(Point const& lhs, Point const& rhs) {
-    // Define vector from point difference
     return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
+
+/*
+ * tests
+ */
 
 #ifdef debug_vector_cpp
 #include <cassert>
