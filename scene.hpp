@@ -23,7 +23,7 @@ private:
      * the intersection position as in other methods, and `shape` is a
      * const lvalue reference to the shape being intersected.
      */
-    std::optional<std::pair<double, Shape const&>> intersect_first_all(Ray const& ray) const;
+    std::optional<std::pair<float, Shape const*>> intersect_first_all(Ray const& ray) const;
 
 public:
     float get_ambient() const;
@@ -33,7 +33,7 @@ public:
     /**
      * @brief Get the location of all point light sources visible from `point`.
      */
-    std::vector<Point> const& get_visible_point_lights(Point const& point) const;
+    std::vector<Point> get_visible_point_lights(Point const& point) const;
 
     /**
      * @param recursion_depth maximum recursion depth allowed; 0 for no recursion
