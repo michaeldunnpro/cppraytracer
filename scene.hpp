@@ -1,9 +1,12 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 #include "ray.hpp"
 #include "vector.hpp"
+#include "color.hpp"
 
 class Scene{
 private:
@@ -45,12 +48,17 @@ private:
     
     Point get_pixel(int x, int y, Camera* cam) const; //takes an x and y pixel as well as a pointer to a camera, returns the coordinates of that pixel
   };
+  float specular;
+  float ambient;
+  float sp;
+  Color background;
+  
   Camera* camera;
   Screen* screen;
   
 public:
   Scene() = delete;
-  Scene(Camera* cam, Screen* scr);
+  Scene(Camera* cam, Screen* scr, float ambient, float specular, Color background);
   Screen(const Screen&);
   ~Scene();
 
