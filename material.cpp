@@ -19,7 +19,7 @@ Color BasicMaterial::get_color(
     Color color = l_ambient; // tracks the total color
 
     // iterate over the light sources
-    for (auto&& light : scene->get_point_lights(point - 1e-6 * incoming)) {
+    for (auto&& light : scene->get_visible_point_lights(point - 1e-6 * incoming)) {
         // diffuse light
         Vector lt = !(light - point); // unit vector pointing to the light source
         Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.f, normal * lt));
