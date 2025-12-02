@@ -188,6 +188,10 @@ int main() {
     Vector v10 = !v1;
     mag = ~v10;
     assert(std::abs(mag - 1.0f) < 0.0001f);
+    // Test mutability of Point operations
+    Point p1 = Point(1.0f, 2.0f, 3.0f);
+    p1 = p1 + v1;
+    v1 = Vector(1.0f, 2.0f, 3.0f);
     std::cout << "Vector and Point classes compiled successfully." << std::endl;
     return 0;
 }
