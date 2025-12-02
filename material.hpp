@@ -22,8 +22,7 @@ public:
      */
     virtual Color get_color(
         Vector const& incoming, Point const& point, Vector const& normal,
-        Scene const* scene, int recursion_depth) const
-        = 0;
+        Scene const* scene, int recursion_depth) const = 0;
 };
 
 /**
