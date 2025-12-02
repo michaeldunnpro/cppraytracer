@@ -40,7 +40,7 @@ public:
      * @return The material at the given point on the surface.
      */
     virtual std::unique_ptr<Material> material_at(Point const&) const = 0;
-}
+};
 
 // We use `BasicSphere<T: Material + Clone> { material: T }` instead of
 // `BasicSphere { material: Box<dyn (Material + Clone)> }`
