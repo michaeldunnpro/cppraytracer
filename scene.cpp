@@ -1,127 +1,132 @@
-#include <vector>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <vector>
 
 #include "ray.hpp"
-#include "vector.hpp"
 #include "scene.hpp"
+#include "vector.hpp"
 
-Scene::Camera(Point pos, Vector ori){
-  this->position = pos;
-  this->orientation = ori;
+Scene::Camera::Camera(Point pos, Vector ori)
+    : position(pos)
+    , orientation(ori) {
 }
 
-Point Scene::Camera::get_position() const{
-  return this->position
+Point Scene::Camera::get_position() const {
+    return this->position;
 }
 
-Vector Scene::Camera::get_orientation() const{
-  return this->orientation;
+Vector Scene::Camera::get_orientation() const {
+    return this->orientation;
 }
 
-void Scene::Camera::set_position(Point pos){
-  this->position = pos;
+void Scene::Camera::set_position(Point pos) {
+    this->position = pos;
 }
 
-void Scene::Camera::set_orientation(Vector ori){
-  this->orientation = ori;
+void Scene::Camera::set_orientation(Vector ori) {
+    this->orientation = ori;
 }
 
-Scene::Screen(float wid, float len, int pix_wid, int pix_len, int d_c){
-  this->width = wid;
-  this->length = len;
-  this->pixel_width = pix_wid;
-  this->pixel_length = pix_len;
-  this->dst_cam = d_c;
+Scene::Screen::Screen(float wid, float len, int pix_wid, int pix_len, int d_c)
+    : width(wid)
+    , length(len)
+    , pixel_width(pix_wid)
+    , pixel_length(pix_len)
+    , dst_cam(d_c) {
 }
 
-float Scene::Screen::get_width() const{
-  return this->width;
+float Scene::Screen::get_width() const {
+    return this->width;
 }
 
-float Scene::Screen::get_length() const{
-  return this->length;
+float Scene::Screen::get_length() const {
+    return this->length;
 }
 
-int Scene::Screen::get_pixel_width() const{
-  return this->pixel_width;
+int Scene::Screen::get_pixel_width() const {
+    return this->pixel_width;
 }
 
-int Scene::Screen::get_dst_cam() const{
-  return this->dst_cam;
+int Scene::Screen::get_pixel_length() const {
+    return this->pixel_length;
 }
 
-void Scene::Screen::set_dst_cam(int d_c){
-  this->dst_cam = d_c;
+int Scene::Screen::get_dst_cam() const {
+    return this->dst_cam;
 }
 
-Point Scene::Screen::get_pixel(int x, int y, Camera* cam) const{
-  Point origin = cam->get_position() + (!(cam->get_orientation()) * this->get_dst_cam());
-  //point camera is at moved by dst_cam in the direction of orientation
-  x -= (this->get_pixel_width()) / 2;
-  x *= this->get_width()/this->get_pixel_width();
-  y -= (this->get_pixel_length()) / 2;
-  y *= this->get_length()/this->get_pixel_length();
-
-  Vector x_vector = !(cam->get_orientation()) ^ Vector(0,0,1);
-  Vector y_vector = x_vector ^ cam->get_orientation();
-  
-  Point pixel = origin + (x * x_vector) + (y * y_vector);//move pixel by x and y
-  return pixel;
+void Scene::Screen::set_dst_cam(int d_c) {
+    this->dst_cam = d_c;
 }
 
-Scene(Camera* cam, Screen* scr, float ambient, float specular, float sp, Color background){
-  this->camera = cam;
-  this->screen = scr;
-  this->ambient = ambient;
-  this->specular = specular;
-  this->sp = sp;
-  this->background = background;
+Point Scene::Screen::get_pixel(int x, int y, Camera* cam) const {
+    Point origin = cam->get_position() + (!(cam->get_orientation()) * this->get_dst_cam());
+    // point camera is at moved by dst_cam in the direction of orientation
+    x -= (this->get_pixel_width()) / 2;
+    x *= this->get_width() / this->get_pixel_width();
+    y -= (this->get_pixel_length()) / 2;
+    y *= this->get_length() / this->get_pixel_length();
+
+    Vector x_vector = !(cam->get_orientation()) ^ Vector(0, 0, 1);
+    Vector y_vector = x_vector ^ cam->get_orientation();
+
+    Point pixel = origin + (x * x_vector) + (y * y_vector); // move pixel by x and y
+    return pixel;
 }
 
-~Scene(){
-  delete this->camera;
-  delete this->scene;
+Scene::Scene(Camera* cam, Screen* scr, float ambient, float specular, float sp, Color background)
+    : camera(cam)
+    , screen(scr)
+    , ambient(ambient)
+    , specular(specular)
+    , sp(sp)
+    , background(background) {
 }
 
-Camera* Scene::get_camera() const{
-  return this->camera;
+Scene::~Scene() {
+    delete this->camera;
+    delete this->screen;
 }
 
-Screen* Scene::get_screen() const{
-  return this->screen;
+Scene::Camera* Scene::get_camera() const {
+    return this->camera;
 }
 
-float Scene::get_ambient() const{
-  return this->ambient;
+Scene::Screen* Scene::get_screen() const {
+    return this->screen;
 }
 
-float Scene::get_specular() const{
-  return this->specular;
+float Scene::get_ambient() const {
+    return this->ambient;
 }
 
-float Scene::get_sp() const{
-  return this->sp;
+float Scene::get_specular() const {
+    return this->specular;
 }
 
-Color Scene::get_background(){
-  return this->background;
+float Scene::get_sp() const {
+    return this->sp;
 }
 
-void make_screen(){ //for each pixel on the screen, trace a ray from the camera to that pixel
-  ofstream Image("image.ppm");
-  Image << "P3" << "\n"; //P3 format .ppm file
-  Image << this->get_pixel_width() << " " << this->get_pixel_length() << "\n"; //tells the file the length and width of the image
-  Image << "255" << "\n" //RGB values rated out of 255
-  for(int i = 0; i < this->get_pixel_length(); i++){
-    for(int j = 0; j < this->get_pixel_width(); j++){
-      Point destination = this->get_screen()->get_pixel(j, i);
-      Vector ray = destination - this->get_camera()->get_position();
-      Color color = trace(ray);
-      Image << color->get_r() << " " << color->get_g() << " " << color->get_b() << "\n"; 
+Color Scene::get_background() const {
+    return this->background;
+}
+
+void Scene::make_screen() { // for each pixel on the screen, trace a ray from the camera to that pixel
+    std::ofstream Image("image.ppm");
+    Image << "P3" << "\n"; // P3 format .ppm file
+    Image << this->screen->get_pixel_width() << " " << this->screen->get_pixel_length() << "\n"; // tells the file the length and width of the image
+    Image << "255" << "\n"; // RGB values rated out of 255
+    for (int i = 0; i < this->screen->get_pixel_length(); i++) {
+        for (int j = 0; j < this->screen->get_pixel_width(); j++) {
+            Point destination = this->get_screen()->get_pixel(j, i, this->camera);
+            Vector direction = destination - this->get_camera()->get_position();
+            Color color = trace(Ray(this->camera->get_position(), direction), 5); // TODO: remove hard-code
+            std::unique_ptr<float[]> rgb = color.getRGB();
+            Image << (int)rgb[0] << " " << (int)rgb[1] << " " << (int)rgb[2] << "\n";
+        }
     }
-  }
-  Image.close();
+    Image.close();
 }
 
 std::optional<std::pair<float, Shape const*>> Scene::intersect_first_all(Ray const& ray) const {
