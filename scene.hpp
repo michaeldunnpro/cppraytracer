@@ -8,13 +8,25 @@
 #include <fstream>
 
 #include "ray.hpp"
+#include "shape.hpp"
 #include "vector.hpp"
 #include "color.hpp"
 
 class Scene{
+  Class Shape;
 private:
     std::vector<Shape> shapes;
     std::vector<Point> point_lights;
+
+    /**
+     * @brief Compute the first point a ray intersects among all shapes
+     * @param ray The ray
+     * @return A pair `(t, shape)` where `t` is the parameter indicating
+     * the intersection position as in other methods, and `shape` is a
+     * const lvalue reference to the shape being intersected.
+     */
+    std::optional<std::pair<float, Shape const*>> intersect_first_all(Ray const& ray) const;
+
   class Camera{
   private:
     Point position;
@@ -60,7 +72,7 @@ private:
   
   Camera* camera;
   Screen* screen;
-  
+
 public:
     Scene() = delete;
     Scene(Camera* cam, Screen* scr, float ambient, float specular, Color background);

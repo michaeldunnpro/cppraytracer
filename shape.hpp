@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 #include <optional>
 
@@ -6,7 +8,9 @@
 #include "ray.hpp"
 #include "vector.hpp"
 
-#pragma once
+// Forward declaration
+class Material;
+class BasicMaterial;
 
 /**
  * Represents a shape that can be rendered.
@@ -33,7 +37,7 @@ public:
      * from point). However, addressing that would be an overoptimization
      * and would also reduce code readability.
      */
-    virtual Vector normal_at(Point const&) = 0;
+    virtual Vector normal_at(Point const&) const = 0;
 
     // fn (&self, &Point) -> Box<dyn Material>
     /**
@@ -56,6 +60,23 @@ private:
 
 public:
     BasicSphere(Point center, float radius, T material);
+    std::optional<float> intersect_first(Ray const&) const override;
+    Vector normal_at(Point const&) const override;
+    std::unique_ptr<Material> material_at(Point const&) const override;
+};
+
+/**
+ * A plane with a single material.
+ */
+template <typename T = BasicMaterial>
+class BasicPlane : Shape {
+private:
+    Point point; // Any point on the plane
+    Vector normal; // A unit normal vector
+    T material;
+
+public:
+    BasicPlane(Point point, Vector normal, T material);
     std::optional<float> intersect_first(Ray const&) const override;
     Vector normal_at(Point const&) const override;
     std::unique_ptr<Material> material_at(Point const&) const override;
