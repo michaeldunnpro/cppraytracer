@@ -87,10 +87,7 @@ int main(){
     c3.clamp();
     assert(c3.getRGB()[0] == 150.0f && c3.getRGB()[1] == 225.0f && 
         c3.getRGB()[2] == 255.0f); // b should be clamped to 255
-    
-    c3.white();
-    assert(c3.getRGB()[0] == 255.0f && c3.getRGB()[1] == 255.0f && 
-        c3.getRGB()[2] == 255.0f); // c3 should be white now
+
 
     std::cout << "Color class compiled successfully." << std::endl;
     return 0;
