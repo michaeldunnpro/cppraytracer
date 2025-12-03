@@ -1,10 +1,7 @@
 #include <fstream>
 #include <iostream>
-#include <vector>
 
-#include "ray.hpp"
 #include "scene.hpp"
-#include "vector.hpp"
 
 Scene::Camera::Camera(Point pos, Vector ori)
     : position(pos)
@@ -114,16 +111,17 @@ Color Scene::get_background() const {
 
 void Scene::make_screen() { // for each pixel on the screen, trace a ray from the camera to that pixel
     std::ofstream Image("image.ppm");
-    Image << "P3" << "\n"; // P3 format .ppm file
-    Image << this->screen->get_pixel_width() << " " << this->screen->get_pixel_length() << "\n"; // tells the file the length and width of the image
-    Image << "255" << "\n"; // RGB values rated out of 255
+    Image << "P3" << std::endl; // P3 format .ppm file
+    // tells the file the length and width of the image
+    Image << this->screen->get_pixel_width() << " " << this->screen->get_pixel_length() << std::endl;
+    Image << "255" << std::endl; // RGB values rated out of 255
     for (int i = 0; i < this->screen->get_pixel_length(); i++) {
         for (int j = 0; j < this->screen->get_pixel_width(); j++) {
             Point destination = this->get_screen()->get_pixel(j, i, this->camera);
             Vector direction = destination - this->get_camera()->get_position();
-            Color color = trace(Ray(this->camera->get_position(), direction), 5); // TODO: remove hard-code
+            Color color = trace(Ray(this->camera->get_position(), direction), this->recursion_depth);
             std::unique_ptr<float[]> rgb = color.getRGB();
-            Image << (int)rgb[0] << " " << (int)rgb[1] << " " << (int)rgb[2] << "\n";
+            Image << (int)rgb[0] << " " << (int)rgb[1] << " " << (int)rgb[2] << std::endl;
         }
     }
     Image.close();
@@ -193,6 +191,5 @@ Color Scene::trace(Ray const& ray, int recursion_depth) const {
         return material->get_color(ray.direction, point, normal, this, recursion_depth);
     }
 
-    // TODO: background color
-    return Color::white();
+    return this->background;
 }

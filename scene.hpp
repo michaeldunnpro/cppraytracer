@@ -4,30 +4,16 @@
 #include <utility>
 #include <vector>
 
-#include <fstream>
-#include <iostream>
-
 #include "color.hpp"
 #include "ray.hpp"
 #include "shape.hpp"
 #include "vector.hpp"
 
+// Forward declaration
 class Shape;
 
 class Scene {
 private:
-    std::vector<Shape> shapes;
-    std::vector<Point> point_lights;
-
-    /**
-     * @brief Compute the first point a ray intersects among all shapes
-     * @param ray The ray
-     * @return A pair `(t, shape)` where `t` is the parameter indicating
-     * the intersection position as in other methods, and `shape` is a
-     * const lvalue reference to the shape being intersected.
-     */
-    std::optional<std::pair<float, Shape const*>> intersect_first_all(Ray const& ray) const;
-
     class Camera {
     private:
         Point position;
@@ -35,7 +21,7 @@ private:
 
     public:
         Camera(Point pos = Point(0, 0, 0), Vector ori = Vector(1, 0, 0));
-        Camera(const Camera&);
+        Camera(const Camera&) = default;
         ~Camera() = default;
 
         Point get_position() const;
@@ -55,7 +41,7 @@ private:
 
     public:
         Screen(float wid = 100, float len = 100, int pix_wid = 480, int pix_len = 480, int d_c = 10);
-        Screen(const Screen&);
+        Screen(const Screen&) = default;
         ~Screen() = default;
 
         float get_width() const;
@@ -64,17 +50,43 @@ private:
         int get_pixel_length() const;
         int get_dst_cam() const;
 
-        void set_dst_cam(int d_c); // sets the distance from the camera, putting the middle of the screen at the point the orientation of the camera points to
-
-        Point get_pixel(int x, int y, Camera* cam) const; // takes an x and y pixel as well as a pointer to a camera, returns the coordinates of that pixel
+        /**
+         * @brief Set the distance from the camera, putting the middle of
+         * the screen at the point the orientation of the camera points to
+         * @param d_c New distance from the screen to the camera
+         */
+        void set_dst_cam(int d_c);
+        
+        /**
+         * @brief Take an x and y pixel as well as a pointer to a camera, returns the coordinates of that pixel
+         * @param x Horizontal pixel index
+         * @param y Vertical pixel index
+         * @param cam A pointer to the camera
+         * @return The coordinates of the specified pixel
+         */
+        Point get_pixel(int x, int y, Camera* cam) const;
     };
-    float specular;
-    float ambient;
-    float sp;
-    Color background;
 
     Camera* camera;
     Screen* screen;
+
+    std::vector<Shape> shapes;
+    std::vector<Point> point_lights;
+
+    float ambient;
+    float specular;
+    float sp;
+    Color background;
+    int recursion_depth = 5;
+
+    /**
+     * @brief Compute the first point a ray intersects among all shapes
+     * @param ray The ray
+     * @return A pair `(t, shape)` where `t` is the parameter indicating
+     * the intersection position as in other methods, and `shape` is a
+     * const lvalue reference to the shape being intersected.
+     */
+    std::optional<std::pair<float, Shape const*>> intersect_first_all(Ray const& ray) const;
 
 public:
     Scene() = delete;
