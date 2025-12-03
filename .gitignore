@@ -50,3 +50,6 @@
 # Packaging files
 *.dSYM.zip
 *.dSYM
+
+# Binary files
+test
