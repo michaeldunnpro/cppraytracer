@@ -6,6 +6,9 @@ test: test.cpp material.hpp material.cpp ray.hpp ray.cpp scene.hpp scene.cpp sha
 run: test
 	./test
 
+leaks: test
+	leaks --atExit -- ./test
+
 clean:
 	rm -f test
 	rm -f *.o
