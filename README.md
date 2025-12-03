@@ -3,9 +3,10 @@ Reed College, CSI221 fall Final Project
 
 ## Overview
 ### What is a ray tracer?
-    idk man but I think it will look nice to have this here
+idk man but I think it will look nice to have this here
+
 ### What about this project in particular
-    specifics about this project, may delete later if not much to say
+specifics about this project, may delete later if not much to say
 
 ## Installation 
 Requirements
@@ -46,7 +47,7 @@ Cleaning away old executables:
 ```
 
 ### Interfacing with the ray tracer
-    TBD/WIP
+TBD/WIP
 
 ## 
 By: Frank Y, Micheal B, Micheal D, Xanthe N
