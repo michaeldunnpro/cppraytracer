@@ -13,6 +13,8 @@
 
 class Scene{
 private:
+    std::vector<Shape> shapes;
+    std::vector<Point> point_lights;
   class Camera{
   private:
     Point position;
@@ -60,19 +62,25 @@ private:
   Screen* screen;
   
 public:
-  Scene() = delete;
-  Scene(Camera* cam, Screen* scr, float ambient, float specular, Color background);
-  Screen(const Screen&);
-  ~Scene();
+    Scene() = delete;
+    Scene(Camera* cam, Screen* scr, float ambient, float specular, Color background);
+    Screen(const Screen&);
+    ~Scene();
 
-  Camera* get_camera() const;
-  Screen* get_screen() const;
-  float get_ambient() const;
-  float get_specular() const;
-  float get_sp() const;
-  void make_screen(); 
+    Camera* get_camera() const;
+    Screen* get_screen() const;
+    float get_ambient() const;
+    float get_specular() const;
+    float get_sp() const;
+    void make_screen(); 
   
-  std::vector<Point> const& get_point_lights() const;
-  
-  Color trace(Ray const&) const;
+    /**
+     * @brief Get the location of all point light sources visible from `point`.
+     */
+    std::vector<Point> get_visible_point_lights(Point const& point) const;
+
+    /**
+     * @param recursion_depth maximum recursion depth allowed; 0 for no recursion
+     */
+    Color trace(Ray const& ray, int recursion_depth) const;
 };
