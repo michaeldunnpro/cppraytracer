@@ -1,6 +1,9 @@
 #pragma once
 
+#include <optional>
 #include <vector>
+#include <utility>
+
 
 #include "ray.hpp"
 #include "vector.hpp"
