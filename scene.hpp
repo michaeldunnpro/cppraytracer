@@ -13,7 +13,7 @@
 #include "color.hpp"
 
 class Scene{
-  Class Shape;
+  class Shape;
 private:
     std::vector<Shape> shapes;
     std::vector<Point> point_lights;
@@ -76,7 +76,7 @@ private:
 public:
     Scene() = delete;
     Scene(Camera* cam, Screen* scr, float ambient, float specular, Color background);
-    Screen(const Screen&);
+    Scene(const Scene&);
     ~Scene();
 
     Camera* get_camera() const;
