@@ -47,6 +47,10 @@ int Scene::Screen::get_pixel_width() const {
     return this->pixel_width;
 }
 
+int Scene::Screen::get_pixel_length() const {
+    return this->pixel_length;
+}
+
 int Scene::Screen::get_dst_cam() const {
     return this->dst_cam;
 }
