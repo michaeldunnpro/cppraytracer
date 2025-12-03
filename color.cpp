@@ -7,12 +7,12 @@ Color Color::white() {
     return Color(255.0f, 255.0f, 255.0f);
 }
 
-float* Color::getRGB() {
-    float* rgb = new float[3];
+std::unique_ptr<float[]> Color::getRGB() {
+    std::unique_ptr<float[]> rgb = std::make_unique<float[]>(3);
     rgb[0] = this->r;
     rgb[1] = this->g;
     rgb[2] = this->b;
-    return rgb;
+    return rgb; // Return ownership of the array
 }
 
 void Color::clamp() {

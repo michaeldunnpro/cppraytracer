@@ -52,11 +52,11 @@ std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const {
         return {};
     }
     float t = ((ray.origin - this->point) * this->normal) / div;
-    return t > 0 ? t : {};
+    return t > 0 ? std::optional<float>(t) : std::nullopt;
 }
 
 template <typename T>
-Vector BasicPlane<T>::normal_at(Point const& point) const {
+Vector BasicPlane<T>::normal_at(Point const&) const {
     return normal;
 }
 

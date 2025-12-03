@@ -4,6 +4,9 @@
 #include "scene.hpp"
 #include "vector.hpp"
 
+// Forward declaration
+class Scene;
+
 /**
  * Represent the shading behavior at a single point.
  */
