@@ -1,10 +1,20 @@
 #include <cassert>
 #include <iostream>
+#include <memory>
 
 #include "color.hpp"
 #include "material.hpp"
 #include "shape.hpp"
 #include "vector.hpp"
+
+void test_scene() {
+    Camera camera;
+    Screen screen(10.f, 10.f);
+    Scene scene(&camera, &screen, 0.8f, 0.5f, 8.f, Color(135.f, 206.f, 235.f));
+    BasicMaterial material(Color(255.f, 0.f, 0.f), 0.3f);
+    scene.add_shape(std::make_unique<BasicSphere<>>(Point(5.f, 5.f, 5.f), 2.f, material));
+    scene.make_screen();
+}
 
 int main() {
     Vector v1 = Vector(1.0f, 2.0f, 3.0f);
@@ -55,5 +65,7 @@ int main() {
     assert(c3.getRGB()[0] == 150.0f && c3.getRGB()[1] == 225.0f
         && c3.getRGB()[2] == 255.0f); // b should be clamped to 255
     std::cout << "Color class compiled successfully." << std::endl;
+    
+    test_scene();
     return 0;
 }
