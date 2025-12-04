@@ -34,7 +34,7 @@ If you dont meet these requirments, Follow the system specific steps in [here](#
 
 Install using git clone
 ```
- git clone https://github.com/michaeldunnpro/cppraytracer
+git clone https://github.com/michaeldunnpro/cppraytracer
 ```
 
 ## Installing Requirements 
@@ -42,7 +42,7 @@ All installation is done though your systems terminal.
 ### Mac/IOS 
 <!---If you dont already, install command tools: 
 ```
-    xcode-select --install
+xcode-select --install
 ```-->
 First install brew as a package manager:
 ``` 
@@ -51,11 +51,11 @@ First install brew as a package manager:
 taken from the [homebrew website](https://brew.sh/), follow the instructions as prompted by the terminal. 
 git
 ```
-    brew install git
+brew install git
 ```
 g++ compiler
 ```
-    brew install gcc
+brew install gcc
 ```
 
 ### linux
@@ -63,21 +63,21 @@ g++ compiler
 *Fedora*:
 git
 ``` 
-    sudo dnf install git 
+sudo dnf install git 
 ```
 g++ compiler
 ``` 
-    sudo dnf install git 
+sudo dnf install git 
 ```
 
 _Arch:_
 git
 ``` 
-    sudo pacman -s git 
+sudo pacman -s git 
 ```
 g++ compiler
 ``` 
-    sudo pacman -s gcc
+sudo pacman -s gcc
 ```
 
 ### Windows
@@ -93,28 +93,28 @@ Here are the commands that you can run from the projects makefile
 
 Compiling the test code: 
 ```
-    make test
+make test
 ```
 
 Running the test code:
 ```
-    make run
+make run
 ```
 
 Checking for leaks:
 ```
-    make leaks
+make leaks
 ```
 
 Cleaning away old executables:
 ```
-    make clean
+make clean
 ```
 
 ### Interfacing with the ray tracer
 TBD/WIP
 
 ## Contributors
-By: Frank Y, Micheal B, Micheal D, Xanthe N
+Frank Y, Micheal B, Micheal D, Xanthe N
 
 
