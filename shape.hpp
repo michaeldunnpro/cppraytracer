@@ -115,7 +115,7 @@ std::optional<float> BasicSphere<T>::intersect_first(Ray const& ray) const {
 
 template <typename T>
 Vector BasicSphere<T>::normal_at(Point const& point) const {
-    return point - this->center;
+    return !(point - this->center);
 }
 
 template <typename T>
@@ -126,7 +126,7 @@ std::unique_ptr<Material> BasicSphere<T>::material_at(Point const&) const {
 template <typename T>
 inline BasicPlane<T>::BasicPlane(Point point, Vector normal, T material)
     : point(point)
-    , normal(normal)
+    , normal(!normal)
     , material(material) {
 }
 

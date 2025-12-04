@@ -33,7 +33,7 @@ Color BasicMaterial::get_color(
     // reflection
     if (recursion_depth > 0) {
         Vector reflected = incoming - 2.f * (incoming >> normal); // direction of reflected ray
-        Color l_reflected = scene->trace(
+        Color l_reflected = (1 - a) * this->refl * scene->trace(
             Ray(point + 1e-6 * reflected, reflected), recursion_depth - 1);
         color = color + l_reflected;
     }
