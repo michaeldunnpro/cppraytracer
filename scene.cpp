@@ -57,17 +57,17 @@ void Screen::set_dst_cam(int d_c) {
 }
 
 Point Screen::get_pixel(int x, int y, Camera* cam) const {
-    Point origin = cam->get_position() + (!(cam->get_orientation()) * this->get_dst_cam());
     // point camera is at moved by dst_cam in the direction of orientation
-    x -= (this->get_pixel_width()) / 2;
-    x *= this->get_width() / this->get_pixel_width();
-    y -= (this->get_pixel_length()) / 2;
-    y *= this->get_length() / this->get_pixel_length();
+    Point origin = cam->get_position() + (!(cam->get_orientation()) * this->get_dst_cam());
+
+    // Offsets in horizontal and verticle directions in space coordinates
+    float x_offset = ((float)x / this->get_pixel_width() - 0.5f) * this->get_width();
+    float y_offset = ((float)y / this->get_pixel_length() - 0.5f) * this->get_length();
 
     Vector x_vector = !(cam->get_orientation()) ^ Vector(0, 0, 1);
     Vector y_vector = x_vector ^ cam->get_orientation();
 
-    Point pixel = origin + (x * x_vector) + (y * y_vector); // move pixel by x and y
+    Point pixel = origin + (x_offset * x_vector) + (y_offset * y_vector); // move pixel by x and y
     return pixel;
 }
 

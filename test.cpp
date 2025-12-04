@@ -12,7 +12,7 @@ void test_scene() {
     Screen screen(10.f, 10.f);
     Scene scene(&camera, &screen, 0.8f, 0.5f, 8.f, Color(135.f, 206.f, 235.f));
     BasicMaterial material(Color(255.f, 0.f, 0.f), 0.3f);
-    scene.add_shape(std::make_unique<BasicSphere<>>(Point(5.f, 5.f, 5.f), 2.f, material));
+    scene.add_shape(std::make_unique<BasicSphere<>>(Point(5.f, 0.f, 0.f), 2.f, material));
     scene.make_screen();
 }
 
