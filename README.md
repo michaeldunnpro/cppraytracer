@@ -27,7 +27,7 @@ specifics about this project, may delete later if not much to say
     - run c++ up to at least to C++ standard 17
     - other compilers should work, you just may have to compile by hand instead of using the makefile
 3. git installed on your terminal
-If you dont meet these requirments, Follow the system specific steps in [here](#installing requirements)
+If you dont meet these requirments, Follow the system specific steps [here](<#installing requirements>)
 
 ## Installation 
 > [!WARNING]
