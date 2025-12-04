@@ -1,5 +1,6 @@
- Ray Tracer Project!
+# Ray Tracer Project!
 Reed College, CSI221 fall Final Project
+
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
