@@ -77,7 +77,7 @@ private:
     float specular;
     float sp;
     Color background;
-    int recursion_depth = 5;
+    int recursion_depth = 6;
 
     /**
      * @brief Compute the first point a ray intersects among all shapes
