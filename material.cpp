@@ -5,16 +5,13 @@
 
 BasicMaterial::BasicMaterial(Color color, float refl)
     : color(color)
-    , refl(refl)
-{
+    , refl(refl) {
 }
 
 Color BasicMaterial::get_color(
     Vector const& incoming, Point const& point, Vector const& normal,
-    Scene const* scene, int recursion_depth) const
-{
-    // ambient light
-    float a = scene->get_ambient() * (1 - this->refl);
+    Scene const* scene, int recursion_depth) const {
+    float a = scene->get_ambient() * (1 - this->refl); // ambient light
     Color l_ambient = this->color * a;
     Color color = l_ambient; // tracks the total color
 

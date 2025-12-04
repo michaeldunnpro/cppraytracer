@@ -58,11 +58,10 @@ Color operator*(float scalar, Color const& color) {
     return Color(color.r * scalar, color.g * scalar, color.b * scalar);
 }
 
-//move v?
-#ifdef debug_color_cpp
 #include <cassert>
 #include <iostream>
-//move ^
+
+#ifdef debug_color_cpp
 
 int main(){
     Color c1(100.0f, 150.0f, 200.0f);
