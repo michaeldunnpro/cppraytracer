@@ -1,16 +1,16 @@
-# Ray Tracer Project!
+ Ray Tracer Project!
 Reed College, CSI221 fall Final Project
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Installing Requirements](#Installing Requirements)
+- [Installing Requirements](<#Installing Requirements>)
     - [Mac/IOS](#Mac/IOS)
     - [Linux](#linux)
     - [Windows](#Windows)
 - [Useage](#Useage)
-    - [Interfacing with the ray tracer](#Interfacing with the ray tracer)
-    - [Compiling, Testing and cleaning](#Compiling, Testing and cleaning)
+    - [Interfacing with the ray tracer](<#Interfacing with the ray tracer>)
+    - [Compiling, Testing and cleaning](<#Compiling, Testing and cleaning>)
 -  [Contributors](#Contributors)
 
 ## Overview
