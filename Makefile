@@ -9,6 +9,9 @@ run: test
 leaks: test
 	leaks --atExit -- ./test
 
+val-leaks: test 
+	valgrind --leak-check=yes ./test
+
 clean:
 	rm -f test
 	rm -f *.o
