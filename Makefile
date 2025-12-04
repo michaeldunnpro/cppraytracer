@@ -14,4 +14,6 @@ val-leaks: test
 
 clean:
 	rm -f test
+	rm -f image.ppm
 	rm -f *.o
+	rm -rf *.dSYM

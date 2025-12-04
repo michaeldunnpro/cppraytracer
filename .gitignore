@@ -51,5 +51,9 @@
 *.dSYM.zip
 *.dSYM
 
-# Binary files
+# Formatter config
+.clang-format
+
+# Output files
 test
+*.ppm
