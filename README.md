@@ -3,10 +3,15 @@ Reed College, CSI221 fall Final Project
 ## Table of Contents
 [Overview](#overview)
 [Requirements](#requirements)
-- [Mac/IOS Requiments Install](#Mac/IOS Requiments Install)
-- [Windows Requiments Install](#Windows Requiments Install)
-
-#linux Requiments Install
+[Installation](#installation)
+[Installing Requirements](#Installing Requirements)
+- [Mac/IOS](#Mac/IOS)
+- [Linux](#linux)
+- [Windows](#Windows)
+[Useage](#Useage)
+- [Interfacing with the ray tracer](#Interfacing with the ray tracer)
+- [Compiling, Testing and cleaning](#Compiling, Testing and cleaning)
+[Contributors](#Contributors)
 
 ## Overview
 ### What is a ray tracer?
@@ -34,7 +39,7 @@ Install using git clone
 
 ## Installing Requirements 
 All installation is done though your systems terminal.
-## Mac/IOS 
+### Mac/IOS 
 <!---If you dont already, install command tools: 
 ```
     xcode-select --install
@@ -55,7 +60,7 @@ g++ compiler
 
 ### linux
 
-_Fedora:_
+*Fedora*:
 git
 ``` 
     sudo dnf install git 
@@ -76,11 +81,12 @@ g++ compiler
 ```
 
 ### Windows
-
+WIP
 
 
 
 ## Useage
+WIP
 
 ### Compiling, Testing and cleaning
 Here are the commands that you can run from the projects makefile
@@ -108,7 +114,7 @@ Cleaning away old executables:
 ### Interfacing with the ray tracer
 TBD/WIP
 
-## 
+## Contributors
 By: Frank Y, Micheal B, Micheal D, Xanthe N
 
 
