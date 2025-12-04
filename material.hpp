@@ -32,7 +32,7 @@ public:
  * An implementation of `Material` based on the minimal
  * project requirement
  */
-class BasicMaterial : Material {
+class BasicMaterial : public Material {
 private:
     Color const color;
     float const refl; // reflexivity

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <memory>
 #include <optional>
 
@@ -52,7 +53,7 @@ public:
  * A sphere with a single material.
  */
 template <typename T = BasicMaterial>
-class BasicSphere : Shape {
+class BasicSphere : public Shape {
 private:
     Point center;
     float radius;
@@ -69,7 +70,7 @@ public:
  * A plane with a single material.
  */
 template <typename T = BasicMaterial>
-class BasicPlane : Shape {
+class BasicPlane : public Shape {
 private:
     Point point; // Any point on the plane
     Vector normal; // A unit normal vector
@@ -81,3 +82,70 @@ public:
     Vector normal_at(Point const&) const override;
     std::unique_ptr<Material> material_at(Point const&) const override;
 };
+
+// Template definition; must be put or otherwise included in the header
+
+template <typename T>
+inline BasicSphere<T>::BasicSphere(Point center, float radius, T material)
+    : center(center)
+    , radius(radius)
+    , material(material) {
+}
+
+template <typename T>
+std::optional<float> BasicSphere<T>::intersect_first(Ray const& ray) const {
+    float a = ray.direction * ray.direction;
+    float b = 2 * ray.direction * (ray.origin - this->center);
+    float c = (ray.origin - this->center) * (ray.origin - this->center) - radius * radius;
+    float discriminant = b * b - 4 * a * c;
+    if (discriminant < 0) {
+        return {};
+    }
+    float root = std::sqrt(discriminant);
+    float t1 = (-b - root) / (2 * a);
+    float t2 = (-b + root) / (2 * a);
+    if (t1 > 0) {
+        return t1;
+    }
+    if (t2 > 0) {
+        return t2;
+    }
+    return {};
+}
+
+template <typename T>
+Vector BasicSphere<T>::normal_at(Point const& point) const {
+    return point - this->center;
+}
+
+template <typename T>
+std::unique_ptr<Material> BasicSphere<T>::material_at(Point const&) const {
+    return std::make_unique<T>(this->material);
+}
+
+template <typename T>
+inline BasicPlane<T>::BasicPlane(Point point, Vector normal, T material)
+    : point(point)
+    , normal(normal)
+    , material(material) {
+}
+
+template <typename T>
+std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const {
+    float div = ray.direction * this->normal;
+    if (std::abs(div) < 1e-6) {
+        return {};
+    }
+    float t = ((ray.origin - this->point) * this->normal) / div;
+    return t > 0 ? std::optional<float>(t) : std::nullopt;
+}
+
+template <typename T>
+Vector BasicPlane<T>::normal_at(Point const&) const {
+    return normal;
+}
+
+template <typename T>
+std::unique_ptr<Material> BasicPlane<T>::material_at(Point const&) const {
+    return std::unique_ptr<Material>(this->material);
+}

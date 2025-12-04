@@ -3,28 +3,28 @@
 
 #include "scene.hpp"
 
-Scene::Camera::Camera(Point pos, Vector ori)
+Camera::Camera(Point pos, Vector ori)
     : position(pos)
     , orientation(ori) {
 }
 
-Point Scene::Camera::get_position() const {
+Point Camera::get_position() const {
     return this->position;
 }
 
-Vector Scene::Camera::get_orientation() const {
+Vector Camera::get_orientation() const {
     return this->orientation;
 }
 
-void Scene::Camera::set_position(Point pos) {
+void Camera::set_position(Point pos) {
     this->position = pos;
 }
 
-void Scene::Camera::set_orientation(Vector ori) {
+void Camera::set_orientation(Vector ori) {
     this->orientation = ori;
 }
 
-Scene::Screen::Screen(float wid, float len, int pix_wid, int pix_len, int d_c)
+Screen::Screen(float wid, float len, int pix_wid, int pix_len, int d_c)
     : width(wid)
     , length(len)
     , pixel_width(pix_wid)
@@ -32,31 +32,31 @@ Scene::Screen::Screen(float wid, float len, int pix_wid, int pix_len, int d_c)
     , dst_cam(d_c) {
 }
 
-float Scene::Screen::get_width() const {
+float Screen::get_width() const {
     return this->width;
 }
 
-float Scene::Screen::get_length() const {
+float Screen::get_length() const {
     return this->length;
 }
 
-int Scene::Screen::get_pixel_width() const {
+int Screen::get_pixel_width() const {
     return this->pixel_width;
 }
 
-int Scene::Screen::get_pixel_length() const {
+int Screen::get_pixel_length() const {
     return this->pixel_length;
 }
 
-int Scene::Screen::get_dst_cam() const {
+int Screen::get_dst_cam() const {
     return this->dst_cam;
 }
 
-void Scene::Screen::set_dst_cam(int d_c) {
+void Screen::set_dst_cam(int d_c) {
     this->dst_cam = d_c;
 }
 
-Point Scene::Screen::get_pixel(int x, int y, Camera* cam) const {
+Point Screen::get_pixel(int x, int y, Camera* cam) const {
     Point origin = cam->get_position() + (!(cam->get_orientation()) * this->get_dst_cam());
     // point camera is at moved by dst_cam in the direction of orientation
     x -= (this->get_pixel_width()) / 2;
@@ -80,16 +80,11 @@ Scene::Scene(Camera* cam, Screen* scr, float ambient, float specular, float sp, 
     , background(background) {
 }
 
-Scene::~Scene() {
-    delete this->camera;
-    delete this->screen;
-}
-
-Scene::Camera* Scene::get_camera() const {
+Camera* Scene::get_camera() const {
     return this->camera;
 }
 
-Scene::Screen* Scene::get_screen() const {
+Screen* Scene::get_screen() const {
     return this->screen;
 }
 
@@ -107,6 +102,14 @@ float Scene::get_sp() const {
 
 Color Scene::get_background() const {
     return this->background;
+}
+
+void Scene::add_shape(std::unique_ptr<Shape>&& shape) {
+    this->shapes.push_back(std::move(shape));
+}
+
+void Scene::add_point_light(Point point) {
+    this->point_lights.push_back(point);
 }
 
 void Scene::make_screen() { // for each pixel on the screen, trace a ray from the camera to that pixel
@@ -127,17 +130,17 @@ void Scene::make_screen() { // for each pixel on the screen, trace a ray from th
     Image.close();
 }
 
-std::optional<std::pair<float, Shape const*>> Scene::intersect_first_all(Ray const& ray) const {
+std::optional<std::pair<float, std::reference_wrapper<Shape const>>> Scene::intersect_first_all(Ray const& ray) const {
     // Track the closest intersection the ray meets by far
-    std::optional<std::pair<float, Shape const*>> min_intersection {};
+    std::optional<std::pair<float, std::reference_wrapper<Shape const>>> min_intersection {};
 
     for (auto&& shape : this->shapes) {
-        std::optional<float> t = shape.intersect_first(ray);
-        // Update `min_intersection` when either
-        // there is currently no other intersections, or
-        // there is a new intersection that is smaller than the current one
-        if (!min_intersection || (t && t.value() < min_intersection.value().first)) {
-            min_intersection = std::make_pair(t.value(), &shape);
+        std::optional<float> t = shape->intersect_first(ray);
+        // Update `min_intersection` when there is a new intersection, and
+        // either there is currently no other intersections
+        // or the new intersection is smaller than the current one
+        if (t && (!min_intersection || t.value() < min_intersection.value().first)) {
+            min_intersection = std::make_pair(t.value(), std::cref(*shape));
         }
     }
 
@@ -151,7 +154,7 @@ std::vector<Point> Scene::get_visible_point_lights(Point const& point) const {
     for (auto&& point_light : this->point_lights) {
         // Form the ray pointing from `point` to the light source
         Ray ray(point, point_light - point);
-        std::optional<std::pair<float, Shape const*>> min_intersection = this->intersect_first_all(ray);
+        std::optional<std::pair<float, std::reference_wrapper<Shape const>>> min_intersection = this->intersect_first_all(ray);
 
         // Check if the ray intersects any shape
         if (min_intersection) {
@@ -172,18 +175,18 @@ std::vector<Point> Scene::get_visible_point_lights(Point const& point) const {
 
 Color Scene::trace(Ray const& ray, int recursion_depth) const {
     // Compute the first intersection (if any)
-    std::optional<std::pair<float, Shape const*>> min_intersection = this->intersect_first_all(ray);
+    std::optional<std::pair<float, std::reference_wrapper<Shape const>>> min_intersection = this->intersect_first_all(ray);
 
     if (min_intersection) {
         auto [t, shape] = min_intersection.value();
         Point point = ray.at(t);
 
         // Get the material at the intersection point
-        std::unique_ptr<Material> material = shape->material_at(point);
+        std::unique_ptr<Material> material = shape.get().material_at(point);
 
         // Get the normal vector at the intersection point and make sure it point out
         // i.e., in opposite direction with the incoming ray
-        Vector normal = shape->normal_at(point);
+        Vector normal = shape.get().normal_at(point);
         if (normal * ray.direction > 0) {
             normal = -normal;
         }
