@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <stdlib.h>
+
 /** 
  * Color definition
  * Instantiate using Color(r, g, b) where r, g, b are floats in [0.0, 255.0]

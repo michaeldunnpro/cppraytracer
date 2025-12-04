@@ -4,7 +4,7 @@ template <typename T>
 inline BasicSphere<T>::BasicSphere(Point center, float radius, T material)
     : center(center)
     , radius(radius)
-    , material(material){
+    , material(material) {
 }
 
 template <typename T>

@@ -2,6 +2,9 @@
 
 #include "vector.hpp"
 
+/*
+ * INCLUDE DESCRPTION IN HEADER FILE 
+ */
 class Ray {
 public:
     Point origin;
