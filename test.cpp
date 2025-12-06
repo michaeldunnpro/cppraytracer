@@ -8,15 +8,17 @@
 #include "vector.hpp"
 
 void test_scene() {
-    Camera camera(Point(0.5f, -1.0f, 0.5f), Vector(0.f, 1.f, 0.f));
+    Camera camera(Point(0.5f, -1.5f, 0.5f), Vector(0.0f, 1.f, 0.0f));
     Screen screen(10.f, 10.f);
     Scene scene(&camera, &screen, 0.8f, 0.5f, 8., Color(135, 206, 235));
-    BasicMaterial red_material(Color(255, 0, 0), 0.3f);
+    BasicMaterial red_material(Color(255, 0, 0), 0.4f);
     scene.add_shape(std::make_unique<BasicSphere<>>(Point(0.25f, 0.45f, 0.4f), 0.4f, red_material));
-    BasicMaterial green_material(Color(0, 255, 0), 0.f);
+    BasicMaterial green_material(Color(0, 255, 0), 0.2f);
     scene.add_shape(std::make_unique<BasicSphere<>>(Point(1.f, 1.f, 0.25f), 0.25f, green_material));
     BasicMaterial blue_material(Color(0, 0, 255), 0.7f);
     scene.add_shape(std::make_unique<BasicSphere<>>(Point(0.8f, 0.3f, 0.15f), 0.15f, blue_material));
+    BasicMaterial gray_material(Color(200, 200, 200), 0.5f);
+    scene.add_shape(std::make_unique<BasicPlane<>>(Point(0.f, 0.f, -0.1f), Vector(0.f, 0.f, 1.f), gray_material));
     scene.add_point_light(Point(0.0, -0.5, 1.0));
     scene.make_screen();
 }

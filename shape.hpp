@@ -147,5 +147,5 @@ Vector BasicPlane<T>::normal_at(Point const&) const {
 
 template <typename T>
 std::unique_ptr<Material> BasicPlane<T>::material_at(Point const&) const {
-    return std::unique_ptr<Material>(this->material);
+    return std::make_unique<T>(this->material);
 }
