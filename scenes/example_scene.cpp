@@ -35,7 +35,7 @@ int main() {
     // Add point light to the scene
     scn.add_point_light(Point(0.0, -0.5, 1.0));
 
-    // Handle user input and render the scene
+    
     handle_input(scn);
     return 0;
 }

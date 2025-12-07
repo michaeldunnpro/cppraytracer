@@ -1,12 +1,12 @@
 // Simple enough that we can put it all in a header
-
+#pragma once // Include guard
 #include "color.hpp"
 #include "material.hpp"
 #include "shape.hpp"
 #include "ui.hpp"
 #include "vector.hpp"
 
-Camera cam(Point a = Point(0, 0, 0), Vector b = Vector(0, 0, 1)) {
+Camera cam(Point a = Point(0.5f, -1.5f, 0.5f), Vector b = Vector(0, 1, 0)) {
     // Convenience function to create a camera at point a with orientation b
     // By default camera is at origin looking down z-axis
     return Camera(a, b);

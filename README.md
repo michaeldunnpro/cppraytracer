@@ -107,7 +107,8 @@ auto camera = cam(Point(x, y, z), Vector(dx, dy, dz));
 auto scr = screen(width, height);
 auto scn = scene(camera, scr, ambient_light, specular_light, highlight_size, background_color);
 ```
-a. The convenience function ```camera``` takes in a position and a direction vector, which can be excluded to default to looking down the negative z-axis.
+a. The convenience function ```camera``` takes in a position and a direction vector, which can be excluded to default 
+to a standard view.
 b. The convenience function ```screen``` takes in width and height parameters (default 10.0).
 c. The convenience function ```scene``` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default 0.2), specular light intensity (default 0.5), highlight size (default 8.0), and background color (default Color(135, 206, 235)).
 
@@ -137,7 +138,10 @@ int main() {
     auto scn = scene(camera, scr);
 
     auto red_mat = mat(Color(255, 0, 0));
-    sphere(Point(0.0f, 0.0f, 0.0f), 0.5f, red_mat, scn);
+    auto gray_mat = mat(Color(200, 200, 200), 0.2f);
+
+    sphere(Point(0.0f, 0.0f, 0.5f), 0.5f, red_mat, scn);
+    plane(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), gray_mat, scn);
 
     scn.add_point_light(Point(0.0, -0.5, 1.0));
 
@@ -145,6 +149,8 @@ int main() {
     return 0;
 }
 ```
+The included example_scene.cpp file contains a more complex example scene, 
+which you can use as a reference when creating your own scenes.
 
 
 ### Compiling, Testing and cleaning
