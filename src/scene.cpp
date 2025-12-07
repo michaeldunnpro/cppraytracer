@@ -287,42 +287,42 @@ void handle_input(Scene& scene) {
                 break;
             }
             case 'a' : {
-                Vector left = !(camera.get_orientation().Rotate(kPi / 2.0f, 0, 0));
+                Vector left = !(camera.get_orientation().rotate(kPi / 2.0f, 0, 0));
                 camera.set_position(camera.get_position() + 0.1* left);
                 break;
             }
             case 'd' : {
-                Vector right = !(camera.get_orientation().Rotate(-kPi / 2.0f, 0, 0));
+                Vector right = !(camera.get_orientation().rotate(-kPi / 2.0f, 0, 0));
                 camera.set_position(camera.get_position() + 0.1* right);
                 break;
             }
             case 'r' : {
-                Vector up = !(camera.get_orientation().Rotate(0, 0, kPi / 2.0f));
+                Vector up = !(camera.get_orientation().rotate(0, 0, kPi / 2.0f));
                 camera.set_position(camera.get_position() + 0.1* up);
                 break;
             }
             case 'f' : {
-                Vector down = !(camera.get_orientation().Rotate(0, 0, -kPi / 2.0f));
+                Vector down = !(camera.get_orientation().rotate(0, 0, -kPi / 2.0f));
                 camera.set_position(camera.get_position() + 0.1* down);
                 break;
             }
             case 'i' : {
-                Vector new_orientation = !camera.get_orientation().Rotate(0, 0, kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().rotate(0, 0, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'k' : {
-                Vector new_orientation = !camera.get_orientation().Rotate(0, 0, -kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().rotate(0, 0, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'j' : {
-                Vector new_orientation = !camera.get_orientation().Rotate(kPi / 10.0f, 0, 0);
+                Vector new_orientation = !camera.get_orientation().rotate(kPi / 10.0f, 0, 0);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'l' : {
-                Vector new_orientation = !camera.get_orientation().Rotate(-kPi / 10.0f, 0, 0);
+                Vector new_orientation = !camera.get_orientation().rotate(-kPi / 10.0f, 0, 0);
                 camera.set_orientation(new_orientation);
                 break;
             }

@@ -39,7 +39,7 @@ Vector::Vector(float const xs, float const ys, float const zs)
     // Constructor body (empty)
 }
 
-Vector Vector::Rotate(float gamma, float beta, float alpha) {
+Vector Vector::rotate(float gamma, float beta, float alpha) const {
     // Intrinsic Euler: Rx(alpha) then Ry(beta) then Rz(gamma)
     // gamma about Z, beta about Y, alpha about X
     float c1 = std::cos(alpha), s1 = std::sin(alpha);
