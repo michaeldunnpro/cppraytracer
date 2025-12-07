@@ -183,7 +183,9 @@ In the project's root, run the following command to compile and run a scene:
 make scene SCENE=scenes/your_scene.cpp
 ```
 Replace ```your_scene.cpp``` with the name of your scene file.
-By default, ```make scene``` will compile and run ```example_scene.cpp```.
+By default, ```make scene``` will compile and run ```example_scene.cpp```,
+which will allow you to move around the scene in a command line viewer. Once 
+you're happy with the view, press 'q' to quit and render the image.
 The image is output as ```image.ppm``` in the project's root directory.
 
 
