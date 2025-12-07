@@ -18,7 +18,7 @@ void make_screen(Scene const& scene, int width, int height) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             Color color = data[i * width + j];
-            std::unique_ptr<float[]> rgb = color.getRGB();
+            std::array<float, 3> rgb = color.getRGB();
             Image << (int)rgb[0] << " " << (int)rgb[1] << " " << (int)rgb[2] << std::endl;
         }
     }
@@ -73,7 +73,7 @@ void make_screen_terminal(Scene const& scene) {
         // Render each pixel in the row
         for (int j = 0; j < term_width; j++) {
             Color color = data[i * term_width + j];
-            std::unique_ptr<float[]> rgb = color.getRGB();
+            std::array<float, 3> rgb = color.getRGB();
             int idx = rgb_to_256((int)rgb[0], (int)rgb[1], (int)rgb[2]);
             std::cout << "\033[48;5;" << idx << "m  \033[0m"; // 256-color background
         }
