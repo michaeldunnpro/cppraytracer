@@ -1,4 +1,5 @@
 #include <cmath>
+
 #include "vector.hpp"
 
 // Overloads for Vector and Point classes

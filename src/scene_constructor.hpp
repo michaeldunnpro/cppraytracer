@@ -1,4 +1,5 @@
 // Simple enough that we can put it all in a header
+
 #include "color.hpp"
 #include "material.hpp"
 #include "shape.hpp"
