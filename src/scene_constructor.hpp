@@ -12,7 +12,7 @@ Camera cam(Point a = Point(0, 0, 0), Vector b = Vector(0, 0, 1)) {
     return Camera(a, b);
 }
 
-BasicMaterial mat(Color color, float reflectivity) {
+BasicMaterial mat(Color color, float reflectivity = 0.5f) {
     // Convenience function to create a basic material with specified color and reflectivity
     return BasicMaterial(color, reflectivity);
 }
