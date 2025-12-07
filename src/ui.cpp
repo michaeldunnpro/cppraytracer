@@ -90,10 +90,10 @@ void handle_input(Scene const& scene) {
     constexpr float kPi = 3.14159265358979323846f; // C++17-safe pi constant
     auto camera_basis = [](const Vector& orientation) {
         Vector forward = !orientation;
-        Vector world_up(0.f, 0.f, 1.f);
+        Vector world_up(0.0f, 0.0f, 1.0f);
         Vector right = forward ^ world_up;
         if (std::fabs(right.x) < 1e-6f && std::fabs(right.y) < 1e-6f && std::fabs(right.z) < 1e-6f) {
-            right = Vector(1.f, 0.f, 0.f); // fallback when looking straight up/down
+            right = Vector(1.0f, 0.0f, 0.0f); // fallback when looking straight up/down
             // Avoid gimbal lock
         }
         right = !right;

@@ -19,12 +19,12 @@ Color BasicMaterial::get_color(
     for (auto&& light : scene->get_visible_point_lights(point - 1e-6 * incoming)) {
         // diffuse light
         Vector lt = !(light - point); // unit vector pointing to the light source
-        Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.f, normal * lt));
+        Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.0f, normal * lt));
 
         // specular light
         Vector h = !(lt - !incoming); // unit vector halfway between `incoming` and `lt`, pointing out
         Color l_specular = scene->get_specular()
-            * std::pow(std::max(0.f, h * normal), scene->get_sp())
+            * std::pow(std::max(0.0f, h * normal), scene->get_sp())
             * Color::white();
 
         color = color + l_diffuse + l_specular;
@@ -32,7 +32,7 @@ Color BasicMaterial::get_color(
 
     // reflection
     if (recursion_depth > 0) {
-        Vector reflected = incoming - 2.f * (incoming >> normal); // direction of reflected ray
+        Vector reflected = incoming - 2.0f * (incoming >> normal); // direction of reflected ray
         Color l_reflected = (1 - a) * this->refl * scene->trace(
             Ray(point + 1e-6 * reflected, reflected), recursion_depth - 1);
         color = color + l_reflected;
