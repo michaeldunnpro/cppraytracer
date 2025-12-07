@@ -41,3 +41,4 @@ scene: $(BIN_DIR) $(SRC_NO_MAIN) $(SCENE)
 
 clean:
 	rm -rf $(BIN_DIR)
+	rm -f image.ppm
