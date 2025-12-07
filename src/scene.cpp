@@ -324,25 +324,25 @@ void handle_input(Scene& scene) {
             }
             case 'i' : {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(forward, right, kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().Rotate(right, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'k' : {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(forward, right, -kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().Rotate(right, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'j' : {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(forward, up, kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().Rotate(up, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'l' : {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(forward, up, -kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().Rotate(up, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }

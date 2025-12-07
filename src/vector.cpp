@@ -39,7 +39,8 @@ Vector::Vector(float const xs, float const ys, float const zs)
     // Constructor body (empty)
 }
 
-Vector Vector::Rotate(Vector v, Vector axis, float angle) {
+Vector Vector::Rotate(Vector axis, float angle) {
+    Vector v = *this;
     // Rodriguez rotation formula
     // Rodrigues' rotation formula about a unit axis
     Vector k = !axis;
