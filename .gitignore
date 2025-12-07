@@ -56,4 +56,5 @@
 
 # Output files
 test
+bin/
 *.ppm
