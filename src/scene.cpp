@@ -156,9 +156,9 @@ std::vector<Point> Scene::get_visible_point_lights(Point const& point) const {
         if (min_intersection) {
             auto [t, shape] = min_intersection.value();
             // Check if the ray intersects any shape before meeting the light source
-            if (t <= 1) {
+            if (t <= 1.0f) {
                 // There is some obstacle between `point` and the light source
-                break;
+                continue;
             }
         }
 
