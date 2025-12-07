@@ -100,6 +100,7 @@ void handle_input(Scene const& scene) {
         Vector up = !(right ^ forward);
         return std::tuple<Vector, Vector, Vector> { forward, right, up };
     };
+    make_screen_terminal(scene); // Initial render
 
     while (true) {
         std::cout << "Enter command (w/a/s/d to move, r/f to go up/down, i/j/k/l to look, q to quit): ";

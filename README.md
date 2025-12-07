@@ -94,7 +94,7 @@ sudo pacman -s gcc
 Scenes are located in the scenes/directory. You can create your own scene by making a new .cpp file in that directory and following the structure of example_scene.cpp.
 
 ### Scene Structure
-All scenes should be created in the scenes/ directory as a .cpp file.
+All scenes should be created in the ```scenes/``` directory as a .cpp file.
 1. Begin file with:
 ```cpp
 #include "../src/scene_constructor.hpp"
