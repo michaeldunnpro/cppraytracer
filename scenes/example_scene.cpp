@@ -1,7 +1,9 @@
 // Example scene definition
-#include <memory>
 
+// This must be included at top of scene file
 #include "../src/scene_constructor.hpp"
+//
+
 
 // TO RUN: make scene SCENE=scenes/example_scene.cpp
 // Cam at (0.5, -1.5, 0.5) looking towards (0,1,0)
