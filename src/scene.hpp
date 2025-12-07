@@ -33,19 +33,15 @@ class Screen {
 private:
     float const width;
     float const length;
-    int const pixel_width;
-    int const pixel_length;
     int dst_cam;
 
 public:
-    Screen(float wid = 100, float len = 100, int pix_wid = 480, int pix_len = 480, int d_c = 10);
+    Screen(float wid = 100, float len = 100, int d_c = 10);
     Screen(const Screen&) = default;
     ~Screen() = default;
 
     float get_width() const;
     float get_length() const;
-    int get_pixel_width() const;
-    int get_pixel_length() const;
     int get_dst_cam() const;
 
     /**
@@ -57,12 +53,12 @@ public:
 
     /**
      * @brief Take an x and y pixel as well as a pointer to a camera, returns the coordinates of that pixel
-     * @param x Horizontal pixel index
-     * @param y Vertical pixel index
+     * @param x Horizontal screen coordinate between `0` and `1`, `0` is left, `1` is right
+     * @param y Vertical screen coordinate, between `0` and `1`, `0` is up, `1` is down
      * @param cam A pointer to the camera
      * @return The coordinates of the specified pixel
      */
-    Point get_pixel(int x, int y, Camera* cam) const;
+    Point get_pixel(float x, float y, Camera* cam) const;
 };
 
 class Scene {
@@ -103,10 +99,21 @@ public:
     void add_point_light(Point point);
 
     /**
-     * @brief Render the scene and write the output into `image.ppm`.
+     * @brief Render the scene and return a 2D array of colors.
+     * @param width Number of pixels to render in horizontal direction
+     * @param height Number of pixels to render in vertical direction
+     * @return A vector of colors representing a 2D array of colors
+     * with dimension (height, width). The color of `v` at index
+     * (i, j) is given by `v[i * width + j]`. The returned data is
+     * oriented so that
+     * ```
+     * (0, 0), (0, 1), ...
+     * (1, 0), (1, 1), ...
+     * ......
+     * ```
+     * gives the correct look.
      */
-    void make_screen_terminal(); // Output to terminal
-    void make_screen();
+    std::vector<Color> render(int width, int height) const;
 
     /**
      * @brief Get the location of all point light sources visible from `point`.
@@ -118,7 +125,3 @@ public:
      */
     Color trace(Ray const& ray, int recursion_depth) const;
 };
-
-// Implementation of input handling for camera movement
-
-void handle_input(Scene& scene);

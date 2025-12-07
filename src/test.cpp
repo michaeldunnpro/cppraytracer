@@ -5,6 +5,7 @@
 #include "color.hpp"
 #include "material.hpp"
 #include "shape.hpp"
+#include "ui.hpp"
 #include "vector.hpp"
 
 void test_scene() {
@@ -20,7 +21,7 @@ void test_scene() {
     BasicMaterial gray_material(Color(200, 200, 200), 0.5f);
     scene.add_shape(std::make_unique<BasicPlane<>>(Point(0.f, 0.f, -0.1f), Vector(0.f, 0.f, 1.f), gray_material));
     scene.add_point_light(Point(0.0, -0.5, 1.0));
-    scene.make_screen();
+    make_screen(scene);
 }
 
 int main() {

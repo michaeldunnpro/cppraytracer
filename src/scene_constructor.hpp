@@ -3,9 +3,10 @@
 #include "color.hpp"
 #include "material.hpp"
 #include "shape.hpp"
+#include "ui.hpp"
 #include "vector.hpp"
 
-Camera cam(Point a = Point(0,0,0), Vector b = Vector(0,0,1)) {
+Camera cam(Point a = Point(0, 0, 0), Vector b = Vector(0, 0, 1)) {
     // Convenience function to create a camera at point a with orientation b
     // By default camera is at origin looking down z-axis
     return Camera(a, b);
@@ -20,7 +21,6 @@ Scene scene(Camera& camera, Screen& screen, float ambient = 0.8f, float specular
     // Convenience function to create a scene with specified camera, screen, lighting, and background color
     return Scene(&camera, &screen, ambient, specular, sp, background);
 }
-
 
 Screen screen(float width = 10.0f, float height = 10.0f) {
     // Convenience function to create a screen with specified width and height
