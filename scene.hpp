@@ -105,6 +105,7 @@ public:
     /**
      * @brief Render the scene and write the output into `image.ppm`.
      */
+    void make_screen_terminal(); // Output to terminal
     void make_screen();
 
     /**
@@ -117,3 +118,7 @@ public:
      */
     Color trace(Ray const& ray, int recursion_depth) const;
 };
+
+// Implementation of input handling for camera movement
+
+void handle_input(Scene& scene);

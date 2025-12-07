@@ -21,6 +21,7 @@ void test_scene() {
     scene.add_shape(std::make_unique<BasicPlane<>>(Point(0.f, 0.f, -0.1f), Vector(0.f, 0.f, 1.f), gray_material));
     scene.add_point_light(Point(0.0, -0.5, 1.0));
     scene.make_screen();
+    handle_input(scene);
 }
 
 int main() {

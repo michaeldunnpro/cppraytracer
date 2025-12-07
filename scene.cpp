@@ -1,7 +1,13 @@
+#include <cmath>
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <sys/ioctl.h> // For terminal size detection
+#include <unistd.h>
 
 #include "scene.hpp"
+
+// Note compatibility requires a Unix-like system for terminal size detection
 
 Camera::Camera(Point pos, Vector ori)
     : position(pos)
@@ -112,6 +118,65 @@ void Scene::add_point_light(Point point) {
     this->point_lights.push_back(point);
 }
 
+
+int get_terminal_width() {
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    return w.ws_col;
+}
+
+int get_terminal_height() {
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    return w.ws_row;
+}
+
+void Scene::make_screen_terminal() { // for each pixel on the screen, trace a ray from camera to pixel. Output to terminal
+    // Disable line wrap to avoid automatic wrapping in some terminals
+    std::cout << "\033[?7l";
+
+    auto rgb_to_256 = [](int r, int g, int b) {
+        auto level = [](int v) {
+            if (v <= 0) return 0;
+            if (v >= 255) return 5;
+            return v / 51; // map 0-255 into 0..5 using 51-step buckets
+        };
+        int rr = level(r);
+        int gg = level(g);
+        int bb = level(b);
+        return 16 + 36 * rr + 6 * gg + bb; // xterm 6x6x6 color cube
+    };
+
+    // Account for two-character cells ("  ") and leave a small margin
+    int raw_width = std::max(1, get_terminal_width() - 2);
+    int raw_height = std::max(1, get_terminal_height() - 2); // leave a line for prompts
+    int term_width = std::max(1, raw_width / 2); // two spaces per pixel
+    int term_height = raw_height;
+
+    int pixel_width = this->screen->get_pixel_width();
+    int pixel_length = this->screen->get_pixel_length();
+    int step_x = std::max(1, pixel_width / term_width);
+    int step_y = std::max(1, pixel_length / term_height);
+
+    // Clear screen and move cursor home
+    std::cout << "\033[2J\033[H";
+
+    for (int i = 0; i < this->screen->get_pixel_length(); i += step_y) {
+        for (int j = 0; j < this->screen->get_pixel_width(); j += step_x) {
+            Point destination = this->get_screen()->get_pixel(j, i, this->camera);
+            Vector direction = destination - this->get_camera()->get_position();
+            Color color = trace(Ray(this->camera->get_position(), direction), this->recursion_depth);
+            color.clamp();
+            std::unique_ptr<float[]> rgb = color.getRGB();
+            int idx = rgb_to_256((int)rgb[0], (int)rgb[1], (int)rgb[2]);
+            std::cout << "\033[48;5;" << idx << "m  \033[0m"; // 256-color background
+        }
+        std::cout << '\n';
+    }
+    // Re-enable line wrap
+    std::cout << "\033[?7h" << std::flush; // Ensure all output is printed
+}
+
 void Scene::make_screen() { // for each pixel on the screen, trace a ray from the camera to that pixel
     std::ofstream Image("image.ppm");
     Image << "P3" << std::endl; // P3 format .ppm file
@@ -196,4 +261,66 @@ Color Scene::trace(Ray const& ray, int recursion_depth) const {
     }
 
     return this->background;
+}
+
+
+
+
+void handle_input(Scene& scene) {
+    Camera &camera = *scene.get_camera();
+    constexpr float kPi = 3.14159265358979323846f; // C++17-safe pi constant
+    while (true) {
+        std::cout << "Enter command (w/a/s/d to move, i/j/k/l to look, q to quit): ";
+        char command;
+        std::cin >> command;
+        switch (command) {
+            case 'w': {
+                camera.set_position(camera.get_position() + 0.1* camera.get_orientation());
+                break;
+            }
+            case 's': {
+                camera.set_position(camera.get_position() - 0.1* camera.get_orientation());
+                break;
+            }
+            case 'a' : {
+                Vector left = !(camera.get_orientation().Rotate(0, 0, kPi / 2.0f));
+                camera.set_position(camera.get_position() + 0.1* left);
+                break;
+            }
+            case 'd' : {
+                Vector right = !(camera.get_orientation().Rotate(0, 0, -kPi / 2.0f));
+                camera.set_position(camera.get_position() + 0.1* right);
+                break;
+            }
+            case 'i' : {
+                Vector new_orientation = !camera.get_orientation().Rotate(-kPi / 10.0f, 0, 0);
+                camera.set_orientation(new_orientation);
+                break;
+            }
+            case 'k' : {
+                Vector new_orientation = !camera.get_orientation().Rotate(kPi / 10.0f, 0, 0);
+                camera.set_orientation(new_orientation);
+                break;
+            }
+            case 'j' : {
+                Vector new_orientation = !camera.get_orientation().Rotate(0, 0, kPi / 10.0f);
+                camera.set_orientation(new_orientation);
+                break;
+            }
+            case 'l' : {
+                Vector new_orientation = !camera.get_orientation().Rotate(0, 0, -kPi / 10.0f);
+                camera.set_orientation(new_orientation);
+                break;
+            }
+            case 'q' : {
+                scene.make_screen(); // Save final image
+                return;
+            }
+            default: {
+                std::cout << "Unknown command\n";
+                break;
+            }
+        }
+        scene.make_screen_terminal(); // Re-render the scene after each command
+    }
 }

@@ -38,6 +38,25 @@ Vector::Vector(float const xs, float const ys, float const zs)
   : x(xs), y(ys), z(zs) {
     // Constructor body (empty)
 }
+
+Vector Vector::Rotate(float gamma, float beta, float alpha) {
+    // Intrinsic rotation by Euler angles (radians), applying Rx(alpha) then Ry(beta) then Rz(gamma)
+    // gamma = rotation about x-axis, beta = rotation about y-axis, alpha = rotation about z-axis
+    // ZYX rotation order
+    float ca = std::cos(alpha);
+    float sa = std::sin(alpha);
+    float cb = std::cos(beta);
+    float sb = std::sin(beta);
+    float cg = std::cos(gamma);
+    float sg = std::sin(gamma);
+
+
+    // Rotation matrix multiplication
+    float new_x = x * (ca * cb) + y * (ca * sb * sg - sa * cg) + z * (ca * sb * cg + sa * sg);
+    float new_y = x * (sa * cb) + y * (sa * sb * sg + ca * cg) + z * (sa * sb * cg - ca * sg);
+    float new_z = x * (-sb) + y * (cb * sg) + z * (cb * cg);
+    return Vector(new_x, new_y, new_z);
+}
     
 Vector operator+(Vector const& lhs, Vector const& rhs) {
     // Define vector addition
