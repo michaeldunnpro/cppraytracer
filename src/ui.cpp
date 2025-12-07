@@ -78,7 +78,7 @@ void make_screen_terminal(Scene const& scene) {
             int idx = rgb_to_256((int)rgb[0], (int)rgb[1], (int)rgb[2]);
             std::cout << "\033[48;5;" << idx << "m  \033[0m"; // 256-color background
         }
-        std::cout << '\n';
+        std::cout << std::endl;
     }
 
     // Re-enable line wrap
@@ -90,15 +90,15 @@ void handle_input(Scene const& scene) {
     constexpr float kPi = 3.14159265358979323846f; // C++17-safe pi constant
     auto camera_basis = [](const Vector& orientation) {
         Vector forward = !orientation;
-        Vector world_up(0.f, 0.f, 1.f);
+        Vector world_up(0.0f, 0.0f, 1.0f);
         Vector right = forward ^ world_up;
         if (std::fabs(right.x) < 1e-6f && std::fabs(right.y) < 1e-6f && std::fabs(right.z) < 1e-6f) {
-            right = Vector(1.f, 0.f, 0.f); // fallback when looking straight up/down
+            right = Vector(1.0f, 0.0f, 0.0f); // fallback when looking straight up/down
             // Avoid gimbal lock
         }
         right = !right;
         Vector up = !(right ^ forward);
-        return std::tuple<Vector, Vector, Vector>{forward, right, up};
+        return std::tuple<Vector, Vector, Vector> { forward, right, up };
     };
 
     while (true) {
@@ -116,45 +116,45 @@ void handle_input(Scene const& scene) {
                 camera.set_position(camera.get_position() - 0.1f * forward);
                 break;
             }
-            case 'a' : {
+            case 'a': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 camera.set_position(camera.get_position() - 0.1f * right);
                 break;
             }
-            case 'd' : {
+            case 'd': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 camera.set_position(camera.get_position() + 0.1f * right);
                 break;
             }
-            case 'r' : {
+            case 'r': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 camera.set_position(camera.get_position() + 0.1f * up);
                 break;
             }
-            case 'f' : {
+            case 'f': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 camera.set_position(camera.get_position() - 0.1f * up);
                 break;
             }
-            case 'i' : {
+            case 'i': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 Vector new_orientation = !camera.get_orientation().Rotate(right, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
-            case 'k' : {
+            case 'k': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 Vector new_orientation = !camera.get_orientation().Rotate(right, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
-            case 'j' : {
+            case 'j': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 Vector new_orientation = !camera.get_orientation().Rotate(up, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
-            case 'l' : {
+            case 'l': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
                 Vector new_orientation = !camera.get_orientation().Rotate(up, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
@@ -165,7 +165,7 @@ void handle_input(Scene const& scene) {
                 return;
             }
             default: {
-                std::cout << "Unknown command\n";
+                std::cout << "Unknown command" << std::endl;
                 break;
             }
         }
