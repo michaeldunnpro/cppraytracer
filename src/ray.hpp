@@ -2,14 +2,19 @@
 
 #include "vector.hpp"
 
-/*
- * INCLUDE DESCRPTION IN HEADER FILE 
+/**
+ * @brief Data of a ray, consisting of an point `origin` and a vector
+ * `direction` (not normalized)
  */
 class Ray {
 public:
     Point origin;
     Vector direction;
+
     Ray(Point, Vector);
-    // Computes origin + t * direction
+
+    /**
+     * @brief Compute `origin + t * direction`.
+     */
     Point at(float t) const;
 };
