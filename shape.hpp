@@ -136,7 +136,8 @@ std::optional<float> BasicPlane<T>::intersect_first(Ray const& ray) const {
     if (std::abs(div) < 1e-6) {
         return {};
     }
-    float t = ((ray.origin - this->point) * this->normal) / div;
+    // Use (point - origin) to keep the plane fixed in world space; sign matters
+    float t = ((this->point - ray.origin) * this->normal) / div;
     return t > 0 ? std::optional<float>(t) : std::nullopt;
 }
 

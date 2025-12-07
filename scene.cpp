@@ -68,7 +68,8 @@ Point Screen::get_pixel(int x, int y, Camera* cam) const {
 
     // Offsets in horizontal and verticle directions in space coordinates
     float x_offset = ((float)x / this->get_pixel_width() - 0.5f) * this->get_width();
-    float y_offset = ((float)y / this->get_pixel_length() - 0.5f) * this->get_length();
+    // Flip Y so increasing screen y points downward in image but upward in world
+    float y_offset = (0.5f - (float)y / this->get_pixel_length()) * this->get_length();
 
     Vector x_vector = !(cam->get_orientation()) ^ Vector(0, 0, 1);
     Vector y_vector = x_vector ^ cam->get_orientation();
@@ -135,15 +136,10 @@ void Scene::make_screen_terminal() { // for each pixel on the screen, trace a ra
     // Disable line wrap to avoid automatic wrapping in some terminals
     std::cout << "\033[?7l";
 
-    auto rgb_to_256 = [](int r, int g, int b) {
-        auto level = [](int v) {
-            if (v <= 0) return 0;
-            if (v >= 255) return 5;
-            return v / 51; // map 0-255 into 0..5 using 51-step buckets
-        };
-        int rr = level(r);
-        int gg = level(g);
-        int bb = level(b);
+    auto rgb_to_256 = [](int r, int g, int b) { // Helper function to convert RGB to 256-color index
+        int rr = r / 51;
+        int gg = g / 51;
+        int bb = b / 51;
         return 16 + 36 * rr + 6 * gg + bb; // xterm 6x6x6 color cube
     };
 
@@ -154,6 +150,8 @@ void Scene::make_screen_terminal() { // for each pixel on the screen, trace a ra
     int term_height = raw_height;
 
     int pixel_width = this->screen->get_pixel_width();
+    int aspect_ratio = pixel_width / this->screen->get_pixel_length();
+    term_width = std::max(1, term_height * aspect_ratio); // adjust width
     int pixel_length = this->screen->get_pixel_length();
     int step_x = std::max(1, pixel_width / term_width);
     int step_y = std::max(1, pixel_length / term_height);
@@ -162,6 +160,12 @@ void Scene::make_screen_terminal() { // for each pixel on the screen, trace a ra
     std::cout << "\033[2J\033[H";
 
     for (int i = 0; i < this->screen->get_pixel_length(); i += step_y) {
+        // Add padding to center the image
+        int padding = (raw_width - (this->screen->get_pixel_width() / step_x) * 2) / 2;
+        for (int p = 0; p < padding; p++) {
+            std::cout << " ";
+        }
+        // Render each pixel in the row
         for (int j = 0; j < this->screen->get_pixel_width(); j += step_x) {
             Point destination = this->get_screen()->get_pixel(j, i, this->camera);
             Vector direction = destination - this->get_camera()->get_position();
@@ -270,7 +274,7 @@ void handle_input(Scene& scene) {
     Camera &camera = *scene.get_camera();
     constexpr float kPi = 3.14159265358979323846f; // C++17-safe pi constant
     while (true) {
-        std::cout << "Enter command (w/a/s/d to move, i/j/k/l to look, q to quit): ";
+        std::cout << "Enter command (w/a/s/d to move, r/f to go up/down, i/j/k/l to look, q to quit): ";
         char command;
         std::cin >> command;
         switch (command) {
@@ -292,13 +296,23 @@ void handle_input(Scene& scene) {
                 camera.set_position(camera.get_position() + 0.1* right);
                 break;
             }
+            case 'r' : {
+                Vector up = !(camera.get_orientation().Rotate(kPi / 2.0f, 0, 0));
+                camera.set_position(camera.get_position() + 0.1* up);
+                break;
+            }
+            case 'f' : {
+                Vector down = !(camera.get_orientation().Rotate(-kPi / 2.0f, 0, 0));
+                camera.set_position(camera.get_position() + 0.1* down);
+                break;
+            }
             case 'i' : {
-                Vector new_orientation = !camera.get_orientation().Rotate(-kPi / 10.0f, 0, 0);
+                Vector new_orientation = !camera.get_orientation().Rotate(kPi / 10.0f, 0, 0);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'k' : {
-                Vector new_orientation = !camera.get_orientation().Rotate(kPi / 10.0f, 0, 0);
+                Vector new_orientation = !camera.get_orientation().Rotate(-kPi / 10.0f, 0, 0);
                 camera.set_orientation(new_orientation);
                 break;
             }
