@@ -1,6 +1,7 @@
 #pragma once
+
+#include <array>
 #include <memory>
-#include <stdlib.h>
 
 /** 
  * Color definition
@@ -15,7 +16,7 @@ public:
     Color(float const r, float const g, float const b);
     static Color white(); // Create a color representing white
     void clamp(); // Clamp color values to valid range (in-place)
-    std::unique_ptr<float[]> getRGB(); // Get pointer to RGB values
+    std::array<float, 3> getRGB() const; // Get array to RGB values
     friend Color operator+(Color const&, Color const&); // Color addition
     friend Color operator-(Color const&, Color const&); // Color subtraction
     friend Color operator*(Color const&, float); // Color scaling
