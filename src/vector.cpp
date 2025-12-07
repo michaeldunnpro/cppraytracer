@@ -39,17 +39,13 @@ Vector::Vector(float const xs, float const ys, float const zs)
     // Constructor body (empty)
 }
 
-Vector Vector::Rotate(float gamma, float beta, float alpha) {
-    // Intrinsic Euler: Rx(alpha) then Ry(beta) then Rz(gamma)
-    // gamma about Z, beta about Y, alpha about X
-    float c1 = std::cos(alpha), s1 = std::sin(alpha);
-    float c2 = std::cos(beta),  s2 = std::sin(beta);
-    float c3 = std::cos(gamma), s3 = std::sin(gamma);
-
-    float new_x = x * (c2 * c3) + y * (c3 * s2 * s1 - s3 * c1) + z * (c3 * s2 * c1 + s3 * s1);
-    float new_y = x * (c2 * s3) + y * (s3 * s2 * s1 + c3 * c1) + z * (s3 * s2 * c1 - c3 * s1);
-    float new_z = x * (-s2)    + y * (c2 * s1)                  + z * (c2 * c1);
-    return Vector(new_x, new_y, new_z);
+Vector Vector::Rotate(Vector v, Vector axis, float angle) {
+    // Rodriguez rotation formula
+    // Rodrigues' rotation formula about a unit axis
+    Vector k = !axis;
+    float c = std::cos(angle);
+    float s = std::sin(angle);
+    return v * c + (k ^ v) * s + k * ((k * v) * (1.0f - c));
 }
     
 Vector operator+(Vector const& lhs, Vector const& rhs) {
