@@ -40,21 +40,15 @@ Vector::Vector(float const xs, float const ys, float const zs)
 }
 
 Vector Vector::Rotate(float gamma, float beta, float alpha) {
-    // Intrinsic rotation by Euler angles (radians), applying Rx(alpha) then Ry(beta) then Rz(gamma)
-    // gamma = rotation about x-axis, beta = rotation about y-axis, alpha = rotation about z-axis
-    // ZYX rotation order
-    float ca = std::cos(alpha);
-    float sa = std::sin(alpha);
-    float cb = std::cos(beta);
-    float sb = std::sin(beta);
-    float cg = std::cos(gamma);
-    float sg = std::sin(gamma);
+    // Intrinsic Euler: Rx(alpha) then Ry(beta) then Rz(gamma)
+    // gamma about Z, beta about Y, alpha about X
+    float c1 = std::cos(alpha), s1 = std::sin(alpha);
+    float c2 = std::cos(beta),  s2 = std::sin(beta);
+    float c3 = std::cos(gamma), s3 = std::sin(gamma);
 
-
-    // Rotation matrix multiplication
-    float new_x = x * (ca * cb) + y * (ca * sb * sg - sa * cg) + z * (ca * sb * cg + sa * sg);
-    float new_y = x * (sa * cb) + y * (sa * sb * sg + ca * cg) + z * (sa * sb * cg - ca * sg);
-    float new_z = x * (-sb) + y * (cb * sg) + z * (cb * cg);
+    float new_x = x * (c2 * c3) + y * (c3 * s2 * s1 - s3 * c1) + z * (c3 * s2 * c1 + s3 * s1);
+    float new_y = x * (c2 * s3) + y * (s3 * s2 * s1 + c3 * c1) + z * (s3 * s2 * c1 - c3 * s1);
+    float new_z = x * (-s2)    + y * (c2 * s1)                  + z * (c2 * c1);
     return Vector(new_x, new_y, new_z);
 }
     
