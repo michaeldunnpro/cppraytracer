@@ -21,7 +21,6 @@ void test_scene() {
     scene.add_shape(std::make_unique<BasicPlane<>>(Point(0.f, 0.f, -0.1f), Vector(0.f, 0.f, 1.f), gray_material));
     scene.add_point_light(Point(0.0, -0.5, 1.0));
     scene.make_screen();
-    handle_input(scene);
 }
 
 int main() {
@@ -73,7 +72,6 @@ int main() {
     assert(c3.getRGB()[0] == 150.0f && c3.getRGB()[1] == 225.0f
         && c3.getRGB()[2] == 255.0f); // b should be clamped to 255
     std::cout << "Color class compiled successfully." << std::endl;
-    
     test_scene();
     return 0;
 }
