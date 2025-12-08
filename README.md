@@ -4,6 +4,7 @@ Reed College, CSI221 fall Final Project
 <!---![example image](example2.ppm)-->
 <!---<p align="center">-->
 <img src="example2.png" width="350">
+<img src="pattern.png" width="350">
 <!---</p>-->
 
 ## Table of Contents
@@ -21,7 +22,8 @@ Reed College, CSI221 fall Final Project
 
 ## Overview
 ### What is a ray tracer?
-idk man but I think it will look nice to have this here
+<!---idk man but I think it will look nice to have this here-->
+Esentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounc off diffrent objects to figure out how much light each pixel should have.
 
  <!---### What about this project in particular
 specifics about this project, may delete later if not much to say -->
@@ -130,7 +132,8 @@ auto material_name = material(Color(r, g, b), reflectivity);
 The convenience function ```material``` takes in a color and an optional reflectivity value (0.0 to 1.0, default 0.5).
 
 4. Add objects to the scene using the convenience functions:
-```sphere(center, radius, material, scene)```, ```plane(point, normal, material, scene)```, and ```triangle(v1, v2, v3, material, scene)```.
+```sphere(center, radius, material, scene)```, ```plane(point, normal, material, scene)```.
+<!---, and ```triangle(v1, v2, v3, material, scene)```-->
 
 5. Add point lights to the scene:
 ```cpp

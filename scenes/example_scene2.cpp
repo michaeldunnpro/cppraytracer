@@ -35,6 +35,7 @@ int main() {
 
     sphere(Point(0.0f, 0.0f, 1.0f), 0.2f, teal, scn);
 
+
     plane(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), darkGrey, scn);
     
     // Add point light to the scene
