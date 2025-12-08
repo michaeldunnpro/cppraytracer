@@ -23,7 +23,7 @@ Reed College, CSI221 fall Final Project
 ## Overview
 ### What is a ray tracer?
 <!---idk man but I think it will look nice to have this here-->
-Esentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounc off diffrent objects to figure out how much light each pixel should have.
+Esentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounce off diffrent objects to figure out how much light each pixel should have.
 
  <!---### What about this project in particular
 specifics about this project, may delete later if not much to say -->
