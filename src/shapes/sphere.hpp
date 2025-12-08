@@ -6,7 +6,7 @@
  * @brief A generic sphere with `material_at()` unimplemented.
  */
 class Sphere : public Shape {
-private:
+protected:
     Point center;
     float radius;
 

@@ -173,6 +173,22 @@ Vector operator-(Point const& lhs, Point const& rhs) {
     return Vector(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
 }
 
+// 3x3 determinant
+float determinant(Vector a, Vector b, Vector c) {
+    return a.x * b.y * c.z + a.y * b.z * c.x + a.z * b.x * c.y
+        - a.x * b.z * c.y - a.y * b.x * c.z - a.z * b.y * c.x;
+}
+
+// Solve for linear combination coefficients (3x3 system of linear equations)
+Vector lin_solve(Vector a1, Vector a2, Vector a3, Vector b) {
+    // Cramer's rule
+    float det = determinant(a1, a2, a3);
+    float det1 = determinant(b, a2, a3);
+    float det2 = determinant(a1, b, a3);
+    float det3 = determinant(a1, a2, b);
+    return Vector(det1 / det, det2 / det, det3 / det);
+}
+
 /*
  * tests
  */
