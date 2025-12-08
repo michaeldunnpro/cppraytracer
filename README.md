@@ -2,9 +2,9 @@
 Reed College, CSI221 fall Final Project
 
 <!---![example image](example2.ppm)-->
-<p align="center">
+<!---<p align="center">-->
     <img src="example2.png" width="350">
-</p>
+<!---</p>-->
 
 ## Table of Contents
 - [Overview](#overview)
