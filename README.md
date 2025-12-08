@@ -1,5 +1,5 @@
 # Ray Tracer Project!
-Reed College, CSI221 fall Final Project
+Reed College, CSCI221 Fall Final Project
 
 <!---![example image](example2.ppm)-->
 <p float="left">
@@ -11,21 +11,21 @@ Reed College, CSI221 fall Final Project
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Installing Requirements](<#Installing Requirements>)
-    - [Mac](#Mac)
+- [Installation Requirements](#installation-requirements)
+    - [Mac](#mac)
     - [Linux](#linux)
-- [Usage](#Usage)
-    - [Interfacing with the ray tracer](<#Interfacing with the ray tracer>)
-    - [Compiling, Testing and cleaning](<#Compiling, Testing and cleaning>)
-    - [Scene Structure](<#Scene Structure>)
--  [Contributors](#Contributors)
+- [Usage](#usage)
+    - [Interfacing with the ray tracer](#interfacing-with-the-ray-tracer)
+    - [Compiling, Testing and cleaning](#compiling-testing-and-cleaning)
+    - [Scene Structure](#scene-structure)
+-  [Contributors](#contributors)
 
 ## Overview
 ### What is a ray tracer?
 <!---idk man but I think it will look nice to have this here-->
-Esentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounce off diffrent objects to figure out how much light each pixel should have.
+Essentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounce off different objects to figure out how much light each pixel should have.
 
- <!---### What about this project in particular
+<!---### What about this project in particular
 specifics about this project, may delete later if not much to say -->
 
 ## Requirements
@@ -36,7 +36,7 @@ specifics about this project, may delete later if not much to say -->
 
 ## Installation 
 > [!WARNING]
-> Make sure you have both git and a working g++ compiler installed before proceeding. See [here](<#Installation Requirements>) for instructions.
+> Make sure you have both git and a working g++ compiler installed before proceeding. See [here](#installation-requirements) for instructions.
 
 Install using git clone
 ```
@@ -103,10 +103,10 @@ sudo pacman -s gcc
 
 
 ## Usage
-Scenes are located in the scenes/directory. You can create your own scene by making a new .cpp file in that directory and following the structure of example_scene.cpp.
+Scenes are located in the `scenes/` directory. You can create your own scene by making a new `.cpp` file in that directory and following the structure of `example_scene.cpp`.
 
 ### Scene Structure
-All scenes should be created in the ```scenes/``` directory as a .cpp file.
+All scenes should be created in the `scenes/` directory as a .cpp file.
 1. Begin file with:
 ```cpp
 #include "../src/scene_constructor.hpp"
@@ -120,27 +120,27 @@ auto camera = cam(Point(x, y, z), Vector(dx, dy, dz));
 auto scr = screen(width, height);
 auto scn = scene(camera, scr, ambient_light, specular_light, highlight_size, background_color);
 ```
-The convenience function ```camera``` takes in a position and a direction vector, which can be excluded to default 
-to a standard view. The convenience function ```screen``` takes in width and height parameters (default 10.0).
- The convenience function ```scene``` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default 0.2), specular light intensity (default 0.5), highlight size (default 8.0), and background color (default Color(135, 206, 235)).
+The convenience function `camera` takes in a position and a direction vector, which can be excluded to default 
+to a standard view. The convenience function `screen` takes in width and height parameters (default 10.0).
+The convenience function `scene` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default 0.2), specular light intensity (default 0.5), highlight size (default 8.0), and background color (default Color(135, 206, 235)).
 
 3. Define materials for objects:
 ```cpp
 auto material_name = material(Color(r, g, b), reflectivity);
 ```
 
-The convenience function ```material``` takes in a color and an optional reflectivity value (0.0 to 1.0, default 0.5).
+The convenience function `material` takes in a color and an optional reflectivity value (0.0 to 1.0, default 0.5).
 
 4. Add objects to the scene using the convenience functions:
-```sphere(center, radius, material, scene)```, ```plane(point, normal, material, scene)```.
-<!---, and ```triangle(v1, v2, v3, material, scene)```-->
+`sphere(center, radius, material, scene)`, `plane(point, normal, material, scene)`.
+<!---, and `triangle(v1, v2, v3, material, scene)`-->
 
 5. Add point lights to the scene:
 ```cpp
 scn.add_point_light(Point(x, y, z));
 ```
 
-6. Finally, call ```handle_input(scn);``` to render the scene and handle user input.
+6. Finally, call `handle_input(scn)` to render the scene and handle user input for camera adjustment.
 
 An example of the most basic scene structure is as follows:
 ```cpp
@@ -162,12 +162,12 @@ int main() {
     return 0;
 }
 ```
-The included example_scene.cpp file contains a more complex example scene, 
+The included `example_scene.cpp` file contains a more complex example scene, 
 which you can use as a reference when creating your own scenes.
 
 
 ### Compiling, Testing and cleaning
-Here are the commands that you can run from the projects makefile,
+Here are the commands that you can run from the project's makefile,
 located in the project root directory.
 
 Compiling the test code: 
@@ -180,7 +180,7 @@ Running the test code:
 make run
 ```
 
-Checking for leaks (mac only):
+Checking for leaks (Mac only):
 ```
 make leaks
 ```
@@ -201,11 +201,11 @@ In the project's root, run the following command to compile and run a scene:
 ```
 make scene SCENE=scenes/your_scene.cpp
 ```
-Replace ```your_scene.cpp``` with the name of your scene file.
-By default, ```make scene``` will compile and run ```example_scene.cpp```,
+Replace `your_scene.cpp` with the name of your scene file.
+By default, `make scene` will compile and run `example_scene.cpp`,
 which will allow you to move around the scene in a command line viewer. Once 
-you're happy with the view, press 'q' to quit and render the image.
-The image is output as ```image.ppm``` in the project's root directory.
+you're happy with the view, press `q` to quit and render the image.
+The image is output as `image.ppm` in the project's root directory.
 
 
 

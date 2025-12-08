@@ -8,7 +8,7 @@
 // Spheres at (0.25, 0.45, 0.4) radius 0.1 red
 //            (1, 1, 0.25) radius 0.25 green
 //            (0.8, 0.3, 0.15) radius 0.15 blue
-// Plane at z = -0.1 black with reflexivity pattern
+// Plane at z = -0.1 black with reflectivity pattern
 // Point light at (0, -0.5, 1)
 
 int main() {
@@ -27,7 +27,7 @@ int main() {
     sphere(Point(1.0f, 1.0f, 0.25f), 0.25f, green, scn);
     sphere(Point(0.8f, 0.3f, 0.15f), 0.15f, blue, scn);
 
-    // Add a plane with reflexivity pattern
+    // Add a plane with reflectivity pattern
     auto pattern = [](float a, float b) {
         float t = (std::sin(10 * a) + std::sin(10 * b) + 2) / 4;
         return std::make_unique<BasicMaterial>(Color(0, 0, 0), t);

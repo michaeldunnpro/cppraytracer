@@ -35,7 +35,7 @@ public:
 class BasicMaterial : public Material {
 private:
     Color const color;
-    float const refl; // reflexivity
+    float const refl; // reflectivity
 
 public:
     BasicMaterial(Color, float);

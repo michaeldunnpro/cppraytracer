@@ -10,7 +10,8 @@
 
 Camera cam(Point a = Point(0.5f, -1.5f, 0.5f), Vector b = Vector(0, 1, 0)) {
     // Convenience function to create a camera at point a with orientation b
-    // By default camera is at origin looking down z-axis
+    // By default camera is at origin looking towards x-axis, which is now
+    // overridden.
     return Camera(a, b);
 }
 
