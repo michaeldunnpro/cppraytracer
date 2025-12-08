@@ -1,6 +1,7 @@
 # Ray Tracer Project!
 Reed College, CSI221 fall Final Project
 
+![example image](example2.ppm)
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
@@ -11,14 +12,15 @@ Reed College, CSI221 fall Final Project
 - [Usage](#Usage)
     - [Interfacing with the ray tracer](<#Interfacing with the ray tracer>)
     - [Compiling, Testing and cleaning](<#Compiling, Testing and cleaning>)
+    - [Scene Structure](<#Scene Structure>)
 -  [Contributors](#Contributors)
 
 ## Overview
 ### What is a ray tracer?
 idk man but I think it will look nice to have this here
 
-### What about this project in particular
-specifics about this project, may delete later if not much to say
+ <!---### What about this project in particular
+specifics about this project, may delete later if not much to say -->
 
 ## Requirements
 1. A unix or linux based terminal (Mac terminal, linux terminal, WSL2 on windows, etc)
@@ -74,7 +76,7 @@ sudo apt-get install g++
 
 git
 ``` 
-sudo dnf install gcc 
+sudo dnf install git 
 ```
 g++ compiler
 ``` 
