@@ -43,3 +43,15 @@ Point operator-(Point const& point, Vector const& vec); // Point translation by 
 Vector operator-(Point const& lhs, Point const& rhs);   // Vector from point difference
 bool operator==(Point const& lhs, Point const& rhs);    // Equality
 
+// 3x3 determinant
+float determinant(Vector a, Vector b, Vector c);
+
+// Solve for linear combination coefficients (3x3 system of linear equations)
+/**
+ * @brief Solve the system of linear equations Ax = b, where
+ * A = (a1, a2, a3), assuming there is a unique solution.
+ * 
+ * Equivalently, solve for numbers x, y, z such that
+ * x a1 + y a2 + z a3 = b.
+ */
+Vector lin_solve(Vector a1, Vector a2, Vector a3, Vector b);
