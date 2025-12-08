@@ -46,7 +46,8 @@ First install brew as a package manager:
 ``` 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-taken from the [homebrew website](https://brew.sh/), follow the instructions as prompted by the terminal. 
+taken from the [homebrew website](https://brew.sh/), follow the instructions as prompted by the terminal.
+
 git
 ```
 brew install git
@@ -59,6 +60,7 @@ brew install gcc
 ### linux
 
 *Ubuntu/Debian*:
+
 git
 ``` 
 sudo apt-get install git 
@@ -69,16 +71,18 @@ sudo apt-get install g++
 ```
 
 *Fedora*:
+
 git
 ``` 
-sudo dnf install git 
+sudo dnf install gcc 
 ```
 g++ compiler
 ``` 
-sudo dnf install git 
+sudo dnf install g++ 
 ```
 
 _Arch:_
+
 git
 ``` 
 sudo pacman -s git 
