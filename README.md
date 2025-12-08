@@ -1,7 +1,9 @@
 # Ray Tracer Project!
 Reed College, CSI221 fall Final Project
 
-![example image](example2.ppm)
+<!---![example image](example2.ppm)-->
+<img src="example2.ppm" >
+
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
