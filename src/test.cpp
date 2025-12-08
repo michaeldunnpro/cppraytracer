@@ -5,6 +5,8 @@
 #include "color.hpp"
 #include "material.hpp"
 #include "shape.hpp"
+#include "shapes/plane.hpp"
+#include "shapes/sphere.hpp"
 #include "ui.hpp"
 #include "vector.hpp"
 
