@@ -16,7 +16,7 @@ Color BasicMaterial::get_color(
     Color color = l_ambient; // tracks the total color
 
     // iterate over the light sources
-    for (auto&& light : scene->get_visible_point_lights(point - 1e-6 * incoming)) {
+    for (auto&& light : scene->get_visible_point_lights(point + 1e-4 * normal)) {
         // diffuse light
         Vector lt = !(light - point); // unit vector pointing to the light source
         Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.0f, normal * lt));
@@ -34,7 +34,7 @@ Color BasicMaterial::get_color(
     if (recursion_depth > 0) {
         Vector reflected = incoming - 2.0f * (incoming >> normal); // direction of reflected ray
         Color l_reflected = (1 - a) * this->refl * scene->trace(
-            Ray(point + 1e-6 * reflected, reflected), recursion_depth - 1);
+            Ray(point + 1e-4 * normal, reflected), recursion_depth - 1);
         color = color + l_reflected;
     }
 
