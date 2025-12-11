@@ -32,7 +32,8 @@ public:
 
     /**
      * @return A unit normal vector at the given point on the surface.
-     * The direction is not guaranteed.
+     * The direction is guaranteed to point out of the object whenever
+     * it makes sense.
      * @note By separating `normal_at()` and `material_at()`, there could be
      * potential redundant calculation (e.g., calculate surface parameter
      * from point). However, addressing that would be an overoptimization
@@ -40,9 +41,9 @@ public:
      */
     virtual Vector normal_at(Point const&) const = 0;
 
-    // fn (&self, &Point) -> Box<dyn Material>
     /**
-     * @return The material at the given point on the surface.
+     * @return The material at the given point on the surface. Ownership is
+     * transferred.
      */
     virtual std::unique_ptr<Material> material_at(Point const&) const = 0;
 };

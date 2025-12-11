@@ -3,6 +3,10 @@
 Color::Color(float const red, float const green, float const blue) : 
   r(red), g(green), b(blue) {}
 
+Color Color::black() {
+    return Color(0.0f, 0.0f, 0.0f);
+}
+
 Color Color::white() {
     return Color(255.0f, 255.0f, 255.0f);
 }

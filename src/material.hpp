@@ -19,7 +19,8 @@ public:
      * the material is seen
      * @param point the location of the material
      * @param normal the orientation of the material, i.e.,
-     * the unit vector pointing out of the surface
+     * the unit vector pointing out of the object (not necessarily
+     * towards the incoming ray)
      * @param scene the scene (required for light sources and tracing reflections)
      * @param recursion_depth maximum recursion depth allowed; 0 for no recursion
      */
@@ -41,5 +42,20 @@ public:
     BasicMaterial(Color, float);
     Color get_color(
         Vector const& incoming, Point const& point, Vector const& normal,
-        Scene const* scene, int depth) const override;
+        Scene const* scene, int recursion_depth) const override;
+};
+
+/**
+ * @brief Completely transparent material that can only reflect or refract.
+ * Currently doesn't work if two transparent objects have intersection.
+ */
+class TransparentMaterial : public Material {
+private:
+    float ior; // Index of refraction of inside / index of refraction of outside
+
+public:
+    TransparentMaterial(float ior);
+    Color get_color(
+        Vector const& incoming, Point const& point, Vector const& normal,
+        Scene const* scene, int recursion_depth) const override;
 };

@@ -180,12 +180,8 @@ Color Scene::trace(Ray const& ray, int recursion_depth) const {
         // Get the material at the intersection point
         std::unique_ptr<Material> material = shape.get().material_at(point);
 
-        // Get the normal vector at the intersection point and make sure it point out
-        // i.e., in opposite direction with the incoming ray
+        // Get the normal vector
         Vector normal = shape.get().normal_at(point);
-        if (normal * ray.direction > 0) {
-            normal = -normal;
-        }
 
         return material->get_color(ray.direction, point, normal, this, recursion_depth);
     }
