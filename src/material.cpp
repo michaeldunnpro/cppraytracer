@@ -2,6 +2,7 @@
 #include <cmath>
 
 #include "material.hpp"
+#include "util.hpp"
 
 BasicMaterial::BasicMaterial(Color color, float refl)
     : color(color)
@@ -77,7 +78,7 @@ Color TransparentMaterial::get_color(
     if (recursion_depth <= 0) {
         return Color::black();
     }
-    
+
     float eta = 1.0f / this->ior; // IOR of incoming / IOR of transmitted
     Vector n = normal; // unit normal pointing towards the incoming ray
     if (incoming * normal > 0.0f) {
@@ -108,4 +109,76 @@ Color TransparentMaterial::get_color(
     float kr = (r_s * r_s + r_p * r_p) / 2.0f; // reflection ratio
 
     return kr * l_reflected + (1 - kr) * l_refracted;
+}
+
+// Utility function, it's there just because it'll be called twice later
+float geometry_schlick_ggx(float cos, float k) {
+    return cos / (cos * (1 - k) + k);
+}
+
+PBRMaterial::PBRMaterial(Color color, float roughness, float metallic, float reflectance)
+    : color(color)
+    , roughness(roughness)
+    , metallic(metallic)
+    , reflectance(reflectance) {
+}
+
+Color PBRMaterial::get_color(
+    Vector const& incoming, Point const& point, Vector const& normal,
+    Scene const* scene, int) const {
+    // Make sure the normal points in opposite direction from the incoming ray
+    Vector n = (normal * incoming > 0) ? -normal : normal;
+
+    float a = scene->get_ambient(); // ambient light
+    Color l_ambient = this->color * a;
+    Color color = l_ambient; // tracks the total color
+
+    // iterate over the light sources
+    for (auto&& light : scene->get_visible_point_lights(point + 1e-4 * n)) {
+        // inverse square law of point light
+        // this should really be done in a `Light` class or equivalent
+        float distance2 = (light - point) * (light - point);
+        Color l_in = (5 / distance2) * Color::white();
+
+        // Compute BRDF from Cook-Torrance model
+        // Based on https://learnopengl.com/PBR/Theory
+
+        // setup
+        Vector lt = !(light - point); // unit vector towards the light source
+        Vector v = -!incoming; // unit vector towards the incoming direction
+        Vector h = !(lt + v); // unit vector halfway between `v` and `lt`
+        // Why do I think all of them are guaranteed to be nonnegative?
+        // I certainly won't be wrong if I enforce them anyways.
+        float cos_l = n * lt;
+        float cos_v = n * v;
+        float cos_h = std::max(n * h, 0.0f);
+        float cos_v_h = std::max(v * h, 0.0f);
+
+        // Fresnel equation (Schlick approximation)
+        float base_reflectance = 0.16f * reflectance * reflectance;
+        Color f0 = (1 - metallic) * base_reflectance * Color::white() + metallic * this->color;
+        Color fresnel = f0 + (Color::white() - f0) * std::pow((1 - cos_v_h), 5.0f);
+
+        // diffuse light (lambert)
+        Color f_diffuse = (1 / kPi) * this->color;
+
+        // specular light
+        // Normal distribution function (Trowbridge-Reitz)
+        // distribution of normals, not the normal distribution in statistics!
+        float a2 = this->roughness * this->roughness;
+        float tmp1 = cos_h * cos_h * (a2 - 1) + 1;
+        float ndf = a2 / (kPi * tmp1 * tmp1);
+        // Geometry function
+        float k = (this->roughness + 1) * (this->roughness + 1) / 8;
+        float geo = geometry_schlick_ggx(cos_v, k) * geometry_schlick_ggx(cos_l, k);
+
+        float f_specular = ndf * geo / (4 * cos_v * cos_l);
+
+        Color brdf = (1 - metallic) * ((Color::white() - fresnel) * f_diffuse)
+            + fresnel * f_specular;
+
+        color = color + brdf * l_in * cos_l;
+    }
+
+    return color;
 }

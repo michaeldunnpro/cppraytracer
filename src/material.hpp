@@ -59,3 +59,22 @@ public:
         Vector const& incoming, Point const& point, Vector const& normal,
         Scene const* scene, int recursion_depth) const override;
 };
+
+/**
+ * @brief Cook-Torrance model without sampling.
+ */
+class PBRMaterial : public Material {
+private:
+    Color color;
+    float roughness; // [0, 1]
+    // [0, 1], usually binary; but without sampling metals look really bad
+    float metallic;
+    // Reflectance used for non-metallic surfaces; remapped according to
+    // https://google.github.io/filament/Filament.md.html#materialsystem/parameterization/remapping/reflectanceremapping
+    float reflectance;
+public:
+    PBRMaterial(Color color, float roughness, float metallic, float reflectance = 0.5f);
+    Color get_color(
+        Vector const& incoming, Point const& point, Vector const& normal,
+        Scene const* scene, int recursion_depth) const override;
+};
