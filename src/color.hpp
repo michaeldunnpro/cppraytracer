@@ -18,6 +18,7 @@ public:
     // marked as const either in the header or the implementaion
     // see https://stackoverflow.com/q/117293
     Color(float const r, float const g, float const b);
+    static Color black(); // Create a color representing black
     static Color white(); // Create a color representing white
     void clamp(); // Clamp color values to valid range (in-place)
     std::array<float, 3> getRGB() const; // Get array to RGB values
