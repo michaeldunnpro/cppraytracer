@@ -38,10 +38,10 @@ int main() {
         pattern));
 
     // Add a transparent sphere
-    scn.add_shape(std::make_unique<BasicSphere<TransparentMaterial>>(Point(0.8f, 0.3f, 0.15f), 0.15f, glass));
+    sphere(Point(0.8f, 0.3f, 0.15f), 0.15f, glass, scn);
 
     // Add a transparent plane above the existing plane
-    scn.add_shape(std::make_unique<BasicPlane<TransparentMaterial>>(Point(0.0f, 0.0f, 0.0f), Vector(0.0f, 0.0f, 1.0f), water));
+    plane(Point(0.0f, 0.0f, 0.0f), Vector(0.0f, 0.0f, 1.0f), water, scn);
 
     // Add point light to the scene
     scn.add_point_light(Point(0.0, -0.5, 1.0));
