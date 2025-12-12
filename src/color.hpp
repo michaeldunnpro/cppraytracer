@@ -18,12 +18,16 @@ public:
     // marked as const either in the header or the implementaion
     // see https://stackoverflow.com/q/117293
     Color(float const r, float const g, float const b);
-    static Color black(); // Create a color representing black
-    static Color white(); // Create a color representing white
+    // Create a color representing black (additive identity)
+    static Color black();
+    // Create a color representing white (multiplicative identity)
+    static Color white();
     void clamp(); // Clamp color values to valid range (in-place)
     std::array<float, 3> getRGB() const; // Get array to RGB values
     friend Color operator+(Color const&, Color const&); // Color addition
     friend Color operator-(Color const&, Color const&); // Color subtraction
     friend Color operator*(Color const&, float); // Color scaling
     friend Color operator*(float, Color const&); // Color scaling (commutative)
+    // Pointwise multiplication and divide by 255 (filter)
+    friend Color operator*(Color const&, Color const&);
 };
