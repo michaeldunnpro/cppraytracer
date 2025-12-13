@@ -22,7 +22,7 @@ Color BasicMaterial::get_color(
     // iterate over the light sources
     for (auto&& light : scene->get_visible_point_lights(point + 1e-4 * n)) {
         // diffuse light
-        Vector lt = !(light - point); // unit vector pointing to the light source
+        Vector lt = !light.get().get_direction(point); // unit vector pointing to the light source
         Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.0f, n * lt));
 
         // specular light
@@ -135,16 +135,13 @@ Color PBRMaterial::get_color(
 
     // iterate over the light sources
     for (auto&& light : scene->get_visible_point_lights(point + 1e-4 * n)) {
-        // inverse square law of point light
-        // this should really be done in a `Light` class or equivalent
-        float distance2 = (light - point) * (light - point);
-        Color l_in = (5 / distance2) * Color::white();
+        Color l_in = light.get().get_intensity(point);
 
         // Compute BRDF from Cook-Torrance model
         // Based on https://learnopengl.com/PBR/Theory
 
         // setup
-        Vector lt = !(light - point); // unit vector towards the light source
+        Vector lt = !light.get().get_direction(point); // unit vector towards the light source
         Vector v = -!incoming; // unit vector towards the incoming direction
         Vector h = !(lt + v); // unit vector halfway between `v` and `lt`
         // Why do I think all of them are guaranteed to be nonnegative?
