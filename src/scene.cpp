@@ -101,8 +101,8 @@ void Scene::add_shape(std::unique_ptr<Shape>&& shape) {
     this->shapes.push_back(std::move(shape));
 }
 
-void Scene::add_point_light(Point point) {
-    this->point_lights.push_back(point);
+void Scene::add_light(std::unique_ptr<Light>&& light) {
+    this->lights.push_back(std::move(light));
 }
 
 std::vector<Color> Scene::render(int width, int height) const {
@@ -143,30 +143,15 @@ std::optional<std::pair<float, std::reference_wrapper<Shape const>>> Scene::inte
     return min_intersection;
 }
 
-std::vector<Point> Scene::get_visible_point_lights(Point const& point) const {
-    std::vector<Point> visible_point_lights;
-
-    // Iterate over the point lights in the scene
-    for (auto&& point_light : this->point_lights) {
-        // Form the ray pointing from `point` to the light source
-        Ray ray(point, point_light - point);
-        std::optional<std::pair<float, std::reference_wrapper<Shape const>>> min_intersection = this->intersect_first_all(ray);
-
-        // Check if the ray intersects any shape
-        if (min_intersection) {
-            auto [t, shape] = min_intersection.value();
-            // Check if the ray intersects any shape before meeting the light source
-            if (t <= 1.0f) {
-                // There is some obstacle between `point` and the light source
-                continue;
-            }
+std::vector<std::reference_wrapper<Light const>> Scene::get_visible_point_lights(Point const& point) const {
+    std::vector<std::reference_wrapper<Light const>> visible_lights {};
+    for (auto&& light : this->lights) {
+        if (light->is_visible(point, *this)) {
+            visible_lights.push_back(std::cref(*light));
         }
-
-        // There is no obstacle between `point` and the light source
-        visible_point_lights.push_back(point_light);
     }
 
-    return visible_point_lights;
+    return visible_lights;
 }
 
 Color Scene::trace(Ray const& ray, int recursion_depth) const {

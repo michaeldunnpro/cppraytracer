@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "ui.hpp"
+#include "util.hpp"
 
 // Note compatibility requires a Unix-like system for terminal size detection
 
@@ -87,7 +88,6 @@ void make_screen_terminal(Scene const& scene) {
 
 void handle_input(Scene const& scene) {
     Camera& camera = *scene.get_camera();
-    constexpr float kPi = 3.14159265358979323846f; // C++17-safe pi constant
     auto camera_basis = [](const Vector& orientation) {
         Vector forward = !orientation;
         Vector world_up(0.0f, 0.0f, 1.0f);

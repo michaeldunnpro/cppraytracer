@@ -39,7 +39,7 @@ int main() {
     plane(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), darkGrey, scn);
     
     // Add point light to the scene
-    scn.add_point_light(Point(0.0, -0.5, 1.0));
+    scn.add_light<BasicPointLight>(Point(0.0, -0.5, 1.0));
 
     
     handle_input(scn);

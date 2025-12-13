@@ -14,7 +14,7 @@ SCENE_NAME := $(basename $(notdir $(SCENE)))
 SCENE_BIN := $(BIN_DIR)/$(SCENE_NAME)
 
 MAIN_SRC = $(SRC_DIR)/test.cpp
-LIST = $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/shapes/*.cpp)
+LIST = $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/*/*.cpp)
 SRC_NO_MAIN = $(filter-out $(MAIN_SRC),$(LIST))
 TEST_TARGET = $(BIN_DIR)/test
 

@@ -57,3 +57,7 @@ Color operator*(Color const& color, float scalar) {
 Color operator*(float scalar, Color const& color) {
     return Color(color.r * scalar, color.g * scalar, color.b * scalar);
 }
+
+Color operator*(Color const& lhs, Color const& rhs) {
+    return Color(lhs.r * rhs.r / 255.0f, lhs.g * rhs.g / 255.0f, lhs.b * rhs.b / 255.0f);
+}

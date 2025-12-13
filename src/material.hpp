@@ -28,34 +28,3 @@ public:
         Vector const& incoming, Point const& point, Vector const& normal,
         Scene const* scene, int recursion_depth) const = 0;
 };
-
-/**
- * An implementation of `Material` based on the minimal
- * project requirement
- */
-class BasicMaterial : public Material {
-private:
-    Color const color;
-    float const refl; // reflectivity
-
-public:
-    BasicMaterial(Color, float);
-    Color get_color(
-        Vector const& incoming, Point const& point, Vector const& normal,
-        Scene const* scene, int recursion_depth) const override;
-};
-
-/**
- * @brief Completely transparent material that can only reflect or refract.
- * Currently doesn't work if two transparent objects have intersection.
- */
-class TransparentMaterial : public Material {
-private:
-    float ior; // Index of refraction of inside / index of refraction of outside
-
-public:
-    TransparentMaterial(float ior);
-    Color get_color(
-        Vector const& incoming, Point const& point, Vector const& normal,
-        Scene const* scene, int recursion_depth) const override;
-};
