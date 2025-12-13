@@ -7,7 +7,7 @@
 //            (1, 1, 0.25) radius 0.25 green metal rough
 //            (0.8, 0.3, 0.15) radius 0.15 blue non-metal
 // Plane at z = -0.1 gray non-metal rough
-// Point light at (0, -0.5, 1)
+// Point light at (0, -0.5, 1) inverse-square
 
 int main() {
     // Create scene components

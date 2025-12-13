@@ -112,7 +112,7 @@ Color TransparentMaterial::get_color(
     return kr * l_reflected + (1 - kr) * l_refracted;
 }
 
-// Utility function, it's there just because it'll be called twice later
+// Utility function, it's there just because it'll be called multiple times
 float geometry_schlick_ggx(float cos, float k) {
     return cos / (cos * (1 - k) + k);
 }
@@ -166,7 +166,6 @@ Color cook_torrance(Vector n, Vector lt, Vector v, Color color, Color f0, float 
     float ndf = trowbridge_reitz(a2, cos_h);
     // Geometry function
     float geo = geometry_schlick_ggx(cos_v, k) * geometry_schlick_ggx(cos_l, k);
-
     float f_specular = ndf * geo / (4 * cos_v * cos_l);
 
     return (1 - metallic) * ((Color::white() - fresnel) * f_diffuse)
@@ -187,8 +186,8 @@ Color PBRMaterial::get_color(
     // Make sure the normal points in opposite direction from the incoming ray
     Vector n = (normal * incoming > 0) ? -normal : normal;
 
-    float a = scene->get_ambient(); // ambient light
-    Color l_ambient = this->color * a;
+    // ambient light
+    Color l_ambient = this->color * scene->get_ambient();
     Color color = l_ambient; // tracks the total color
 
     // Should really be cached in the constructor
@@ -197,25 +196,23 @@ Color PBRMaterial::get_color(
     float a2 = this->roughness * this->roughness;
     float k = (this->roughness + 1) * (this->roughness + 1) / 8;
 
+    Vector v = -!incoming; // unit vector towards the incoming direction
+
     // iterate over the light sources
     for (auto&& light : scene->get_visible_point_lights(point + 1e-4 * n)) {
         Color l_in = light.get().get_intensity(point);
-
         Vector lt = !light.get().get_direction(point); // unit vector towards the light source
-        Vector v = -!incoming; // unit vector towards the incoming direction
-
         Color brdf = cook_torrance(n, lt, v, this->color, f0, a2, k, this->metallic);
-
         color = color + brdf * l_in * (n * lt);
     }
 
     if (recursion_depth > 0) {
-        // Importance sampling of specular BRDF
+        // Importance sampling of specular reflection
         // https://google.github.io/filament/Filament.md.html#annex/importancesamplingfortheibl
         for (int i = 0; i < num_samples; i++) {
             auto [u1, u2] = hammersley(i, this->num_samples);
             // Sample polar coordinate of the halfway vector wrt the `n` axis
-            // Probability density function is NDF * (n * h)
+            // Probability density function (PDF) of h is NDF * (n * h)
             // This is probably guaranteed to be valid by some property of NDF
             // For some reason in all sources theta is called phi and vice versa
             float theta = 2 * kPi * u2;
@@ -224,7 +221,6 @@ Color PBRMaterial::get_color(
 
             // Sample halfway vector in local cartesian coordinates
             Vector h_local(std::cos(theta) * sin_phi, std::sin(theta) * sin_phi, cos_phi);
-
             // Sample halfway vector in space coordinates
             // Any unit vector that is not collinear with the normal
             Vector tmp = std::abs(n.z) < 0.999 ? Vector(0.0, 0.0, 1.0) : Vector(1.0, 0.0, 0.0);
@@ -232,18 +228,19 @@ Color PBRMaterial::get_color(
             Vector bitangent = !(n ^ tangent);
             // Technically shouldn't need to normalize
             Vector h = !(tangent * h_local.x + bitangent * h_local.y + n * h_local.z);
-            Vector v = -!incoming;
-            Vector lt = !(incoming - 2.0f * (incoming >> h)); // direction of reflected ray
+            // direction of reflected ray
+            Vector lt = !(incoming - 2.0f * (incoming >> h));
 
             float cos_h = cos_phi;
             float cos_l = lt * n;
-            float cos_v = std::max(v * n, 0.0f);
+            float cos_v = v * n;
             float cos_v_h = std::max(h * v, 0.0f);
 
             if (cos_l <= 0.0f) {
                 continue;
             }
 
+            // Calculate (specular BRDF * cosl / sampling PDF of lt)
             // Redundant calculations are cancelled
             Color fresnel = fresnel_schlick(f0, cos_v_h);
             float geo = geometry_schlick_ggx(cos_v, k) * geometry_schlick_ggx(cos_l, k);
