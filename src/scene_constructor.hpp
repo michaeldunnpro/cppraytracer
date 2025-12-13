@@ -1,7 +1,11 @@
 // Simple enough that we can put it all in a header
-#pragma once // Include guard
+#pragma once
+
 #include "color.hpp"
 #include "material.hpp"
+#include "materials/basic.hpp"
+#include "materials/pbr.hpp"
+#include "materials/transparent.hpp"
 #include "shape.hpp"
 #include "shapes/plane.hpp"
 #include "shapes/sphere.hpp"
