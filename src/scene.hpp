@@ -89,8 +89,14 @@ public:
     Color get_background() const;
 
     void add_shape(std::unique_ptr<Shape>&& shape);
-    void add_point_light(Point point, Color color = Color::white());
+
+    template <typename T, typename... Args>
+    void add_shape(Args&&... args); // convenience function to avoid `std::make_unique`
+    
     void add_light(std::unique_ptr<Light>&& light);
+
+    template <typename T, typename... Args>
+    void add_light(Args&&... args); // convenience function to avoid `std::make_unique`
 
     /**
      * @brief Render the scene and return a 2D array of colors.
@@ -128,3 +134,13 @@ public:
      */
     Color trace(Ray const& ray, int recursion_depth) const;
 };
+
+template <typename T, typename... Args>
+inline void Scene::add_shape(Args&&... args) {
+    this->add_shape(std::make_unique<T>(args...));
+}
+
+template <typename T, typename... Args>
+inline void Scene::add_light(Args&&... args) {
+    this->add_light(std::make_unique<T>(args...));
+}

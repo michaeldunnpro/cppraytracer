@@ -29,7 +29,7 @@ int main() {
     plane(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), gray, scn);
 
     // Add point light to the scene
-    scn.add_light(std::make_unique<InverseSquarePointLight>(Point(0.0, -0.5, 1.0), Color(255, 255, 255), 5.0f));
+    scn.add_light<InverseSquarePointLight>(Point(0.0, -0.5, 1.0), Color(255, 255, 255), 5.0f);
 
     handle_input(scn);
     return 0;

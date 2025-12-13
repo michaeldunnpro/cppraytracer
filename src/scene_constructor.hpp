@@ -33,11 +33,11 @@ Screen screen(float width = 10.0f, float height = 10.0f) {
 template <typename T>
 void sphere(Point center, float radius, T material, Scene& scene) {
     // Convenience function to create a basic sphere shape
-    scene.add_shape(std::make_unique<BasicSphere<T>>(center, radius, material));
+    scene.add_shape<BasicSphere<T>>(center, radius, material);
 }
 
 template <typename T>
 void plane(Point point, Vector normal, T material, Scene& scene) {
     // Convenience function to create a basic plane shape
-    scene.add_shape(std::make_unique<BasicPlane<T>>(point, normal, material));
+    scene.add_shape<BasicPlane<T>>(point, normal, material);
 }

@@ -101,10 +101,6 @@ void Scene::add_shape(std::unique_ptr<Shape>&& shape) {
     this->shapes.push_back(std::move(shape));
 }
 
-void Scene::add_point_light(Point point, Color color) {
-    this->lights.push_back(std::make_unique<BasicPointLight>(point, color));
-}
-
 void Scene::add_light(std::unique_ptr<Light>&& light) {
     this->lights.push_back(std::move(light));
 }
