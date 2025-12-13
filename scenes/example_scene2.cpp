@@ -4,15 +4,7 @@
 #include "../src/scene_constructor.hpp"
 //
 
-
 // TO RUN: make scene SCENE=scenes/example_scene2.cpp
-// Cam at (0.5, -1.5, 0.5) looking towards (0,1,0)
-// Screen 10x10 units
-// Spheres at (0.25, 0.45, 0.4) radius 0.1 red
-//            (1, 1, 0.25) radius 0.25 green
-//            (0.8, 0.3, 0.15) radius 0.15 blue
-// Plane at z = -0.1 gray
-// Point light at (0, -0.5, 1)
 
 int main() {
     // Create scene components (Must do this first)
@@ -35,13 +27,14 @@ int main() {
 
     sphere(Point(0.0f, 0.0f, 1.0f), 0.2f, teal, scn);
 
-
     plane(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), darkGrey, scn);
-    
-    // Add point light to the scene
-    scn.add_light<BasicPointLight>(Point(0.0, -0.5, 1.0));
 
-    
+    // Add point light to the scene
+    Color candle(255, 147, 41);
+    scn.add_light<BasicPointLight>(Point(0.0, -0.5, 1.0));
+    scn.add_light<InverseSquarePointLight>(Point(2.0, -0.5, 1.0), candle, 3.0);
+    scn.add_light<InverseSquarePointLight>(Point(-2.0, -0.5, 1.0), candle, 3.0);
+
     handle_input(scn);
     return 0;
 }

@@ -20,15 +20,17 @@ Color BasicMaterial::get_color(
 
     // iterate over the light sources
     for (auto&& light : scene->get_visible_point_lights(point + 1e-4 * n)) {
+        Color l_in = light.get().get_intensity(point); // amount of light into the point
+
         // diffuse light
         Vector lt = !light.get().get_direction(point); // unit vector pointing to the light source
-        Color l_diffuse = this->color * ((1 - a) * (1 - this->refl) * std::max(0.0f, n * lt));
+        Color l_diffuse = this->color * l_in * ((1 - a) * (1 - this->refl) * std::max(0.0f, n * lt));
 
         // specular light
         Vector h = !(lt - !incoming); // unit vector halfway between `incoming` and `lt`, pointing out
         Color l_specular = scene->get_specular()
             * std::pow(std::max(0.0f, h * n), scene->get_sp())
-            * Color::white();
+            * l_in;
 
         color = color + l_diffuse + l_specular;
     }
