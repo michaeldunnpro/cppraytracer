@@ -24,7 +24,7 @@ BasicMaterial mat(Color color, float reflectivity = 0.5f) {
     return BasicMaterial(color, reflectivity);
 }
 
-Scene scene(Camera& camera, Screen& screen, float ambient = 0.8f, float specular = 0.5f, float sp = 8.0f, Color background = Color(135, 206, 235)) {
+Scene scene(Camera& camera, Screen& screen, float ambient = 0.8f, float specular = 0.5f, float sp = 8.0f, Color background = Color::from_rgb(135, 206, 235)) {
     // Convenience function to create a scene with specified camera, screen, lighting, and background color
     return Scene(&camera, &screen, ambient, specular, sp, background);
 }
