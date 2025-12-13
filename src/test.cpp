@@ -4,6 +4,7 @@
 
 #include "color.hpp"
 #include "material.hpp"
+#include "materials/basic.hpp"
 #include "shape.hpp"
 #include "shapes/plane.hpp"
 #include "shapes/sphere.hpp"
@@ -22,7 +23,7 @@ void test_scene() {
     scene.add_shape(std::make_unique<BasicSphere<>>(Point(0.8f, 0.3f, 0.15f), 0.15f, blue_material));
     BasicMaterial gray_material(Color(200, 200, 200), 0.5f);
     scene.add_shape(std::make_unique<BasicPlane<>>(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), gray_material));
-    scene.add_point_light(Point(0.0, -0.5, 1.0));
+    scene.add_light<BasicPointLight>(Point(0.0, -0.5, 1.0));
     make_screen(scene);
 }
 
