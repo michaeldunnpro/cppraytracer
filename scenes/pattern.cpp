@@ -15,12 +15,12 @@ int main() {
     // Create scene components
     auto camera = cam(Point(0.5f, -1.5f, 0.5f), Vector(0.0f, 1.0f, 0.0f));
     auto scr = screen(10.0f, 10.0f);
-    auto scn = scene(camera, scr, 0.8f, 0.5f, 8.0f, Color::from_rgb(135, 206, 235));
+    auto scn = scene(camera, scr, 0.8f, 0.5f, 8.0f, rgb(135, 206, 235));
 
     // Define materials
-    auto red = mat(Color::from_rgb(255, 0, 0), 0.4f);
-    auto green = mat(Color::from_rgb(0, 255, 0), 0.2f);
-    auto blue = mat(Color::from_rgb(0, 0, 255), 0.7f);
+    auto red = mat(rgb(255, 0, 0), 0.4f);
+    auto green = mat(rgb(0, 255, 0), 0.2f);
+    auto blue = mat(rgb(0, 0, 255), 0.7f);
 
     // Add simple shapes to the scene
     sphere(Point(0.25f, 0.45f, 0.4f), 0.1f, red, scn);
@@ -30,7 +30,7 @@ int main() {
     // Add a plane with reflectivity pattern
     auto pattern = [](float a, float b) {
         float t = (std::sin(10 * a) + std::sin(10 * b) + 2) / 4;
-        return std::make_unique<BasicMaterial>(Color::from_rgb(0, 0, 0), t);
+        return std::make_unique<BasicMaterial>(rgb(0, 0, 0), t);
     };
     scn.add_shape(std::make_unique<ParametricPlane<decltype(pattern)>>(
         Point(0.0f, 0.0f, -0.1f),

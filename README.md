@@ -122,11 +122,11 @@ auto scn = scene(camera, scr, ambient_light, specular_light, highlight_size, bac
 ```
 The convenience function `camera` takes in a position and a direction vector, which can be excluded to default 
 to a standard view. The convenience function `screen` takes in width and height parameters (default 10.0).
-The convenience function `scene` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default 0.2), specular light intensity (default 0.5), highlight size (default 8.0), and background color (default Color::from_rgb(135, 206, 235)).
+The convenience function `scene` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default 0.2), specular light intensity (default 0.5), highlight size (default 8.0), and background color (default rgb(135, 206, 235)).
 
 3. Define materials for objects:
 ```cpp
-auto material_name = material(Color::from_rgb(r, g, b), reflectivity);
+auto material_name = material(rgb(r, g, b), reflectivity);
 ```
 
 The convenience function `material` takes in a color and an optional reflectivity value (0.0 to 1.0, default 0.5).
@@ -150,8 +150,8 @@ int main() {
     auto scr = screen();
     auto scn = scene(camera, scr);
 
-    auto red_mat = mat(Color::from_rgb(255, 0, 0));
-    auto gray_mat = mat(Color::from_rgb(200, 200, 200), 0.2f);
+    auto red_mat = mat(rgb(255, 0, 0));
+    auto gray_mat = mat(rgb(200, 200, 200), 0.2f);
 
     sphere(Point(0.0f, 0.0f, 0.5f), 0.5f, red_mat, scn);
     plane(Point(0.0f, 0.0f, -0.1f), Vector(0.0f, 0.0f, 1.0f), gray_mat, scn);

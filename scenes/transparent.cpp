@@ -14,11 +14,11 @@ int main() {
     // Create scene components
     auto camera = cam(Point(0.5f, -1.5f, 0.5f), Vector(0.0f, 1.0f, 0.0f));
     auto scr = screen(10.0f, 10.0f);
-    auto scn = scene(camera, scr, 0.8f, 0.5f, 8.0f, Color::from_rgb(135, 206, 235));
+    auto scn = scene(camera, scr, 0.8f, 0.5f, 8.0f, rgb(135, 206, 235));
 
     // Define materials
-    auto red = mat(Color::from_rgb(255, 0, 0), 0.4f);
-    auto green = mat(Color::from_rgb(0, 255, 0), 0.2f);
+    auto red = mat(rgb(255, 0, 0), 0.4f);
+    auto green = mat(rgb(0, 255, 0), 0.2f);
     TransparentMaterial glass(1.6);
     TransparentMaterial water(1.33);
 
@@ -29,7 +29,7 @@ int main() {
     // Add a plane with color grid pattern
     auto pattern = [](float a, float b) {
         int t = std::abs((int)std::floor(10 * a) + (int)std::floor(10 * b)) % 2;
-        return std::make_unique<BasicMaterial>(t * Color::from_rgb(255, 0, 0) + (1 - t) * Color::from_rgb(0, 0, 255), 0.5f);
+        return std::make_unique<BasicMaterial>(t * rgb(255, 0, 0) + (1 - t) * rgb(0, 0, 255), 0.5f);
     };
     scn.add_shape(std::make_unique<ParametricPlane<decltype(pattern)>>(
         Point(0.0f, 0.0f, -0.3f),

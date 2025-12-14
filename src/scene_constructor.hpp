@@ -12,6 +12,10 @@
 #include "ui.hpp"
 #include "vector.hpp"
 
+Color rgb(int r, int g, int b, float gamma = 2.2f) {
+    return Color::from_rgb(r, g, b, gamma);
+}
+
 Camera cam(Point a = Point(0.5f, -1.5f, 0.5f), Vector b = Vector(0, 1, 0)) {
     // Convenience function to create a camera at point a with orientation b
     // By default camera is at origin looking towards x-axis, which is now
@@ -24,7 +28,7 @@ BasicMaterial mat(Color color, float reflectivity = 0.5f) {
     return BasicMaterial(color, reflectivity);
 }
 
-Scene scene(Camera& camera, Screen& screen, float ambient = 0.8f, float specular = 0.5f, float sp = 8.0f, Color background = Color::from_rgb(135, 206, 235)) {
+Scene scene(Camera& camera, Screen& screen, float ambient = 0.8f, float specular = 0.5f, float sp = 8.0f, Color background = rgb(135, 206, 235)) {
     // Convenience function to create a scene with specified camera, screen, lighting, and background color
     return Scene(&camera, &screen, ambient, specular, sp, background);
 }
