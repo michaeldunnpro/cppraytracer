@@ -2,12 +2,18 @@
 
 #include "color.hpp"
 
+/**
+ * @brief Convert sRGB (color encoding in most image formats) to linear color
+ */
 float gamma_correction(float val, float gamma) {
-    return std::pow(val / 255, gamma) * 255;
+    return std::pow(val / 255, gamma);
 }
 
+/**
+ * @brief Convert linear color to sRGB (color encoding in most image formats)
+ */
 float inv_gamma_correction(float val, float gamma) {
-    return std::pow(val / 255, 1/gamma) * 255;
+    return std::pow(val, 1/gamma) * 255;
 }
 
 Color::Color(float const red, float const green, float const blue) : 
@@ -17,12 +23,16 @@ Color Color::from_rgb(float r, float g, float b, float gamma) {
     return Color(gamma_correction(r, gamma), gamma_correction(g, gamma), gamma_correction(b, gamma));
 }
 
+Color Color::raw(float r, float g, float b) {
+    return Color(r, g, b);
+}
+
 Color Color::black() {
     return Color(0.0f, 0.0f, 0.0f);
 }
 
 Color Color::white() {
-    return Color(255.0f, 255.0f, 255.0f);
+    return Color(1.0f, 1.0f, 1.0f);
 }
 
 std::array<float, 3> Color::getRGB(float gamma) const {
@@ -34,20 +44,20 @@ void Color::clamp() {
     if (this->r < 0.0f) {
         this->r = 0.0f;
     }
-    if (this->r > 255.0f) {
-        this->r = 255.0f;
+    if (this->r > 1.0f) {
+        this->r = 1.0f;
     }
     if (this->g < 0.0f) {
         this->g = 0.0f;
     }
-    if (this->g > 255.0f) {
-        this->g = 255.0f;
+    if (this->g > 1.0f) {
+        this->g = 1.0f;
     }
     if (this->b < 0.0f) {
         this->b = 0.0f;
     }
-    if (this->b > 255.0f) {
-        this->b = 255.0f;
+    if (this->b > 1.0f) {
+        this->b = 1.0f;
     }
 }
 
@@ -73,5 +83,5 @@ Color operator*(float scalar, Color const& color) {
 }
 
 Color operator*(Color const& lhs, Color const& rhs) {
-    return Color(lhs.r * rhs.r / 255.0f, lhs.g * rhs.g / 255.0f, lhs.b * rhs.b / 255.0f);
+    return Color(lhs.r * rhs.r, lhs.g * rhs.g, lhs.b * rhs.b);
 }
