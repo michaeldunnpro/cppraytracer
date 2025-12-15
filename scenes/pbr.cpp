@@ -16,6 +16,8 @@ int main() {
     auto scn = scene(camera, scr, 0.1f, 0.5f, 8.0f, rgb(135, 206, 235));
 
     // Define materials
+    // Data of copper/iron taken from https://learnopengl.com/PBR/Theory
+    // Specify base reflectivity in [0, 1] range using Color::raw()
     PBRMaterial copper(Color::raw(0.95, 0.64, 0.54), 0.2f, 1.0f);
     // rough metal needs more samples for specular reflection
     PBRMaterial iron(Color::raw(0.56, 0.57, 0.58), 0.5f, 1.0f, 0.5f, 256);
