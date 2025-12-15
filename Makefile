@@ -1,11 +1,15 @@
 # To RUN: make scene SCENE=scenes/scene_name.cpp for custom scene source,
 # or just make scene for default scene
+# To DEBUG: make debug SCENE=scenes/scene_name.cpp for custom scene source,
+# or just make debug for default scene
 # To TEST: make test
 # To CLEAN: make clean
 # Outputs ppm as image.ppm in the project root directory
 
 
-CPPFLAGS = -Wall -Wextra -g -std=c++17
+CPPFLAGS = -Wall -Wextra -std=c++17
+DEBUG_FLAGS = -g
+RELEASE_FLAGS = -O3
 BIN_DIR = bin
 SRC_DIR = src
 SCENE ?= scenes/example_scene.cpp
@@ -33,9 +37,12 @@ leaks: test
 val-leaks: test 
 	valgrind --leak-check=yes ./$(TEST_TARGET)
 
+debug: $(BIN_DIR) $(SRC_NO_MAIN) $(SCENE)
+	g++ $(CPPFLAGS) $(DEBUG_FLAGS) -o $(SCENE_BIN) $(SRC_NO_MAIN) $(SCENE)
+	./$(SCENE_BIN)
 
 scene: $(BIN_DIR) $(SRC_NO_MAIN) $(SCENE)
-	g++ $(CPPFLAGS) -o $(SCENE_BIN) $(SRC_NO_MAIN) $(SCENE)
+	g++ $(CPPFLAGS) $(RELEASE_FLAGS) -o $(SCENE_BIN) $(SRC_NO_MAIN) $(SCENE)
 	./$(SCENE_BIN)
 
 
