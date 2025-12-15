@@ -84,7 +84,7 @@ int main() {
     // Create scene components
     auto camera = cam(Point(0, -3, 0.5), Vector(0.0f, 1.0f, 0.0f));
     auto scr = screen(10.0f, 10.0f);
-    auto scn = scene(camera, scr, 0.1f, 0.5f, 8.0f, Color(135, 206, 235));
+    auto scn = scene(camera, scr, 0.1f, 0.5f, 8.0f, rgb(135, 206, 235));
 
     // Add a soccer ball
     scn.add_shape<SoccerBall>(Point(0, 1, 1), 1);
@@ -126,7 +126,7 @@ int main() {
     };
     auto pattern = [&](float a, float b) {
         float t = (noise(a * 20, b * 20) + 1) / 2;
-        return std::make_unique<PBRMaterial>(Color(0, 255, 0) * t, 0.5, 0);
+        return std::make_unique<PBRMaterial>(rgb(0, 255, 0) * t, 0.5, 0);
     };
     scn.add_shape(std::make_unique<ParametricPlane<decltype(pattern)>>(
         Point(0.0f, 0.0f, 0.0f),
@@ -135,7 +135,7 @@ int main() {
         pattern));
 
     // Add point light to the scene
-    scn.add_light<InverseSquarePointLight>(Point(-1.0, -0.5, 3.0), Color(255, 255, 251), 10);
+    scn.add_light<InverseSquarePointLight>(Point(-1.0, -0.5, 3.0), rgb(255, 255, 251), 10);
 
     handle_input(scn);
     return 0;
