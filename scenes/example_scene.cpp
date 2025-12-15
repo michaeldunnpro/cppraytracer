@@ -18,13 +18,13 @@ int main() {
     // Create scene components (Must do this first)
     auto camera = cam(Point(0.5f, -1.5f, 0.5f), Vector(0.0f, 1.0f, 0.0f));
     auto scr = screen(10.0f, 10.0f);
-    auto scn = scene(camera, scr, 0.8f, 0.5f, 8.0f, Color(135, 206, 235));
+    auto scn = scene(camera, scr, 0.8f, 0.5f, 8.0f, rgb(135, 206, 235));
 
     // Define materials
-    auto red = mat(Color(255, 0, 0), 0.4f);
-    auto green = mat(Color(0, 255, 0), 0.2f);
-    auto blue = mat(Color(0, 0, 255), 0.7f);
-    auto gray = mat(Color(200, 200, 200), 0.5f);
+    auto red = mat(rgb(255, 0, 0), 0.4f);
+    auto green = mat(rgb(0, 255, 0), 0.2f);
+    auto blue = mat(rgb(0, 0, 255), 0.7f);
+    auto gray = mat(rgb(200, 200, 200), 0.5f);
 
     // Add shapes to the scene
     sphere(Point(0.25f, 0.45f, 0.4f), 0.1f, red, scn);

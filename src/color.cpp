@@ -1,7 +1,21 @@
+#include <cmath>
+
 #include "color.hpp"
+
+float gamma_correction(float val, float gamma) {
+    return std::pow(val / 255, gamma) * 255;
+}
+
+float inv_gamma_correction(float val, float gamma) {
+    return std::pow(val / 255, 1/gamma) * 255;
+}
 
 Color::Color(float const red, float const green, float const blue) : 
   r(red), g(green), b(blue) {}
+
+Color Color::from_rgb(float r, float g, float b, float gamma) {
+    return Color(gamma_correction(r, gamma), gamma_correction(g, gamma), gamma_correction(b, gamma));
+}
 
 Color Color::black() {
     return Color(0.0f, 0.0f, 0.0f);
@@ -11,9 +25,9 @@ Color Color::white() {
     return Color(255.0f, 255.0f, 255.0f);
 }
 
-std::array<float, 3> Color::getRGB() const {
+std::array<float, 3> Color::getRGB(float gamma) const {
     // Return ownership of the array
-    return { this->r, this->g, this->b };
+    return { inv_gamma_correction(this->r, gamma), inv_gamma_correction(this->g, gamma), inv_gamma_correction(this->b, gamma) };
 }
 
 void Color::clamp() {
