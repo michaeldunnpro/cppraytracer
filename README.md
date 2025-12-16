@@ -15,9 +15,9 @@ Reed College, CSCI221 Fall Final Project
     - [Mac](#mac)
     - [Linux](#linux)
 - [Usage](#usage)
-    - [Interfacing with the ray tracer](#interfacing-with-the-ray-tracer)
-    - [Compiling, Testing and cleaning](#compiling-testing-and-cleaning)
     - [Scene Structure](#scene-structure)
+    - [Running the ray tracer](#running-the-ray-tracer)
+    - [Testing and cleaning](#testing-and-cleaning)
 -  [Contributors](#contributors)
 
 ## Overview
@@ -32,7 +32,6 @@ specifics about this project, may delete later if not much to say -->
 1. A unix or linux based terminal (Mac terminal, linux terminal, WSL2 on windows, etc)
 2. g++ compiler (with version support for C++17 or later) installed on your terminal/command line interface
 3. git installed on your terminal/command line interface
-
 
 ## Installation 
 > [!WARNING]
@@ -100,8 +99,6 @@ g++ compiler
 sudo pacman -s gcc
 ```
 
-
-
 ## Usage
 Scenes are located in the `scenes/` directory. You can create your own scene by making a new `.cpp` file in that directory and following the structure of `example_scene.cpp`.
 
@@ -165,8 +162,24 @@ int main() {
 The included `example_scene.cpp` file contains a more complex example scene, 
 which you can use as a reference when creating your own scenes.
 
+### Running the ray tracer
+The ray tracer is run from the terminal using a make command for a given scene.
+In the project's root, run the following command to compile and run a scene:
+```
+make scene SCENE=scenes/your_scene.cpp
+```
+Replace `your_scene.cpp` with the name of your scene file.
+By default, `make scene` will compile and run `example_scene.cpp`,
+which will allow you to move around the scene in a command line viewer. Once 
+you're happy with the view, press `q` to quit and render the image.
+The image is output as `image.ppm` in the project's root directory.
 
-### Compiling, Testing and cleaning
+By default, `make scene` compiles with optimization in order to maximize performance. To instead compile with debug information, use `make debug` instead:
+```
+make debug SCENE=scenes/your_scene.cpp
+```
+
+### Testing and cleaning
 Here are the commands that you can run from the project's makefile,
 located in the project root directory.
 
@@ -195,21 +208,5 @@ Cleaning away old executables:
 make clean
 ```
 
-### Interfacing with the ray tracer
-The ray tracer is run from the terminal using a make command for a given scene.
-In the project's root, run the following command to compile and run a scene:
-```
-make scene SCENE=scenes/your_scene.cpp
-```
-Replace `your_scene.cpp` with the name of your scene file.
-By default, `make scene` will compile and run `example_scene.cpp`,
-which will allow you to move around the scene in a command line viewer. Once 
-you're happy with the view, press `q` to quit and render the image.
-The image is output as `image.ppm` in the project's root directory.
-
-
-
 ## Contributors
 Frank Y, Micheal B, Michael D, Xanthe N
-
-
