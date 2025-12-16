@@ -17,6 +17,7 @@ Reed College, CSCI221 Fall Final Project
 - [Usage](#usage)
     - [Scene Structure](#scene-structure)
     - [Running the ray tracer](#running-the-ray-tracer)
+    - [Example scenes](#example-scenes)
     - [Testing and cleaning](#testing-and-cleaning)
 -  [Contributors](#contributors)
 
@@ -179,6 +180,16 @@ By default, `make scene` compiles with optimization in order to maximize perform
 ```
 make debug SCENE=scenes/your_scene.cpp
 ```
+
+### Example scenes
+Several example scenes are available to illustrate different features of the ray tracer.
+
+- `example_scene.cpp` creates a basic scene with three spheres and a plane.
+- `example_scene2.cpp` creates another basic scene, with multiple/colored lights.
+- `pattern.cpp` creates a plane with reflectivity patterns.
+- `transparent.cpp` uses a transparent material with pure reflection and refraction.
+- `pbr.cpp` uses an alternative material, based on Cook-Torrance model with importance sampling for specular reflections (hence expect the render process to be slower).
+- `soccerball.cpp` combines multiple features to render a soccer ball on a green ground. A custom subclass of `Sphere` is created to compute the color pattern on the soccer ball, which is placed on a green plane colored with Perlin noise. Alternative material is used for both objects
 
 ### Testing and cleaning
 Here are the commands that you can run from the project's makefile,
