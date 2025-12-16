@@ -3,8 +3,9 @@ Reed College, CSCI221 Fall Final Project
 
 <!---![example image](example2.ppm)-->
 <p float="left">
+    <img src="example.png" width="350">
     <img src="example2.png" width="350">
-    <img src="pattern.png" width="350">
+    <img src="transparent.png" width="350">
 </p>
 
 ## Table of Contents
