@@ -30,17 +30,18 @@ specifics about this project, may delete later if not much to say -->
 
 ## Requirements
 1. A unix or linux based terminal (Mac terminal, linux terminal, WSL2 on windows, etc)
-2. g++ compiler (with version support for C++17 or later) installed on your terminal/command line interface
-3. git installed on your terminal/command line interface
+2. `g++` compiler (with version support for C++17 or later) installed on your terminal/command line interface
+3. `git` installed on your terminal/command line interface
 
 ## Installation 
 > [!WARNING]
-> Make sure you have both git and a working g++ compiler installed before proceeding. See [here](#installation-requirements) for instructions.
+> Make sure you have both `git` and a working `g++` compiler installed before proceeding. See [here](#installation-requirements) for instructions.
 
-Install using git clone
+Download using `git clone`:
 ```
 git clone https://github.com/michaeldunnpro/cppraytracer
 ```
+or otherwise download this repository.
 
 ## Installation Requirements 
 All installation is done though terminal/command line interface.
@@ -55,11 +56,11 @@ First install brew as a package manager:
 ```
 taken from the [homebrew website](https://brew.sh/), follow the instructions as prompted by the terminal.
 
-git
+Install `git`:
 ```
 brew install git
 ```
-g++ compiler
+Install `g++` compiler:
 ```
 brew install gcc
 ```
@@ -68,33 +69,33 @@ brew install gcc
 
 *Ubuntu/Debian*:
 
-git
+Install `git`:
 ``` 
 sudo apt-get install git 
 ```
-g++ compiler
+Install `g++` compiler:
 ``` 
 sudo apt-get install g++ 
 ```
 
 *Fedora*:
 
-git
+Install `git`:
 ``` 
 sudo dnf install git 
 ```
-g++ compiler
+Install `g++` compiler:
 ``` 
 sudo dnf install g++ 
 ```
 
 _Arch:_
 
-git
+Install `git`:
 ``` 
 sudo pacman -s git 
 ```
-g++ compiler
+Install `g++` compiler:
 ``` 
 sudo pacman -s gcc
 ```
@@ -118,15 +119,15 @@ auto scr = screen(width, height);
 auto scn = scene(camera, scr, ambient_light, specular_light, highlight_size, background_color);
 ```
 The convenience function `camera` takes in a position and a direction vector, which can be excluded to default 
-to a standard view. The convenience function `screen` takes in width and height parameters (default 10.0).
-The convenience function `scene` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default 0.2), specular light intensity (default 0.5), highlight size (default 8.0), and background color (default rgb(135, 206, 235)).
+to a standard view. The convenience function `screen` takes in width and height parameters (default `10.0`).
+The convenience function `scene` takes in the camera and screen objects. Optionally, you can specify ambient light intensity (default `0.2`), specular light intensity (default `0.5`), highlight size (default `8.0`), and background color (default `rgb(135, 206, 235)`).
 
 3. Define materials for objects:
 ```cpp
 auto material_name = material(rgb(r, g, b), reflectivity);
 ```
 
-The convenience function `material` takes in a color and an optional reflectivity value (0.0 to 1.0, default 0.5).
+The convenience function `material` takes in a color and an optional reflectivity value (`0.0` to `1.0`, default `0.5`).
 
 4. Add objects to the scene using the convenience functions:
 `sphere(center, radius, material, scene)`, `plane(point, normal, material, scene)`.
