@@ -17,14 +17,14 @@ Reed College, CSCI221 Fall Final Project
     - [Linux](#linux)
 - [Usage](#usage)
     - [Scene Structure](#scene-structure)
-    - [Running the ray tracer](#running-the-ray-tracer)
-    - [Example scenes](#example-scenes)
-    - [Advanced scene structure](#advanced-scene-structure)
-    - [Testing and cleaning](#testing-and-cleaning)
+    - [Running the Ray Tracer](#running-the-ray-tracer)
+    - [Example Scenes](#example-scenes)
+    - [Advanced Scene Structure](#advanced-scene-structure)
+    - [Testing and Cleaning](#testing-and-cleaning)
 -  [Contributors](#contributors)
 
 ## Overview
-### What is a ray tracer?
+### What is a Ray Tracer?
 <!---idk man but I think it will look nice to have this here-->
 Essentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounce off different objects to figure out how much light each pixel should have.
 
@@ -32,7 +32,7 @@ Essentially, we have created a renderer, by using ray tracing. Physics is cool a
 specifics about this project, may delete later if not much to say -->
 
 ## Requirements
-1. A unix or linux based terminal (Mac terminal, linux terminal, WSL2 on windows, etc)
+1. A Unix or Linux based terminal (Mac terminal, Linux terminal, WSL2 on windows, etc)
 2. `g++` compiler (with version support for C++17 or later) installed on your terminal/command line interface
 3. `git` installed on your terminal/command line interface
 
@@ -53,7 +53,7 @@ All installation is done though terminal/command line interface.
 ```
 xcode-select --install
 ```-->
-First install brew as a package manager:
+First install `brew` as a package manager:
 ``` 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -68,7 +68,7 @@ Install `g++` compiler:
 brew install gcc
 ```
 
-### linux
+### Linux
 
 *Ubuntu/Debian*:
 
@@ -168,7 +168,7 @@ int main() {
 The included `example_scene.cpp` file contains a more complex example scene, 
 which you can use as a reference when creating your own scenes.
 
-### Running the ray tracer
+### Running the Ray Tracer
 The ray tracer is run from the terminal using a make command for a given scene.
 In the project's root, run the following command to compile and run a scene:
 ```
@@ -185,7 +185,7 @@ By default, `make scene` compiles with optimization in order to maximize perform
 make debug SCENE=scenes/your_scene.cpp
 ```
 
-### Example scenes
+### Example Scenes
 Several example scenes are available to illustrate different features of the ray tracer.
 
 - `example_scene.cpp` creates a basic scene with three spheres and a plane.
@@ -195,9 +195,9 @@ Several example scenes are available to illustrate different features of the ray
 - `pbr.cpp` uses an alternative material, based on Cook-Torrance model with importance sampling for specular reflections (hence expect the render process to be slower).
 - `soccerball.cpp` combines multiple features to render a soccer ball on a green ground. A custom subclass of `Sphere` is created to compute the color pattern on the soccer ball, which is placed on a green plane colored with Perlin noise. Alternative material is used for both objects.
 
-### Advanced scene structure
+### Advanced Scene Structure
 
-#### Coordinate space
+#### Coordinates
 `Point`s and `Vector`s are specified by coordinates. It is helpful to think
 the $x$-axis as pointing to the right, $y$-axis forward, and $z$-axis upward.
 
@@ -234,7 +234,7 @@ a subclass of `Light`. The parameters are passed to the constructor of `T`.
 Existing implementations of `Light` are `BasicPointLight` and
 `InverseSquarePointLight`.
 
-### Testing and cleaning
+### Testing and Cleaning
 Here are the commands that you can run from the project's makefile,
 located in the project root directory.
 
@@ -253,7 +253,7 @@ Checking for leaks (Mac only):
 make leaks
 ```
 
-Checking for leaks (linux only):
+Checking for leaks (Linux only):
 ```
 make val-leaks
 ```
