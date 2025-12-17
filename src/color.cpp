@@ -35,7 +35,7 @@ Color Color::white() {
     return Color(1.0f, 1.0f, 1.0f);
 }
 
-std::array<float, 3> Color::getRGB(float gamma) const {
+std::array<float, 3> Color::get_rgb(float gamma) const {
     // Return ownership of the array
     return { inv_gamma_correction(this->r, gamma), inv_gamma_correction(this->g, gamma), inv_gamma_correction(this->b, gamma) };
 }

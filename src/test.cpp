@@ -64,39 +64,39 @@ int main() {
     assert(v1 == Vector(1.0f, 2.0f, 3.0f));
     std::cout << "Vector and Point classes compiled successfully." << std::endl;
 
-    // Use 1.0f in Color::from_rgb() and Color::getRGB() to disable
+    // Use 1.0f in Color::from_rgb() and Color::get_rgb() to disable
     // gamma correction, so that operation results are easier to predict
     Color c1 = Color::from_rgb(100.0f, 150.0f, 200.0f, 1.0f);
     Color c2 = Color::from_rgb(50.0f, 75.0f, 100.0f, 1.0f);
 
     Color c3 = c1 + c2;
-    auto c3_rgb = c3.getRGB(1.0f);
+    auto c3_rgb = c3.get_rgb(1.0f);
     assert(approx_eq(c3_rgb[0], 150.0f) && approx_eq(c3_rgb[1], 225.0f)
         && approx_eq(c3_rgb[2], 300.0f));
 
     Color c4 = c1 - c2;
-    auto c4_rgb = c4.getRGB(1.0f);
+    auto c4_rgb = c4.get_rgb(1.0f);
     assert(approx_eq(c4_rgb[0], 50.0f) && approx_eq(c4_rgb[1], 75.0f)
         && approx_eq(c4_rgb[2], 100.0f));
 
     Color c5 = c1 * 2.0f;
-    auto c5_rgb = c5.getRGB(1.0f);
+    auto c5_rgb = c5.get_rgb(1.0f);
     assert(approx_eq(c5_rgb[0], 200.0f) && approx_eq(c5_rgb[1], 300.0f)
         && approx_eq(c5_rgb[2], 400.0f));
 
     Color c6 = 0.5f * c2;
-    auto c6_rgb = c6.getRGB(1.0f);
+    auto c6_rgb = c6.get_rgb(1.0f);
     assert(approx_eq(c6_rgb[0], 25.0f) && approx_eq(c6_rgb[1], 37.5f)
         && approx_eq(c6_rgb[2], 50.0f));
     
     Color filter = Color::raw(0.0f, 0.5f, 1.0f);
     Color c7 = filter * c1;
-    auto c7_rgb = c7.getRGB(1.0f);
+    auto c7_rgb = c7.get_rgb(1.0f);
     assert(approx_eq(c7_rgb[0], 0.0f) && approx_eq(c7_rgb[1], 75.0f)
         && approx_eq(c7_rgb[2], 200.0f));
 
     c3.clamp();
-    c3_rgb = c3.getRGB(1.0f);
+    c3_rgb = c3.get_rgb(1.0f);
     assert(approx_eq(c3_rgb[0], 150.0f) && approx_eq(c3_rgb[1], 225.0f)
         && approx_eq(c3_rgb[2], 255.0f)); // b should be clamped to 255
 

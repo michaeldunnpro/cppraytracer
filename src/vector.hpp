@@ -14,7 +14,7 @@ class Vector { // Vector definition
         float x;
         float y;
         float z;
-        Vector Rotate(Vector axis, float angle); // Intrinsic rotation of the vector
+        Vector rotate(Vector axis, float angle); // Intrinsic rotation of the vector
 };
 
 // Vector Operations 

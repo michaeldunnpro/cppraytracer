@@ -20,7 +20,7 @@ void make_screen(Scene const& scene, int width, int height) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             Color color = data[i * width + j];
-            std::array<float, 3> rgb = color.getRGB();
+            std::array<float, 3> rgb = color.get_rgb();
             Image << (int)rgb[0] << " " << (int)rgb[1] << " " << (int)rgb[2] << std::endl;
         }
     }
@@ -75,7 +75,7 @@ void make_screen_terminal(Scene const& scene) {
         // Render each pixel in the row
         for (int j = 0; j < term_width; j++) {
             Color color = data[i * term_width + j];
-            std::array<float, 3> rgb = color.getRGB();
+            std::array<float, 3> rgb = color.get_rgb();
             int idx = rgb_to_256((int)rgb[0], (int)rgb[1], (int)rgb[2]);
             std::cout << "\033[48;5;" << idx << "m  \033[0m"; // 256-color background
         }
@@ -139,25 +139,25 @@ void handle_input(Scene const& scene) {
             }
             case 'i': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(right, kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().rotate(right, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'k': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(right, -kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().rotate(right, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'j': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(up, kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().rotate(up, kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }
             case 'l': {
                 auto [forward, right, up] = camera_basis(camera.get_orientation());
-                Vector new_orientation = !camera.get_orientation().Rotate(up, -kPi / 10.0f);
+                Vector new_orientation = !camera.get_orientation().rotate(up, -kPi / 10.0f);
                 camera.set_orientation(new_orientation);
                 break;
             }

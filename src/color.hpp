@@ -24,7 +24,7 @@ private:
 public:
     // Create a color from the given rgb in the usual [0, 255] range
     // Gamma correction is applied, so input is approximarely sRGB
-    // Color::from_rgb(r, g, b).getRGB() is guaranteed to give original r, g, b
+    // Color::from_rgb(r, g, b).get_rgb() is guaranteed to give original r, g, b
     static Color from_rgb(float r, float g, float b, float gamma = 2.2f);
     // Create a color using the internal Color representation
     // where (1.0f, 1.0f, 1.0f) is white
@@ -34,7 +34,7 @@ public:
     // Create a color representing white (multiplicative identity)
     static Color white();
     void clamp(); // Clamp color values to valid range (in-place)
-    std::array<float, 3> getRGB(float gamma = 2.2f) const; // Get array to RGB values
+    std::array<float, 3> get_rgb(float gamma = 2.2f) const; // Get array to RGB values
     friend Color operator+(Color const&, Color const&); // Color addition
     friend Color operator-(Color const&, Color const&); // Color subtraction
     friend Color operator*(Color const&, float); // Color scaling
