@@ -26,7 +26,7 @@ $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
 test: $(BIN_DIR) $(LIST)
-	g++ $(CPPFLAGS) -o $(TEST_TARGET) $(LIST)
+	g++ $(CPPFLAGS) $(DEBUG_FLAGS) -o $(TEST_TARGET) $(LIST)
 
 run: test
 	./$(TEST_TARGET)

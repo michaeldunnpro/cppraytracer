@@ -39,6 +39,6 @@ public:
     friend Color operator-(Color const&, Color const&); // Color subtraction
     friend Color operator*(Color const&, float); // Color scaling
     friend Color operator*(float, Color const&); // Color scaling (commutative)
-    // Pointwise multiplication and divide by 255 (filter)
+    // Pointwise multiplication (filter)
     friend Color operator*(Color const&, Color const&);
 };
