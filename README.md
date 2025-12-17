@@ -19,6 +19,7 @@ Reed College, CSCI221 Fall Final Project
     - [Scene Structure](#scene-structure)
     - [Running the ray tracer](#running-the-ray-tracer)
     - [Example scenes](#example-scenes)
+    - [Advanced scene structure](#advanced-scene-structure)
     - [Testing and cleaning](#testing-and-cleaning)
 -  [Contributors](#contributors)
 
@@ -137,8 +138,10 @@ The convenience function `material` takes in a color and an optional reflectivit
 
 5. Add point lights to the scene:
 ```cpp
-scn.add_point_light(Point(x, y, z));
+scn.add_light<BasicPointLight>(Point(x, y, z));
 ```
+The member function `Scene::add_light<BasicPointLight>()` also accepts
+an optional parameter specifying the color of light.
 
 6. Finally, call `handle_input(scn)` to render the scene and handle user input for camera adjustment.
 
@@ -191,6 +194,45 @@ Several example scenes are available to illustrate different features of the ray
 - `transparent.cpp` uses a transparent material with pure reflection and refraction.
 - `pbr.cpp` uses an alternative material, based on Cook-Torrance model with importance sampling for specular reflections (hence expect the render process to be slower).
 - `soccerball.cpp` combines multiple features to render a soccer ball on a green ground. A custom subclass of `Sphere` is created to compute the color pattern on the soccer ball, which is placed on a green plane colored with Perlin noise. Alternative material is used for both objects.
+
+### Advanced scene structure
+
+#### Coordinate space
+`Point`s and `Vector`s are specified by coordinates. It is helpful to think
+the $x$-axis as pointing to the right, $y$-axis forward, and $z$-axis upward.
+
+#### Color
+`Color`s are specified by sRGB value from `0` to `255`. Internally, they are
+converted to an approximately linear color space. If one wants to specify a
+raw value, for example as a color filter, they should use `Color::raw(r, g, b)`,
+where `r`, `g`, and `b` typically range from `0` to `1`.
+
+#### Material
+Materials describe the shading behavior at a single point. An instance of
+`Shape` is able to specify a (possibly different) `Material` at each point
+on the shape. As `Material`s are mostly passed to constructors of `Shape`,
+they can be initialized directly. Existing implementations of `Material` are
+`BasicMaterial`, `TransparentMaterial`, and `PBRMaterial`. The
+convenient function `mat()` is a wrapper around `BasicMaterial`.
+
+#### Shape
+The general way to add a shape is `Scene::add_shape<T>()`, where `T` is
+a subclass of `Shape`. The parameters are passed to the constructor of `T`.
+Existing implementations of `Shape` are `BasicPlane`, `BasicSphere`, and
+`ParametricPlane`. The convenience functions `plane()` and `sphere()` are
+wrappers around `BasicPlane` and `BasicSphere`, respectively.
+
+There are intermediate subclasses of `Shape` that specifies the geometry
+of the shape but not the material at each point. They can be inherited by
+multiple concrete classes that may or may not perform additional calculations
+to compute the `Material` at each point. Existing intermediate subclasses
+are `Plane` and `Sphere`.
+
+#### Light
+The general way to add a light is `Scene::add_light<T>()`, where `T` is
+a subclass of `Light`. The parameters are passed to the constructor of `T`.
+Existing implementations of `Light` are `BasicPointLight` and
+`InverseSquarePointLight`.
 
 ### Testing and cleaning
 Here are the commands that you can run from the project's makefile,
