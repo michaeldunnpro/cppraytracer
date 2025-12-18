@@ -12,7 +12,7 @@ Reed College, CSCI221 Fall Final Project
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Installing Missing Requirements](#instaling-missing-requirements)
+- [Installing Missing Requirements](#installing-missing-requirements)
     - [Mac](#mac)
     - [Linux](#linux)
 - [Usage](#usage)
@@ -166,7 +166,7 @@ int main() {
 }
 ```
 The included `example_scene.cpp` file contains a more complex example scene, 
-which you can use as a reference when creating your own scenes. 
+which you can use as a reference when creating your own scenes.
 
 ### Running the Ray Tracer
 The ray tracer is run from the terminal using a make command for a given scene.
