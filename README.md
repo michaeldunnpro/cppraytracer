@@ -3,16 +3,16 @@ Reed College, CSCI221 Fall Final Project
 
 <!---![example image](example2.ppm)-->
 <p float="left">
-    <img src="example.png" width="350">
-    <img src="example2.png" width="350">
-    <img src="transparent.png" width="350">
+    <img src="example.png" width="233">
+    <img src="example2.png" width="233">
+    <img src="transparent.png" width="233">
 </p>
 
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Installation Requirements](#installation-requirements)
+- [Installing Missing Requirements](#instaling-missing-requirements)
     - [Mac](#mac)
     - [Linux](#linux)
 - [Usage](#usage)
@@ -46,7 +46,7 @@ git clone https://github.com/michaeldunnpro/cppraytracer
 ```
 or otherwise download this repository.
 
-## Installation Requirements 
+## Installing Missing Requirements 
 All installation is done though terminal/command line interface.
 ### Mac
 <!---If you don't already, install command tools: 
@@ -166,7 +166,7 @@ int main() {
 }
 ```
 The included `example_scene.cpp` file contains a more complex example scene, 
-which you can use as a reference when creating your own scenes.
+which you can use as a reference when creating your own scenes. 
 
 ### Running the Ray Tracer
 The ray tracer is run from the terminal using a make command for a given scene.
