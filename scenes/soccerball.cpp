@@ -1,5 +1,6 @@
 #include <array>
 #include <cmath>
+#include <cstdlib>
 #include <utility>
 
 #include "../src/scene_constructor.hpp"
@@ -91,22 +92,23 @@ int main() {
 
     // Add a green plane with color pattern
     // Perlin noise
+    // Based on http://eastfarthing.com/blog/2015-04-21-noise/
     int const size = 256;
     int const mask = size - 1;
     int perm[size];
     float grads_x[size], grads_y[size], jit_x[size], jit_y[size];
     for (int index = 0; index < size; ++index) {
-        int other = rand() % (index + 1);
+        int other = std::rand() % (index + 1);
         if (index > other)
             perm[index] = perm[other];
         perm[other] = index;
-        grads_x[index] = cosf(2.0f * kPi * index / size);
-        grads_y[index] = sinf(2.0f * kPi * index / size);
-        jit_x[index] = (sinf(rand()) + 1) / 2;
-        jit_y[index] = (sinf(rand()) + 1) / 2;
+        grads_x[index] = std::cos(2.0f * kPi * index / size);
+        grads_y[index] = std::sin(2.0f * kPi * index / size);
+        jit_x[index] = (std::sin(std::rand()) + 1) / 2;
+        jit_y[index] = (std::sin(std::rand()) + 1) / 2;
     }
     auto f = [](float t) {
-        t = fabsf(t);
+        t = std::abs(t);
         return t >= 1.0f ? 0.0f : 1.0f - (3.0f - 2.0f * t) * t * t;
     };
     auto surflet = [&](float x, float y, float grad_x, float grad_y) {
@@ -114,8 +116,8 @@ int main() {
     };
     auto noise = [&](float x, float y) {
         float result = 0.0f;
-        int cell_x = floorf(x);
-        int cell_y = floorf(y);
+        int cell_x = std::floor(x);
+        int cell_y = std::floor(y);
         for (int grid_y = cell_y - 1; grid_y <= cell_y + 1; ++grid_y)
             for (int grid_x = cell_x - 1; grid_x <= cell_x + 1; ++grid_x) {
                 int hash = perm[(perm[grid_x & mask] + grid_y) & mask];
