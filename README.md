@@ -4,7 +4,7 @@
     <img src="example.png" width="350">
     <img src="example2.png" width="350">
     <img src="transparent.png" width="350">
-    <img src="interface.png" width="350">
+    <img src="interface_example.png" width="350">
 </p>
 
 ## Table of Contents
