@@ -1,20 +1,16 @@
-# Ray Tracer Project!
-Reed College, CSCI221 Fall Final Project
-
+# C++ Ray Tracer
 <!---![example image](example2.ppm)-->
 <p float="left">
     <img src="example.png" width="350">
     <img src="example2.png" width="350">
     <img src="transparent.png" width="350">
+    <img src="interface.png" width="350">
 </p>
 
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Installation Requirements](#installation-requirements)
-    - [Mac](#mac)
-    - [Linux](#linux)
 - [Usage](#usage)
     - [Scene Structure](#scene-structure)
     - [Running the Ray Tracer](#running-the-ray-tracer)
@@ -24,91 +20,41 @@ Reed College, CSCI221 Fall Final Project
 -  [Contributors](#contributors)
 
 ## Overview
-### What is a Ray Tracer?
-<!---idk man but I think it will look nice to have this here-->
-Essentially, we have created a renderer, by using ray tracing. Physics is cool and we can use it to figure out how light would bounce off different objects to figure out how much light each pixel should have.
+### What is this project?
+This project is a simple, single-threaded ray tracer implemented in C++. It supports basic shapes (spheres and planes), materials (with reflectivity), and point lights. The ray tracer is designed to be easily extensible, allowing users to create their own scenes.
 
-<!---### What about this project in particular
-specifics about this project, may delete later if not much to say -->
+Originally, this project was developed as a deliverable for Reed College's CSCI221 course in Fall 2025. It is now open source and available for anyone to use and modify. The goals of this project were twofold: 
+1. To demonstrate the viability of a fast, single-threaded ray tracer with minimal dependencies, and
+2. To show that intuitive user experience (UX) can be achieved in a terminal-based ray tracer, without the need for a more traditional GUI.
+
 
 ## Requirements
 1. A Unix or Linux based terminal (Mac terminal, Linux terminal, WSL2 on windows, etc)
 2. `g++` compiler (with version support for C++17 or later) installed on your terminal/command line interface
 3. `git` installed on your terminal/command line interface
-
-## Installation 
-> [!WARNING]
-> Make sure you have both `git` and a working `g++` compiler installed before proceeding. See [here](#installation-requirements) for instructions.
-
-Download using `git clone`:
+Both of these are typically pre-installed on most Unix/Unix-like systems, and are straightforward to install otherwise. If you are using a Windows system, I recommend installing WSL2 and using the Linux terminal to run the ray tracer.
 ```
 git clone https://github.com/michaeldunnpro/cppraytracer
 ```
-or otherwise download this repository.
+To run the ray tracer, cd into the project directory and follow the instructions in the [Usage](#usage) section below.
 
-## Installation Requirements 
-All installation is done though terminal/command line interface.
-### Mac
-<!---If you don't already, install command tools: 
-```
-xcode-select --install
-```-->
-First install `brew` as a package manager:
-``` 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-taken from the [homebrew website](https://brew.sh/), follow the instructions as prompted by the terminal.
 
-Install `git`:
-```
-brew install git
-```
-Install `g++` compiler:
-```
-brew install gcc
-```
 
-### Linux
-
-*Ubuntu/Debian*:
-
-Install `git`:
-``` 
-sudo apt-get install git 
-```
-Install `g++` compiler:
-``` 
-sudo apt-get install g++ 
-```
-
-*Fedora*:
-
-Install `git`:
-``` 
-sudo dnf install git 
-```
-Install `g++` compiler:
-``` 
-sudo dnf install g++ 
-```
-
-_Arch:_
-
-Install `git`:
-``` 
-sudo pacman -s git 
-```
-Install `g++` compiler:
-``` 
-sudo pacman -s gcc
-```
 
 ## Usage
 Scenes are located in the `scenes/` directory. You can create your own scene by making a new `.cpp` file in that directory and following the structure of `example_scene.cpp`.
 
+Alternatively, if you wish to directly run the ray tracer on an existing scene, you can run the following command from the project root:
+```make scene SCENE=scenes/example_scene.cpp
+```,
+where `example_scene.cpp` can be replaced with the name of any scene in the `scenes/` directory.
+Running make scene without the `SCENE` parameter will default to `example_scene.cpp`. An interface will open in the terminal that allows you to move around the scene using the `w`, `a`, `s`, and `d` keys. Once you're happy with the view, press `q` to quit and render the image. The image is output as `image.ppm` in the project's root directory. The output image and `bin` directory can also be deleted 
+using the `make clean` command.
+
+
 ### Scene Structure
-All scenes should be created in the `scenes/` directory as a .cpp file.
-1. Begin file with:
+You can also create your own scenes. All scenes should be created in the `scenes/` directory as a .cpp file.
+1. Begin the file with:
 ```cpp
 #include "../src/scene_constructor.hpp"
 ```
@@ -262,6 +208,7 @@ Cleaning away old executables:
 ```
 make clean
 ```
+
 
 ## Contributors
 Frank Y, Micheal B, Michael D, Xanthe N
