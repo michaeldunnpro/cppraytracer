@@ -33,6 +33,8 @@ Originally, this project was developed as a deliverable for Reed College's CSCI2
 2. `g++` compiler (with version support for C++17 or later) installed on your terminal/command line interface
 3. `git` installed on your terminal/command line interface
 Both of these are typically pre-installed on most Unix/Unix-like systems, and are straightforward to install otherwise. If you are using a Windows system, I recommend installing WSL2 and using the Linux terminal to run the ray tracer.
+
+Then, run
 ```
 git clone https://github.com/michaeldunnpro/cppraytracer
 ```
