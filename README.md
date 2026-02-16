@@ -36,6 +36,8 @@ Originally, this project was developed as a deliverable for Reed College's CSCI2
 [!NOTE] If you're on Mac, you'll need to install gcc15 via homebrew, since clang doesn't support OpenMP. You can do this by running `brew install gcc@15`.
 3. `git` installed on your terminal/command line interface
 Both of these are typically pre-installed on most Unix/Unix-like systems, and are straightforward to install otherwise. If you are using a Windows system, I recommend installing WSL2 and using the Linux terminal to run the ray tracer.
+
+Then, run
 ```
 git clone https://github.com/michaeldunnpro/cppraytracer
 ```
