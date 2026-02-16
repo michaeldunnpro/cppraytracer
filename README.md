@@ -206,14 +206,9 @@ Running the test code:
 make run
 ```
 
-Checking for leaks (Mac only):
+Checking for leaks:
 ```
 make leaks
-```
-
-Checking for leaks (Linux only):
-```
-make val-leaks
 ```
 
 Cleaning away old executables:
