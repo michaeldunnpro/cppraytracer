@@ -57,7 +57,9 @@ make scene SCENE=scenes/example_scene.cpp THREADS=4
 where `example_scene.cpp` can be replaced with the name of any scene in the `scenes/` directory.
 Running make scene without the `SCENE` parameter will default to `example_scene.cpp`. Similarly, 
 `THREADS` defaults to `4` when excluded. An interface will open in the terminal that allows you to move around the scene using the `w`, `a`, `s`, and `d` keys. Once you're happy with the view, press `q` to quit and render the image. This will 
-also print the time taken to render. The image is output as `image.ppm` in the project's root directory. The output image and `bin` directory can also be deleted using the `make clean` command.
+also print the time taken to render. The image is then output as `image.ppm` in the project's root directory. 
+
+The bin folder and image may be removed using `make clean`.
 
 
 
