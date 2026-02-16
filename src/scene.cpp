@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <chrono> // for measuring rendering time
 
 #include "scene.hpp"
 
@@ -109,7 +110,9 @@ std::vector<Color> Scene::render(int width, int height) const {
     std::vector<Color> output;
     // The size of the output vector is known, so reserve the space needed in advance
     output.reserve(width * height);
-
+    // Here's the hot loop of the ray tracer
+    auto start_time = std::chrono::high_resolution_clock::now(); // Start measuring time
+    #pragma omp parallel for schedule(dynamic) // Parallelize the outer loop with OpenMP
     for (int i = 0; i < height; i++) {
         // adjust by 0.5 so that the ray points to the center of the pixel
         // instead of the top-left corner
@@ -120,16 +123,18 @@ std::vector<Color> Scene::render(int width, int height) const {
             Vector direction = destination - this->camera->get_position();
             Color color = trace(Ray(this->camera->get_position(), direction), this->recursion_depth);
             color.clamp();
-            output.push_back(color);
+            output[i * width + j] = color; // Thread safely write to different indices of the output vector without needing synchronization
         }
     }
+    auto end_time = std::chrono::high_resolution_clock::now(); // End measuring time
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+    std::cout << "Rendering completed in " << duration << " milliseconds." << std::endl;
     return output;
 }
 
 std::optional<std::pair<float, std::reference_wrapper<Shape const>>> Scene::intersect_first_all(Ray const& ray) const {
     // Track the closest intersection the ray meets by far
     std::optional<std::pair<float, std::reference_wrapper<Shape const>>> min_intersection {};
-
     for (auto&& shape : this->shapes) {
         std::optional<float> t = shape->intersect_first(ray);
         // Update `min_intersection` when there is a new intersection, and
