@@ -33,7 +33,8 @@ Originally, this project was developed as a deliverable for Reed College's CSCI2
 ## Requirements
 1. A Unix or Linux based terminal (Mac terminal, Linux terminal, WSL2 on windows, etc)
 2. `g++` compiler (with version support for C++17 or later) installed on your terminal/command line interface
-[!NOTE] If you're on Mac, you'll need to install gcc15 via homebrew, since clang doesn't support OpenMP. You can do this by running `brew install gcc@15`.
+> [!NOTE] 
+> If you're on Mac, you'll need to install gcc15 via homebrew, since clang doesn't support OpenMP. You can do this by running `brew install gcc@15`.
 3. `git` installed on your terminal/command line interface
 Both of these are typically pre-installed on most Unix/Unix-like systems, and are straightforward to install otherwise. If you are using a Windows system, I recommend installing WSL2 and using the Linux terminal to run the ray tracer.
 
@@ -51,7 +52,7 @@ Scenes are located in the `scenes/` directory. You can create your own scene by 
 
 Alternatively, if you wish to directly run the ray tracer on an existing scene, you can run the following command from the project root:
 ```make scene SCENE=scenes/example_scene.cpp THREADS=4
-```,
+```
 where `example_scene.cpp` can be replaced with the name of any scene in the `scenes/` directory.
 Running make scene without the `SCENE` parameter will default to `example_scene.cpp`. Similarly, 
 `THREADS` defaults to `4` when excluded. An interface will open in the terminal that allows you to move around the scene using the `w`, `a`, `s`, and `d` keys. Once you're happy with the view, press `q` to quit and render the image. This will 
