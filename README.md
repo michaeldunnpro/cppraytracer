@@ -51,7 +51,8 @@ To run the ray tracer, cd into the project directory and follow the instructions
 Scenes are located in the `scenes/` directory. You can create your own scene by making a new `.cpp` file in that directory and following the structure of `example_scene.cpp`.
 
 Alternatively, if you wish to directly run the ray tracer on an existing scene, you can run the following command from the project root:
-```make scene SCENE=scenes/example_scene.cpp THREADS=4
+```
+make scene SCENE=scenes/example_scene.cpp THREADS=4
 ```
 where `example_scene.cpp` can be replaced with the name of any scene in the `scenes/` directory.
 Running make scene without the `SCENE` parameter will default to `example_scene.cpp`. Similarly, 
